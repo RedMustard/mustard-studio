@@ -1,0 +1,21 @@
+@import '../../../style/variables.scss';
+
+.key--black {
+    background-color: #000;
+    border: none;
+    box-shadow: 0 2px 5px #999;
+    display: table-cell;
+    height: $keyboardHeight * 2 / 3;
+    outline: none;
+    position: absolute;
+    transform: translateX(-12px);
+    width: $whiteKeyWidth * .54;
+
+    &:hover {
+        background-color: #444;
+    }
+
+    &:active {
+        background-color: #333;
+    }
+}
