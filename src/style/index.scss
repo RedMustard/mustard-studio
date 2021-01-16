@@ -19,3 +19,8 @@ body {
 #app {
     height: 100%;
 }
+
+@import '../components/header/style.scss';
+@import '../routes/studio/style.scss';
+@import '../routes/notfound/style.scss';
+@import '../components/Keyboard/Keyboard.scss';

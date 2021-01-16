@@ -23,7 +23,10 @@ module.exports = {
         'react/jsx-indent-props': [0],
         'react/jsx-quotes': [0],
         'react/forbid-prop-types': [0],
+        'react/prop-types': [0],
+        'react/jsx-props-no-spreading': [0],
         'react/no-unknown-property': ['error', { ignore: ['class'] }],
+        'react/require-default-props': [0],
         '@typescript-eslint/indent': ['error', 4],
         '@typescript-eslint/no-unused-vars': [0],
         '@typescript-eslint/naming-convention': [

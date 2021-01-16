@@ -1,0 +1,11 @@
+@import '../../style/variables.scss';
+@import './BlackKey/BlackKey.scss';
+@import './WhiteKey/WhiteKey.scss';
+
+.keyboard {
+    display: table-row;
+    flex-direction: column;
+    height: $keyboardHeight;
+    position: relative;
+    width: 100%;
+}
