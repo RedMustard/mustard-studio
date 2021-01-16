@@ -7,7 +7,7 @@
     display: table-cell;
     height: $keyboardHeight;
     outline: none;
-    width: 45px;
+    width: $whiteKeyWidth;
 
     &:hover {
         background-color: #eee;

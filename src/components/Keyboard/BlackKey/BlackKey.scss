@@ -8,8 +8,8 @@
     height: $keyboardHeight * 2 / 3;
     outline: none;
     position: absolute;
-    transform: translateX(-15px);
-    width: 30px;
+    transform: translateX(-12px);
+    width: $whiteKeyWidth * 0.54;
 
     &:hover {
         background-color: #444;
