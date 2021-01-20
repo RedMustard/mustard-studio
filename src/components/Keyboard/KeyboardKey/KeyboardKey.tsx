@@ -1,22 +1,29 @@
 import { h } from 'preact';
 import { useState } from 'preact/hooks';
 
+// Todo: define correct types for event handlers
 interface KeyboardKeyProps {
     className: string;
-    onClick: h.JSX.MouseEventHandler<HTMLDivElement>;
-    onMouseDown: h.JSX.TargetedEvent<HTMLDivElement, Event>;
+    onClick: () => void;
+    onMouseLeave: () => void;
+    onMouseOver: () => void;
 }
 
-const KeyboardKey = ({ className, onClick, onMouseDown }: KeyboardKeyProps) => {
+const KeyboardKey = ({
+    className,
+    onClick,
+    onMouseLeave,
+    onMouseOver,
+}: KeyboardKeyProps) => {
     const [isPressed, setIsPressed] = useState(false);
 
-    const handleOnMouseEnter = (e: h.JSX.TargetedEvent<HTMLDivElement, Event>) => {
-        setIsPressed(true);
-        // onMouseDown(e.target.va);
-    };
-    const handleOnMouseLeave = (e: h.JSX.TargetedEvent<HTMLDivElement, Event>) => {
+    const handleOnMouseLeave = () => {
         setIsPressed(false);
-        // onMouseDown(e.target.va);
+        onMouseLeave();
+    };
+    const handleOnMouseOver = () => {
+        setIsPressed(false);
+        onMouseOver();
     };
 
     return (
@@ -25,8 +32,9 @@ const KeyboardKey = ({ className, onClick, onMouseDown }: KeyboardKeyProps) => {
             label="white-key"
             onClick={onClick}
             onKeyDown={() => {}}
-            onMouseEnter={(e: h.JSX.TargetedEvent<HTMLDivElement, Event>) => handleOnMouseEnter(e)}
-            onMouseLeave={(e: h.JSX.TargetedEvent<HTMLDivElement, Event>) => handleOnMouseLeave(e)}
+            onMouseLeave={handleOnMouseLeave}
+            onMouseOver={handleOnMouseOver}
+            onFocus={() => {}}
             role="button"
             tabIndex={0}
             type="button"

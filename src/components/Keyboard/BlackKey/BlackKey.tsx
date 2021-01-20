@@ -2,20 +2,18 @@ import { h } from 'preact';
 import KeyboardKey from '../KeyboardKey/KeyboardKey';
 
 interface BlackKeyProps {
-    onClick: h.JSX.MouseEventHandler<HTMLDivElement>;
+    onClick: () => void;
+    onMouseLeave: () => void;
+    onMouseOver: () => void;
 }
 
-const BlackKey = ({ onClick }: BlackKeyProps) => (
+const BlackKey = ({ onClick, onMouseLeave, onMouseOver }: BlackKeyProps) => (
     <KeyboardKey
         className="key--black"
         onClick={onClick}
+        onMouseLeave={onMouseLeave}
+        onMouseOver={onMouseOver}
     />
-    // <button
-    //     class="key key--black"
-    //     onClick={onClick}
-    //     type="button"
-    //     label="black-key"
-    // />
 );
 
 

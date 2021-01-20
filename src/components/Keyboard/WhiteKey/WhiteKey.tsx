@@ -2,20 +2,18 @@ import { h } from 'preact';
 import KeyboardKey from '../KeyboardKey/KeyboardKey';
 
 interface WhiteKeyProps {
-    onClick: h.JSX.MouseEventHandler<HTMLDivElement>;
+    onClick: () => void;
+    onMouseLeave: () => void;
+    onMouseOver: () => void;
 }
 
-const WhiteKey = ({ onClick }: WhiteKeyProps) => (
+const WhiteKey = ({ onClick, onMouseLeave, onMouseOver }: WhiteKeyProps) => (
     <KeyboardKey
         className="key--white"
         onClick={onClick}
+        onMouseLeave={onMouseLeave}
+        onMouseOver={onMouseOver}
     />
-    // <button
-    //     class="key key--white"
-    //     onClick={onClick}
-    //     type="button"
-    //     label="white-key"
-    // />
 );
 
 
