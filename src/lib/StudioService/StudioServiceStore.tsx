@@ -7,7 +7,7 @@ import { studioServiceReducer } from './studioServiceReducer';
 
 const initialState: StudioService = Object.freeze({
     volume: {
-        master: 0.25,
+        master: 0.1,
         oscillator1: 0.5,
         oscillator2: 0.5,
     },

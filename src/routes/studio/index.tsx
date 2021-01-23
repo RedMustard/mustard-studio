@@ -7,7 +7,7 @@ const Studio: FunctionalComponent = () => (
         <div class="studio">
             <h1>Studio</h1>
             <p>This is the Studio component.</p>
-            <Keyboard keyCount={25} />
+            <Keyboard keyCount={88} />
         </div>
     </StudioServiceStore>
 );

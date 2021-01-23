@@ -2,12 +2,6 @@ import { GenericAction, StudioService } from '../../types/types';
 
 export const studioServiceReducer = (state: StudioService, action: GenericAction) => {
     switch (action.type) {
-        case 'CREATE_AUDIO_CONTEXT':
-            return {
-                ...state,
-                audioContext: action.payload,
-            };
-
         case 'SET_MASTER_VOLUME':
             console.log('SET_MASTER_VOLUME');
             return {
