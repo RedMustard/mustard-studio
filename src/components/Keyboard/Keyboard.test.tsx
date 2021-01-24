@@ -1,16 +1,17 @@
 import { h } from 'preact';
 import { shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
+import { AudioContext } from 'standardized-audio-context-mock';
 import { Keyboard } from './Keyboard';
 
 
-window.AudioContext = jest.fn();
-const audioContext = new window.AudioContext();
+const audioContext = new AudioContext();
+const gainNode = audioContext.createGain();
 
 describe('<KeyboardKey />', () => {
     const baseProps = {
         audioContext,
-        gainNode: jest.fn(),
+        gainNode,
     };
 
     it('renders with basic props', () => {
