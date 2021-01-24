@@ -1,20 +1,24 @@
 import { h } from 'preact';
-import KeyboardKey from '../KeyboardKey/KeyboardKey';
+import { KeyboardKey } from '../KeyboardKey/KeyboardKey';
 
 interface BlackKeyProps {
-    onClick: () => void;
-    onMouseLeave: () => void;
-    onMouseOver: () => void;
+    onMouseLeave: (e: MouseEvent) => void;
+    onMouseOver: (e: MouseEvent) => void;
+    onMouseDown: (e: MouseEvent) => void;
+    onMouseUp: (e: MouseEvent) => void;
 }
 
-const BlackKey = ({ onClick, onMouseLeave, onMouseOver }: BlackKeyProps) => (
+export const BlackKey = ({
+    onMouseLeave,
+    onMouseOver,
+    onMouseDown,
+    onMouseUp,
+}: BlackKeyProps) => (
     <KeyboardKey
-        className="key--black"
-        onClick={onClick}
-        onMouseLeave={onMouseLeave}
-        onMouseOver={onMouseOver}
+        className="keyboard-key--black"
+        onMouseLeave={(e: MouseEvent) => onMouseLeave(e)}
+        onMouseOver={(e: MouseEvent) => onMouseOver(e)}
+        onMouseDown={(e: MouseEvent) => onMouseDown(e)}
+        onMouseUp={(e: MouseEvent) => onMouseUp(e)}
     />
 );
-
-
-export default BlackKey;

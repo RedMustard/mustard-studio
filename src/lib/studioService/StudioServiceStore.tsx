@@ -7,7 +7,7 @@ import { studioServiceReducer } from './studioServiceReducer';
 
 const initialState: StudioService = Object.freeze({
     volume: {
-        master: 0.25,
+        master: 0.1,
         oscillator1: 0.5,
         oscillator2: 0.5,
     },
@@ -28,5 +28,6 @@ export const StudioServiceStore = ({ children }: any) => {
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const StudioServiceContext = createContext<[StudioService, Function]>([getInitialState(), () => {}]);
 
+// Todo: Remove/move?
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const Audio = createContext<[AudioContext, Function]>([new AudioContext(), () => {}]);
+// export const Audio = createContext<[AudioContext, Function]>([new window.AudioContext(), () => {}]);

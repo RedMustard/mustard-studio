@@ -1,46 +1,53 @@
 import { h } from 'preact';
 import { useState } from 'preact/hooks';
 
-// Todo: define correct types for event handlers
 interface KeyboardKeyProps {
-    className: string;
-    onClick: () => void;
-    onMouseLeave: () => void;
-    onMouseOver: () => void;
+    onMouseLeave: (e: MouseEvent) => void;
+    onMouseOver: (e: MouseEvent) => void;
+    onMouseDown: (e: MouseEvent) => void;
+    onMouseUp: (e: MouseEvent) => void;
+    className?: string;
 }
 
-const KeyboardKey = ({
-    className,
-    onClick,
+export const KeyboardKey = ({
     onMouseLeave,
     onMouseOver,
+    onMouseDown,
+    onMouseUp,
+    className = '',
 }: KeyboardKeyProps) => {
     const [isPressed, setIsPressed] = useState(false);
 
-    const handleOnMouseLeave = () => {
+    const handleOnMouseLeave = (e: MouseEvent) => {
         setIsPressed(false);
-        onMouseLeave();
+        onMouseLeave(e);
     };
-    const handleOnMouseOver = () => {
+    const handleOnMouseOver = (e: MouseEvent) => {
+        setIsPressed(true);
+        onMouseOver(e);
+    };
+    const handleOnMouseUp = (e: MouseEvent) => {
         setIsPressed(false);
-        onMouseOver();
+        onMouseUp(e);
+    };
+    const handleOnMouseDown = (e: MouseEvent) => {
+        setIsPressed(true);
+        onMouseDown(e);
     };
 
     return (
         <div
-            class={`key ${className} ${isPressed ? 'key--active' : ''}`}
-            label="white-key"
-            onClick={onClick}
+            class={`keyboard-key ${className} ${isPressed ? 'keyboard-key--active' : ''}`}
+            label="keyboard-key"
             onKeyDown={() => {}}
-            onMouseLeave={handleOnMouseLeave}
-            onMouseOver={handleOnMouseOver}
-            onFocus={() => {}}
+            onMouseDown={(e: MouseEvent) => handleOnMouseDown(e)}
+            onMouseUp={(e: MouseEvent) => handleOnMouseUp(e)}
+            onMouseLeave={(e: MouseEvent) => handleOnMouseLeave(e)}
+            onMouseOver={(e: MouseEvent) => handleOnMouseOver(e)}
+            onFocus={() => { /* Todo: Accessibility */ }}
             role="button"
             tabIndex={0}
             type="button"
         />
     );
 };
-
-
-export default KeyboardKey;

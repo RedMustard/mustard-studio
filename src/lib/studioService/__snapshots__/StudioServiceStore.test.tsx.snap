@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<StudioServiceStore /> renders with basic props 1`] = `
+<Provider
+  value={
+    Array [
+      Object {
+        "volume": Object {
+          "master": 0.1,
+          "oscillator1": 0.5,
+          "oscillator2": 0.5,
+        },
+      },
+      [Function],
+    ]
+  }
+/>
+`;
