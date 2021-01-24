@@ -1,8 +1,9 @@
 import { h } from 'preact';
-import { getNoteFrequencyByKeyNumber } from '../../lib/utils/audio';
+import { getNoteFrequencyByKeyNumber } from '../../lib/utils/audio/audio';
 import { BlackKey } from './BlackKey/BlackKey';
 import { WhiteKey } from './WhiteKey/WhiteKey';
-import { KeyboardKeyCount, KeyboardKeyColor } from '../../types/types';
+import { KeyboardKeyColor } from '../../types/types';
+import { logger } from '../../lib/utils/logger/logger';
 
 interface KeyboardProps {
     audioContext: AudioContext;
@@ -29,7 +30,8 @@ export const Keyboard = ({ audioContext, gainNode }: KeyboardProps) => {
                     osc2.type = 'square';
                     osc2.connect(gainNode);
                     osc2.start();
-                    console.log('kn', keyNumber);
+                    logger.info('Key pressed', keyNumber);
+                    // console.log('kn', keyNumber);
                 }
             }}
             onMouseOver={(e: MouseEvent) => {
@@ -45,8 +47,8 @@ export const Keyboard = ({ audioContext, gainNode }: KeyboardProps) => {
                     osc2.type = 'square';
                     osc2.connect(gainNode);
                     osc2.start();
-                    console.log('kn', keyNumber);
                 }
+                logger.error('Key hovered', keyNumber);
             }}
             onMouseUp={() => {
                 osc.stop();
@@ -61,6 +63,7 @@ export const Keyboard = ({ audioContext, gainNode }: KeyboardProps) => {
                     osc2.stop();
                     osc2.disconnect();
                 }
+                logger.warn('Key pressed', keyNumber);
             }}
         />
     );
