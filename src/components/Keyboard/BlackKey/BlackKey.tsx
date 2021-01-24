@@ -1,5 +1,5 @@
 import { h } from 'preact';
-import KeyboardKey from '../KeyboardKey/KeyboardKey';
+import { KeyboardKey } from '../KeyboardKey/KeyboardKey';
 
 interface BlackKeyProps {
     onMouseLeave: (e: MouseEvent) => void;
@@ -15,7 +15,7 @@ export const BlackKey = ({
     onMouseUp,
 }: BlackKeyProps) => (
     <KeyboardKey
-        className="key--black"
+        className="keyboard-key--black"
         onMouseLeave={(e: MouseEvent) => onMouseLeave(e)}
         onMouseOver={(e: MouseEvent) => onMouseOver(e)}
         onMouseDown={(e: MouseEvent) => onMouseDown(e)}

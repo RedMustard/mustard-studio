@@ -1,0 +1,97 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<KeyboardKey /> renders active after onMouseDown 1`] = `
+<div
+  className="keyboard-key  keyboard-key--active"
+  label="keyboard-key"
+  onFocus={[Function]}
+  onKeyDown={[Function]}
+  onMouseDown={[Function]}
+  onMouseLeave={[Function]}
+  onMouseOver={[Function]}
+  onMouseUp={[Function]}
+  role="button"
+  tabIndex={0}
+  type="button"
+/>
+`;
+
+exports[`<KeyboardKey /> renders active after onMouseOver 1`] = `
+<div
+  className="keyboard-key  keyboard-key--active"
+  label="keyboard-key"
+  onFocus={[Function]}
+  onKeyDown={[Function]}
+  onMouseDown={[Function]}
+  onMouseLeave={[Function]}
+  onMouseOver={[Function]}
+  onMouseUp={[Function]}
+  role="button"
+  tabIndex={0}
+  type="button"
+/>
+`;
+
+exports[`<KeyboardKey /> renders inactive after onMouseDown and onMouseUp 1`] = `
+<div
+  className="keyboard-key  "
+  label="keyboard-key"
+  onFocus={[Function]}
+  onKeyDown={[Function]}
+  onMouseDown={[Function]}
+  onMouseLeave={[Function]}
+  onMouseOver={[Function]}
+  onMouseUp={[Function]}
+  role="button"
+  tabIndex={0}
+  type="button"
+/>
+`;
+
+exports[`<KeyboardKey /> renders inactive after onMouseOver and onMouseLeave 1`] = `
+<div
+  className="keyboard-key  "
+  label="keyboard-key"
+  onFocus={[Function]}
+  onKeyDown={[Function]}
+  onMouseDown={[Function]}
+  onMouseLeave={[Function]}
+  onMouseOver={[Function]}
+  onMouseUp={[Function]}
+  role="button"
+  tabIndex={0}
+  type="button"
+/>
+`;
+
+exports[`<KeyboardKey /> renders with basic props 1`] = `
+<div
+  className="keyboard-key  "
+  label="keyboard-key"
+  onFocus={[Function]}
+  onKeyDown={[Function]}
+  onMouseDown={[Function]}
+  onMouseLeave={[Function]}
+  onMouseOver={[Function]}
+  onMouseUp={[Function]}
+  role="button"
+  tabIndex={0}
+  type="button"
+/>
+`;
+
+exports[`<KeyboardKey /> renders with custom class 1`] = `
+<div
+  className="keyboard-key custom-class "
+  label="keyboard-key"
+  onFocus={[Function]}
+  onKeyDown={[Function]}
+  onMouseDown={[Function]}
+  onMouseLeave={[Function]}
+  onMouseOver={[Function]}
+  onMouseUp={[Function]}
+  role="button"
+  tabIndex={0}
+  type="button"
+/>
+`;

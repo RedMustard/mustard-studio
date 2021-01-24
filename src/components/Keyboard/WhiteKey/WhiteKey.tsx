@@ -1,5 +1,5 @@
 import { h } from 'preact';
-import KeyboardKey from '../KeyboardKey/KeyboardKey';
+import { KeyboardKey } from '../KeyboardKey/KeyboardKey';
 
 interface WhiteKeyProps {
     onMouseLeave: (e: MouseEvent) => void;
@@ -15,7 +15,7 @@ export const WhiteKey = ({
     onMouseUp,
 }: WhiteKeyProps) => (
     <KeyboardKey
-        className="key--white"
+        className="keyboard-key--white"
         onMouseLeave={(e: MouseEvent) => onMouseLeave(e)}
         onMouseOver={(e: MouseEvent) => onMouseOver(e)}
         onMouseDown={(e: MouseEvent) => onMouseDown(e)}

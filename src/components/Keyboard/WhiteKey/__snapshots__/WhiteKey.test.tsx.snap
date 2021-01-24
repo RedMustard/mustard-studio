@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<WhiteKey /> renders with basic props 1`] = `
+<KeyboardKey
+  className="keyboard-key--white"
+  onMouseDown={[Function]}
+  onMouseLeave={[Function]}
+  onMouseOver={[Function]}
+  onMouseUp={[Function]}
+/>
+`;

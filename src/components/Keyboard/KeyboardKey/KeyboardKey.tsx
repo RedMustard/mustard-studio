@@ -2,19 +2,19 @@ import { h } from 'preact';
 import { useState } from 'preact/hooks';
 
 interface KeyboardKeyProps {
-    className: string;
     onMouseLeave: (e: MouseEvent) => void;
     onMouseOver: (e: MouseEvent) => void;
     onMouseDown: (e: MouseEvent) => void;
     onMouseUp: (e: MouseEvent) => void;
+    className?: string;
 }
 
-const KeyboardKey = ({
-    className,
+export const KeyboardKey = ({
     onMouseLeave,
     onMouseOver,
     onMouseDown,
     onMouseUp,
+    className = '',
 }: KeyboardKeyProps) => {
     const [isPressed, setIsPressed] = useState(false);
 
@@ -37,8 +37,8 @@ const KeyboardKey = ({
 
     return (
         <div
-            class={`key ${className} ${isPressed ? 'key--active' : ''}`}
-            label="white-key"
+            class={`keyboard-key ${className} ${isPressed ? 'keyboard-key--active' : ''}`}
+            label="keyboard-key"
             onKeyDown={() => {}}
             onMouseDown={(e: MouseEvent) => handleOnMouseDown(e)}
             onMouseUp={(e: MouseEvent) => handleOnMouseUp(e)}
@@ -51,6 +51,3 @@ const KeyboardKey = ({
         />
     );
 };
-
-
-export default KeyboardKey;
