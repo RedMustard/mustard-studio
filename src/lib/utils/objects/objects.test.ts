@@ -1,7 +1,7 @@
 import { deepClone } from './objects';
 
 describe('deepClone', () => {
-    it('clones object with only first level properties ', () => {
+    it('clones object with only first level properties', () => {
         const foo = {
             foo: 'bar',
             baz: 'qux',

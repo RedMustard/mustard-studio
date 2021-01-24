@@ -1,7 +1,7 @@
 import { createContext, h } from 'preact';
 import { useReducer } from 'preact/hooks';
 import { StudioService } from '../../types/types';
-import { deepClone } from '../utils/objects';
+import { deepClone } from '../utils/objects/objects';
 import { studioServiceReducer } from './studioServiceReducer';
 
 
