@@ -4,10 +4,8 @@
 
 .keyboard {
     display: table-row;
-    flex-direction: column;
     height: $keyboardHeight;
     position: relative;
-    width: 100%;
 
     & > * {
         user-select: none;

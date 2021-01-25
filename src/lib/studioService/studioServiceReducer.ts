@@ -29,6 +29,33 @@ export const studioServiceReducer = (state: StudioService, action: GenericAction
                 },
             };
 
+        case 'SET_MASTER_GAIN':
+            return {
+                ...state,
+                gainNodes: {
+                    ...state.gainNodes,
+                    master: action.payload,
+                },
+            };
+
+        case 'SET_OSCILLATOR_1_GAIN':
+            return {
+                ...state,
+                gainNodes: {
+                    ...state.gainNodes,
+                    oscillator1: action.payload,
+                },
+            };
+
+        case 'SET_OSCILLATOR_2_GAIN':
+            return {
+                ...state,
+                gainNodes: {
+                    ...state.gainNodes,
+                    oscillator2: action.payload,
+                },
+            };
+
         default:
             return state;
     }

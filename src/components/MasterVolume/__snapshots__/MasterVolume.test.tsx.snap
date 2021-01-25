@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<MasterVolume /> renders with basic props 1`] = `
+<div
+  className="master-volume"
+>
+  M:  
+  <VolumeFader
+    classSuffix="master"
+    onChange={[Function]}
+    value={0.1}
+  />
+</div>
+`;

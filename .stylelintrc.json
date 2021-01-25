@@ -6,13 +6,16 @@
   ],
   "plugins": [
     "stylelint-order",
-    "@namics/stylelint-bem"
+    "@namics/stylelint-bem",
+    "stylelint-scss"
   ],
   "rules": {
     "indentation": 4,
     "number-leading-zero": "never",
     "string-quotes": "single",
     "order/properties-alphabetical-order": true,
+    "at-rule-no-unknown": null,
+    "scss/at-rule-no-unknown": true,
     "selector-pseudo-class-no-unknown": [
       true,
       {

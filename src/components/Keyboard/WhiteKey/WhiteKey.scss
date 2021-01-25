@@ -1,9 +1,11 @@
 @import '../../../style/variables.scss';
 
 .keyboard-key--white {
-    background-color: #fff;
+    background-color: #f9f9f9;
     border: 1px solid #111;
-    box-shadow: 0 1px 3px #999;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    // box-shadow: 0 1px 3px #999;
     display: table-cell;
     height: $keyboardHeight;
     outline: none;

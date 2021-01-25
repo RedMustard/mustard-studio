@@ -4,6 +4,7 @@ import { Route, Router, RouterOnChangeArgs } from 'preact-router';
 import Studio from '../routes/studio';
 import NotFoundPage from '../routes/notfound';
 import Header from './header';
+import { StudioServiceStore } from '../lib/studioService/StudioServiceStore';
 
 const App: FunctionalComponent = () => {
     // @ts-expect-error
@@ -13,15 +14,17 @@ const App: FunctionalComponent = () => {
     };
 
     return (
-        <div id="app">
-            <Header />
-            <Router onChange={handleRoute}>
-                <Route path="/" component={Studio} />
-                {/* <Route path="/profile/" component={Profile} user="me" /> */}
-                {/* <Route path="/profile/:user" component={Profile} /> */}
-                <NotFoundPage default />
-            </Router>
-        </div>
+        <StudioServiceStore>
+            <div id="app">
+                <Header />
+                <Router onChange={handleRoute}>
+                    <Route path="/" component={Studio} />
+                    {/* <Route path="/profile/" component={Profile} user="me" /> */}
+                    {/* <Route path="/profile/:user" component={Profile} /> */}
+                    <NotFoundPage default />
+                </Router>
+            </div>
+        </StudioServiceStore>
     );
 };
 
