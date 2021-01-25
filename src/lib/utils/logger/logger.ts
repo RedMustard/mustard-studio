@@ -5,26 +5,26 @@ const loggerColors = {
     info: '#75cf00',
 };
 
-const loggerStyles = 'color: #fff; padding: 6px; fontSize: 12px;';
+const loggerStyles = 'color: #fff; fontSize: 12px;';
 
 export const logger = {
     warn: (...args: any) => {
         console.warn(
-            '%cwarn',
+            '%c warn ',
             `background-color: ${loggerColors.warn}; ${loggerStyles}`,
             ...args,
         );
     },
     error: (...args: any) => {
         console.error(
-            '%cerror',
+            '%c error ',
             `background-color: ${loggerColors.error}; ${loggerStyles}`,
             ...args,
         );
     },
     info: (...args: any) => {
         console.info(
-            '%cinfo',
+            '%c info ',
             `background-color: ${loggerColors.info}; ${loggerStyles}`,
             ...args,
         );

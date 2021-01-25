@@ -11,9 +11,17 @@ const initialState: StudioService = Object.freeze({
         oscillator1: 0.5,
         oscillator2: 0.5,
     },
+    gainNodes: {
+        master: undefined,
+        oscillator1: undefined,
+        oscillator2: undefined,
+    },
 });
 
-const getInitialState = () => deepClone(initialState);
+export const getInitialState = () => deepClone(initialState);
+
+// eslint-disable-next-line @typescript-eslint/naming-convention
+export const StudioServiceContext = createContext<[StudioService, Function]>([getInitialState(), () => {}]);
 
 export const StudioServiceStore = ({ children }: any) => {
     const [state, dispatch]: [StudioService, any] = useReducer(studioServiceReducer, getInitialState());
@@ -25,8 +33,6 @@ export const StudioServiceStore = ({ children }: any) => {
     );
 };
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
-export const StudioServiceContext = createContext<[StudioService, Function]>([getInitialState(), () => {}]);
 
 // Todo: Remove/move?
 // eslint-disable-next-line @typescript-eslint/naming-convention

@@ -8,6 +8,11 @@ export type StudioService = {
         oscillator1: number;
         oscillator2: number;
     },
+    gainNodes: {
+        master: GainNode,
+        oscillator1: GainNode,
+        oscillator2: GainNode,
+    },
 };
 export interface GenericAction {
     type: string;

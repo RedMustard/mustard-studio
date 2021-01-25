@@ -1,19 +1,22 @@
 import { h } from 'preact';
+import { useContext } from 'preact/hooks';
 import { getNoteFrequencyByKeyNumber } from '../../lib/utils/audio/audio';
 import { BlackKey } from './BlackKey/BlackKey';
 import { WhiteKey } from './WhiteKey/WhiteKey';
 import { KeyboardKeyColor } from '../../types/types';
 import { logger } from '../../lib/utils/logger/logger';
+import { StudioServiceContext } from '../../lib/studioService/StudioServiceStore';
 
 interface KeyboardProps {
     audioContext: AudioContext;
-    gainNode: GainNode;
 }
 
 
-export const Keyboard = ({ audioContext, gainNode }: KeyboardProps) => {
+export const Keyboard = ({ audioContext }: KeyboardProps) => {
     let osc: OscillatorNode;
     let osc2: OscillatorNode;
+    const [studioService, dispatch] = useContext(StudioServiceContext);
+    const masterGainNode = studioService.gainNodes.master;
 
     const whiteKey = (keyNumber: number) => (
         <WhiteKey
@@ -22,16 +25,15 @@ export const Keyboard = ({ audioContext, gainNode }: KeyboardProps) => {
                     osc = audioContext.createOscillator();
                     osc.frequency.value = getNoteFrequencyByKeyNumber(keyNumber);
                     osc.type = 'triangle';
-                    osc.connect(gainNode);
+                    osc.connect(masterGainNode);
                     osc.start();
 
                     osc2 = audioContext.createOscillator();
                     osc2.frequency.value = getNoteFrequencyByKeyNumber(keyNumber);
                     osc2.type = 'square';
-                    osc2.connect(gainNode);
+                    osc2.connect(masterGainNode);
                     osc2.start();
                     logger.info('Key pressed', keyNumber);
-                    // console.log('kn', keyNumber);
                 }
             }}
             onMouseOver={(e: MouseEvent) => {
@@ -39,16 +41,15 @@ export const Keyboard = ({ audioContext, gainNode }: KeyboardProps) => {
                     osc = audioContext.createOscillator();
                     osc.frequency.value = getNoteFrequencyByKeyNumber(keyNumber);
                     osc.type = 'triangle';
-                    osc.connect(gainNode);
+                    osc.connect(masterGainNode);
                     osc.start();
 
                     osc2 = audioContext.createOscillator();
                     osc2.frequency.value = getNoteFrequencyByKeyNumber(keyNumber);
                     osc2.type = 'square';
-                    osc2.connect(gainNode);
+                    osc2.connect(masterGainNode);
                     osc2.start();
                 }
-                logger.error('Key hovered', keyNumber);
             }}
             onMouseUp={() => {
                 osc.stop();
@@ -63,7 +64,6 @@ export const Keyboard = ({ audioContext, gainNode }: KeyboardProps) => {
                     osc2.stop();
                     osc2.disconnect();
                 }
-                logger.warn('Key pressed', keyNumber);
             }}
         />
     );
@@ -75,15 +75,15 @@ export const Keyboard = ({ audioContext, gainNode }: KeyboardProps) => {
                     osc = audioContext.createOscillator();
                     osc.frequency.value = getNoteFrequencyByKeyNumber(keyNumber);
                     osc.type = 'triangle';
-                    osc.connect(gainNode);
+                    osc.connect(masterGainNode);
                     osc.start();
 
                     osc2 = audioContext.createOscillator();
                     osc2.frequency.value = getNoteFrequencyByKeyNumber(keyNumber);
                     osc2.type = 'square';
-                    osc2.connect(gainNode);
+                    osc2.connect(masterGainNode);
                     osc2.start();
-                    console.log('kn', keyNumber);
+                    logger.info('Key pressed', keyNumber);
                 }
             }}
             onMouseOver={(e: MouseEvent) => {
@@ -91,15 +91,14 @@ export const Keyboard = ({ audioContext, gainNode }: KeyboardProps) => {
                     osc = audioContext.createOscillator();
                     osc.frequency.value = getNoteFrequencyByKeyNumber(keyNumber);
                     osc.type = 'triangle';
-                    osc.connect(gainNode);
+                    osc.connect(masterGainNode);
                     osc.start();
 
                     osc2 = audioContext.createOscillator();
                     osc2.frequency.value = getNoteFrequencyByKeyNumber(keyNumber);
                     osc2.type = 'square';
-                    osc2.connect(gainNode);
+                    osc2.connect(masterGainNode);
                     osc2.start();
-                    console.log('kn', keyNumber);
                 }
             }}
             onMouseUp={() => {
@@ -135,7 +134,6 @@ export const Keyboard = ({ audioContext, gainNode }: KeyboardProps) => {
                 }
             });
         }
-
         return keys;
     };
 
