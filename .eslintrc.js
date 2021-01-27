@@ -17,7 +17,7 @@ module.exports = {
         'prefer-template': ['error'],
         'no-multiple-empty-lines': ['error', { max: 2 }],
         'no-underscore-dangle': [0],
-        'no-use-before-define': [1],
+        'no-use-before-define': [0],
         'no-useless-escape': [1],
         'import/prefer-default-export': [0],
         'react/jsx-indent': [0],
@@ -30,6 +30,7 @@ module.exports = {
         'react/require-default-props': [0],
         '@typescript-eslint/indent': ['error', 4],
         '@typescript-eslint/no-unused-vars': [0],
+        '@typescript-eslint/no-use-before-define': [1],
         '@typescript-eslint/naming-convention': [
             'error',
             {

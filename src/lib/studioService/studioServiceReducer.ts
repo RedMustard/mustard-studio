@@ -1,6 +1,6 @@
-import { GenericAction, StudioService } from '../../types/types';
+import { StudioServiceAction, StudioService } from '../../types/types';
 
-export const studioServiceReducer = (state: StudioService, action: GenericAction) => {
+export const studioServiceReducer = (state: StudioService, action: StudioServiceAction): StudioService => {
     switch (action.type) {
         case 'SET_MASTER_VOLUME':
             return {
@@ -11,21 +11,21 @@ export const studioServiceReducer = (state: StudioService, action: GenericAction
                 },
             };
 
-        case 'SET_OSCILLATOR_1_VOLUME':
+        case 'SET_OSC_1_VOLUME':
             return {
                 ...state,
                 volume: {
                     ...state.volume,
-                    oscillator1: action.payload,
+                    osc1: action.payload,
                 },
             };
 
-        case 'SET_OSCILLATOR_2_VOLUME':
+        case 'SET_OSC_2_VOLUME':
             return {
                 ...state,
                 volume: {
                     ...state.volume,
-                    oscillator2: action.payload,
+                    osc2: action.payload,
                 },
             };
 
@@ -38,21 +38,45 @@ export const studioServiceReducer = (state: StudioService, action: GenericAction
                 },
             };
 
-        case 'SET_OSCILLATOR_1_GAIN':
+        case 'SET_OSC_1_GAIN':
             return {
                 ...state,
                 gainNodes: {
                     ...state.gainNodes,
-                    oscillator1: action.payload,
+                    osc1: action.payload,
                 },
             };
 
-        case 'SET_OSCILLATOR_2_GAIN':
+        case 'SET_OSC_2_GAIN':
             return {
                 ...state,
                 gainNodes: {
                     ...state.gainNodes,
-                    oscillator2: action.payload,
+                    osc2: action.payload,
+                },
+            };
+
+        case 'SET_OSC_1_ENABLED':
+            return {
+                ...state,
+                oscillatorNodes: {
+                    ...state.oscillatorNodes,
+                    osc1: {
+                        ...state.oscillatorNodes.osc1,
+                        enabled: action.payload,
+                    },
+                },
+            };
+
+        case 'SET_OSC_2_ENABLED':
+            return {
+                ...state,
+                oscillatorNodes: {
+                    ...state.oscillatorNodes,
+                    osc2: {
+                        ...state.oscillatorNodes.osc2,
+                        enabled: action.payload,
+                    },
                 },
             };
 

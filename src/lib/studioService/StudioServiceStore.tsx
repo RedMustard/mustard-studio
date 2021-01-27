@@ -1,6 +1,6 @@
 import { createContext, h } from 'preact';
 import { useReducer } from 'preact/hooks';
-import { StudioService } from '../../types/types';
+import { DispatchFunction, StudioService } from '../../types/types';
 import { deepClone } from '../utils/objects/objects';
 import { studioServiceReducer } from './studioServiceReducer';
 
@@ -8,20 +8,30 @@ import { studioServiceReducer } from './studioServiceReducer';
 const initialState: StudioService = Object.freeze({
     volume: {
         master: 0.1,
-        oscillator1: 0.5,
-        oscillator2: 0.5,
+        osc1: 0.5,
+        osc2: 0.5,
     },
     gainNodes: {
         master: undefined,
-        oscillator1: undefined,
-        oscillator2: undefined,
+        osc1: undefined,
+        osc2: undefined,
+    },
+    oscillatorNodes: {
+        osc1: {
+            enabled: true,
+            type: 'sine',
+        },
+        osc2: {
+            enabled: false,
+            type: 'sawtooth',
+        },
     },
 });
 
 export const getInitialState = () => deepClone(initialState);
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-export const StudioServiceContext = createContext<[StudioService, Function]>([getInitialState(), () => {}]);
+export const StudioServiceContext = createContext<[StudioService, DispatchFunction]>([getInitialState(), () => {}]);
 
 export const StudioServiceStore = ({ children }: any) => {
     const [state, dispatch]: [StudioService, any] = useReducer(studioServiceReducer, getInitialState());

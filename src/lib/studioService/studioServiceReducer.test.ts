@@ -1,5 +1,5 @@
 import { studioServiceReducer } from './studioServiceReducer';
-import { GenericAction, StudioService } from '../../types/types';
+import { StudioServiceAction, StudioService } from '../../types/types';
 import { getInitialState } from './StudioServiceStore';
 
 const wamock = require('web-audio-mock-api');
@@ -9,7 +9,7 @@ const audioContext = new wamock.AudioContext();
 describe('studioServiceReducer', () => {
     let initialState: StudioService;
     let modifiedState: StudioService;
-    let action: GenericAction;
+    let action: StudioServiceAction;
 
     beforeAll(() => {
         initialState = getInitialState();
@@ -30,31 +30,31 @@ describe('studioServiceReducer', () => {
         expect(studioServiceReducer(initialState, action)).toEqual(modifiedState);
     });
 
-    it('SET_OSCILLATOR_1_VOLUME', () => {
+    it('SET_OSC_1_VOLUME', () => {
         modifiedState = {
             ...initialState,
             volume: {
                 ...initialState.volume,
-                oscillator1: 1.0,
+                osc1: 1.0,
             },
         };
         action = {
-            type: 'SET_OSCILLATOR_1_VOLUME',
+            type: 'SET_OSC_1_VOLUME',
             payload: 1.0,
         };
         expect(studioServiceReducer(initialState, action)).toEqual(modifiedState);
     });
 
-    it('SET_OSCILLATOR_2_VOLUME', () => {
+    it('SET_OSC_2_VOLUME', () => {
         modifiedState = {
             ...initialState,
             volume: {
                 ...initialState.volume,
-                oscillator2: 1.0,
+                osc2: 1.0,
             },
         };
         action = {
-            type: 'SET_OSCILLATOR_2_VOLUME',
+            type: 'SET_OSC_2_VOLUME',
             payload: 1.0,
         };
         expect(studioServiceReducer(initialState, action)).toEqual(modifiedState);
@@ -75,31 +75,31 @@ describe('studioServiceReducer', () => {
         expect(studioServiceReducer(initialState, action)).toEqual(modifiedState);
     });
 
-    it('SET_OSCILLATOR_1_GAIN', () => {
+    it('SET_OSC_1_GAIN', () => {
         modifiedState = {
             ...initialState,
             gainNodes: {
                 ...initialState.gainNodes,
-                oscillator1: audioContext.createGain(),
+                osc1: audioContext.createGain(),
             },
         };
         action = {
-            type: 'SET_OSCILLATOR_1_GAIN',
+            type: 'SET_OSC_1_GAIN',
             payload: audioContext.createGain(),
         };
         expect(studioServiceReducer(initialState, action)).toEqual(modifiedState);
     });
 
-    it('SET_OSCILLATOR_2_GAIN', () => {
+    it('SET_OSC_2_GAIN', () => {
         modifiedState = {
             ...initialState,
             gainNodes: {
                 ...initialState.gainNodes,
-                oscillator2: audioContext.createGain(),
+                osc2: audioContext.createGain(),
             },
         };
         action = {
-            type: 'SET_OSCILLATOR_2_GAIN',
+            type: 'SET_OSC_2_GAIN',
             payload: audioContext.createGain(),
         };
         expect(studioServiceReducer(initialState, action)).toEqual(modifiedState);
@@ -107,6 +107,7 @@ describe('studioServiceReducer', () => {
 
     it('returns same state with invalid action', () => {
         action = {
+            // @ts-expect-error
             type: 'INVALID_ACTION',
             payload: 1.0,
         };
