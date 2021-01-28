@@ -2,7 +2,7 @@ import { FunctionalComponent, h } from 'preact';
 
 import { Keyboard } from '../../components/Keyboard/Keyboard';
 import { MasterVolume } from '../../components/MasterVolume/MasterVolume';
-import { Oscillator } from '../../components/Oscillator/OscillatorComponent';
+import { Oscillator } from '../../components/Oscillator/Oscillator';
 
 const Studio: FunctionalComponent = () => {
     const audioContext = new AudioContext();

@@ -1,8 +1,9 @@
 import { h } from 'preact';
-import { mount, shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import toJson from 'enzyme-to-json';
-import { MasterVolume } from './MasterVolume';
-import { setMasterVolume } from '../../lib/studioService/studioServiceActions';
+import { Oscillator } from './Oscillator';
+import { OscillatorId } from '../../types/types';
+import { setOscillatorEnabled } from '../../lib/studioService/studioServiceActions';
 
 
 // eslint-disable-next-line import/newline-after-import
@@ -12,14 +13,15 @@ const audioContext = new wamock.AudioContext();
 jest.mock('../../lib/studioService/studioServiceActions');
 
 
-describe('<MasterVolume />', () => {
+describe('<Oscillator />', () => {
     const baseProps = {
         audioContext,
+        oscillatorId: 'osc1' as OscillatorId,
     };
 
     it('renders with basic props', () => {
         const wrapper = shallow(
-            <MasterVolume
+            <Oscillator
                 {...baseProps}
             />,
         );
@@ -27,14 +29,14 @@ describe('<MasterVolume />', () => {
         expect(toJson(wrapper)).toMatchSnapshot();
     });
 
-    it('calls setMasterVolume when volume changed', () => {
+    it('calls setOscillatorEnabled when power checkbox pressed', () => {
         const wrapper = mount(
-            <MasterVolume
+            <Oscillator
                 {...baseProps}
             />,
         );
 
-        wrapper.find('.volume-fader').simulate('input');
-        expect(setMasterVolume).toBeCalled();
+        wrapper.find('.checkbox__input').simulate('input');
+        expect(setOscillatorEnabled).toBeCalled();
     });
 });

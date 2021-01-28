@@ -2,8 +2,9 @@ import { studioServiceReducer } from './studioServiceReducer';
 import { StudioServiceAction, StudioService } from '../../types/types';
 import { getInitialState } from './StudioServiceStore';
 
-const wamock = require('web-audio-mock-api');
 
+// eslint-disable-next-line import/newline-after-import
+const wamock = require('web-audio-mock-api');
 const audioContext = new wamock.AudioContext();
 
 describe('studioServiceReducer', () => {
@@ -101,6 +102,42 @@ describe('studioServiceReducer', () => {
         action = {
             type: 'SET_OSC_2_GAIN',
             payload: audioContext.createGain(),
+        };
+        expect(studioServiceReducer(initialState, action)).toEqual(modifiedState);
+    });
+
+    it('SET_OSC_1_ENABLED', () => {
+        modifiedState = {
+            ...initialState,
+            oscillatorNodes: {
+                ...initialState.oscillatorNodes,
+                osc1: {
+                    ...initialState.oscillatorNodes.osc1,
+                    enabled: true,
+                },
+            },
+        };
+        action = {
+            type: 'SET_OSC_1_ENABLED',
+            payload: true,
+        };
+        expect(studioServiceReducer(initialState, action)).toEqual(modifiedState);
+    });
+
+    it('SET_OSC_2_ENABLED', () => {
+        modifiedState = {
+            ...initialState,
+            oscillatorNodes: {
+                ...initialState.oscillatorNodes,
+                osc2: {
+                    ...initialState.oscillatorNodes.osc2,
+                    enabled: true,
+                },
+            },
+        };
+        action = {
+            type: 'SET_OSC_2_ENABLED',
+            payload: true,
         };
         expect(studioServiceReducer(initialState, action)).toEqual(modifiedState);
     });

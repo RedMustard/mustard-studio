@@ -1,0 +1,57 @@
+@import '../../style/variables.scss';
+
+.checkbox {
+    display: inline-block;
+    height: 14px;
+    position: relative;
+    width: 5%;
+}
+
+.checkbox__input-like {
+    border: 1px solid #fff;
+    height: 13px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    transition: .2s;
+    width: 13px;
+}
+
+.checkbox__input-like::after {
+    background-color: $green;
+    border-width: 0 2px 2px 0;
+    content: '';
+    display: none;
+    height: 7px;
+    left: 2px;
+    position: absolute;
+    top: 2px;
+    transition: .2s;
+    width: 7px;
+}
+
+.checkbox__input {
+    cursor: pointer;
+    margin: 0;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    z-index: 1;
+}
+
+.checkbox__input:checked ~ .checkbox__input-like {
+    background-color: #000;
+    transition: .2s;
+}
+
+.checkbox__input:focus ~ .checkbox__input-like {
+    border: 1px solid #fff;
+}
+
+.checkbox__input:checked:focus ~ .checkbox__input-like {
+    background-color: #000;
+}
+
+.checkbox__input:checked ~ .checkbox__input-like::after {
+    display: block;
+}

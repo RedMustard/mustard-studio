@@ -17,15 +17,11 @@ export type StudioService = {
     },
     oscillatorNodes: {
         osc1: {
-            // node: OscillatorNode,
             enabled: boolean,
-            // frequency: number,
             type: OscillatorType,
         },
         osc2: {
-            // node: OscillatorNode,
             enabled: boolean,
-            // frequency: number,
             type: OscillatorType,
         },
     }
@@ -48,5 +44,5 @@ export type StudioServiceAction = {
     payload: any;
 };
 
-export type DispatchFunction = <T = StudioServiceAction>(args: T) => void;
+export type DispatchFunction = (args: StudioServiceAction) => void;
 

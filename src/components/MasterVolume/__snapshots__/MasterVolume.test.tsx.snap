@@ -7,7 +7,7 @@ exports[`<MasterVolume /> renders with basic props 1`] = `
   M:  
   <VolumeFader
     classSuffix="master"
-    onChange={[Function]}
+    onInput={[Function]}
     value={0.1}
   />
 </div>

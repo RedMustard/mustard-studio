@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Oscillator /> renders with basic props 1`] = `
+<div
+  className="oscillator"
+>
+  <div
+    className="oscillator__label"
+  >
+    osc1
+  </div>
+  <Checkbox
+    isChecked={true}
+    onInput={[Function]}
+  />
+</div>
+`;
