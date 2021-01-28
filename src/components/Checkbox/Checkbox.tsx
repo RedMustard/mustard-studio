@@ -10,8 +10,7 @@ export const Checkbox = ({ onInput, isChecked }: CheckboxProps) => (
     <div className="checkbox">
         <input
             className="checkbox__input"
-            id="sid-opt-in"
-            name="sid-opt-in"
+            name="checkbox"
             type="checkbox"
             checked={isChecked}
             onInput={(e) => {

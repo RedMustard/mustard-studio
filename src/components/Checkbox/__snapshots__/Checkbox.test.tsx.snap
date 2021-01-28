@@ -7,8 +7,7 @@ exports[`<Checkbox /> renders checked 1`] = `
   <input
     checked={true}
     className="checkbox__input"
-    id="sid-opt-in"
-    name="sid-opt-in"
+    name="checkbox"
     onInput={[Function]}
     type="checkbox"
   />
@@ -25,8 +24,7 @@ exports[`<Checkbox /> renders with basic props 1`] = `
   <input
     checked={false}
     className="checkbox__input"
-    id="sid-opt-in"
-    name="sid-opt-in"
+    name="checkbox"
     onInput={[Function]}
     type="checkbox"
   />
