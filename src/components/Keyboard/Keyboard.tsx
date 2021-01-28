@@ -13,56 +13,65 @@ interface KeyboardProps {
 
 
 export const Keyboard = ({ audioContext }: KeyboardProps) => {
-    let osc: OscillatorNode;
+    let osc1: OscillatorNode;
     let osc2: OscillatorNode;
     const [studioService, dispatch] = useContext(StudioServiceContext);
     const masterGainNode = studioService.gainNodes.master;
+    const osc1Enabled = studioService.oscillatorNodes.osc1.enabled;
+    const osc1Type = studioService.oscillatorNodes.osc1.type;
+    const osc2Enabled = studioService.oscillatorNodes.osc2.enabled;
+    const osc2Type = studioService.oscillatorNodes.osc2.type;
+
+    const handleOnMouseDownAndOver = (keyNumber: number) => {
+        if (osc1Enabled) {
+            osc1 = audioContext.createOscillator();
+            osc1.type = osc1Type;
+            osc1.frequency.value = getNoteFrequencyByKeyNumber(keyNumber);
+            osc1.connect(masterGainNode);
+            osc1.start();
+        }
+
+        if (osc2Enabled) {
+            osc2 = audioContext.createOscillator();
+            osc2.type = osc2Type;
+            osc2.frequency.value = getNoteFrequencyByKeyNumber(keyNumber);
+            osc2.connect(masterGainNode);
+            osc2.start();
+        }
+    };
+
+    const handleOnMouseUpAndLeave = () => {
+        if (osc1) {
+            osc1.stop();
+            osc1.disconnect();
+        }
+
+        if (osc2) {
+            osc2.stop();
+            osc2.disconnect();
+        }
+    };
 
     const whiteKey = (keyNumber: number) => (
         <WhiteKey
             onMouseDown={(e: MouseEvent) => {
                 if (e.buttons === 1) {
-                    osc = audioContext.createOscillator();
-                    osc.frequency.value = getNoteFrequencyByKeyNumber(keyNumber);
-                    osc.type = 'triangle';
-                    osc.connect(masterGainNode);
-                    osc.start();
-
-                    osc2 = audioContext.createOscillator();
-                    osc2.frequency.value = getNoteFrequencyByKeyNumber(keyNumber);
-                    osc2.type = 'square';
-                    osc2.connect(masterGainNode);
-                    osc2.start();
+                    handleOnMouseDownAndOver(keyNumber);
                     logger.info('Key pressed', keyNumber);
                 }
             }}
             onMouseOver={(e: MouseEvent) => {
                 if (e.buttons === 1) {
-                    osc = audioContext.createOscillator();
-                    osc.frequency.value = getNoteFrequencyByKeyNumber(keyNumber);
-                    osc.type = 'triangle';
-                    osc.connect(masterGainNode);
-                    osc.start();
-
-                    osc2 = audioContext.createOscillator();
-                    osc2.frequency.value = getNoteFrequencyByKeyNumber(keyNumber);
-                    osc2.type = 'square';
-                    osc2.connect(masterGainNode);
-                    osc2.start();
+                    handleOnMouseDownAndOver(keyNumber);
+                    logger.info('Key pressed', keyNumber);
                 }
             }}
             onMouseUp={() => {
-                osc.stop();
-                osc.disconnect();
-                osc2.stop();
-                osc2.disconnect();
+                handleOnMouseUpAndLeave();
             }}
             onMouseLeave={(e: MouseEvent) => {
                 if (e.buttons === 1) {
-                    osc.stop();
-                    osc.disconnect();
-                    osc2.stop();
-                    osc2.disconnect();
+                    handleOnMouseUpAndLeave();
                 }
             }}
         />
@@ -72,47 +81,22 @@ export const Keyboard = ({ audioContext }: KeyboardProps) => {
         <BlackKey
             onMouseDown={(e: MouseEvent) => {
                 if (e.buttons === 1) {
-                    osc = audioContext.createOscillator();
-                    osc.frequency.value = getNoteFrequencyByKeyNumber(keyNumber);
-                    osc.type = 'triangle';
-                    osc.connect(masterGainNode);
-                    osc.start();
-
-                    osc2 = audioContext.createOscillator();
-                    osc2.frequency.value = getNoteFrequencyByKeyNumber(keyNumber);
-                    osc2.type = 'square';
-                    osc2.connect(masterGainNode);
-                    osc2.start();
+                    handleOnMouseDownAndOver(keyNumber);
                     logger.info('Key pressed', keyNumber);
                 }
             }}
             onMouseOver={(e: MouseEvent) => {
                 if (e.buttons === 1) {
-                    osc = audioContext.createOscillator();
-                    osc.frequency.value = getNoteFrequencyByKeyNumber(keyNumber);
-                    osc.type = 'triangle';
-                    osc.connect(masterGainNode);
-                    osc.start();
-
-                    osc2 = audioContext.createOscillator();
-                    osc2.frequency.value = getNoteFrequencyByKeyNumber(keyNumber);
-                    osc2.type = 'square';
-                    osc2.connect(masterGainNode);
-                    osc2.start();
+                    handleOnMouseDownAndOver(keyNumber);
+                    logger.info('Key pressed', keyNumber);
                 }
             }}
             onMouseUp={() => {
-                osc.stop();
-                osc.disconnect();
-                osc2.stop();
-                osc2.disconnect();
+                handleOnMouseUpAndLeave();
             }}
             onMouseLeave={(e: MouseEvent) => {
                 if (e.buttons === 1) {
-                    osc.stop();
-                    osc.disconnect();
-                    osc2.stop();
-                    osc2.disconnect();
+                    handleOnMouseUpAndLeave();
                 }
             }}
         />

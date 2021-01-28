@@ -1,21 +1,22 @@
 import { h, Fragment } from 'preact';
 import { MAX_VOLUME, MIN_VOLUME, VOLUME_STEPS } from '../../constants';
 
+
 interface VolumeFaderProps {
     value: number,
     classSuffix?: string;
-    onChange: (value: number) => void;
+    onInput: (value: number) => void;
 }
 
 export const VolumeFader = ({
     value,
-    onChange,
+    onInput,
     classSuffix = '',
 }: VolumeFaderProps) => (
     <Fragment>
         <input
             className={`volume-fader ${classSuffix ? `${classSuffix}-volume-fader` : ''}`}
-            onInput={(event) => onChange(parseFloat(event.currentTarget.value))}
+            onInput={(event) => onInput(parseFloat(event.currentTarget.value))}
             list="volumes"
             max={MAX_VOLUME}
             min={MIN_VOLUME}

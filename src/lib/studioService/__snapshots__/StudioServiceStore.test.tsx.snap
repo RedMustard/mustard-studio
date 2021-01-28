@@ -7,13 +7,23 @@ exports[`<StudioServiceStore /> renders with basic props 1`] = `
       Object {
         "gainNodes": Object {
           "master": undefined,
-          "oscillator1": undefined,
-          "oscillator2": undefined,
+          "osc1": undefined,
+          "osc2": undefined,
+        },
+        "oscillatorNodes": Object {
+          "osc1": Object {
+            "enabled": true,
+            "type": "sine",
+          },
+          "osc2": Object {
+            "enabled": false,
+            "type": "sawtooth",
+          },
         },
         "volume": Object {
           "master": 0.1,
-          "oscillator1": 0.5,
-          "oscillator2": 0.5,
+          "osc1": 0.5,
+          "osc2": 0.5,
         },
       },
       [Function],

@@ -1,18 +1,18 @@
 import { h } from 'preact';
 import { shallow, mount } from 'enzyme';
 import toJson from 'enzyme-to-json';
-import { VolumeFader } from './VolumeFader';
+import { Checkbox } from './Checkbox';
 
 
-describe('<VolumeFader />', () => {
+describe('<Checkbox />', () => {
     const baseProps = {
-        value: 1.0,
+        isChecked: false,
         onInput: jest.fn(),
     };
 
     it('renders with basic props', () => {
         const wrapper = shallow(
-            <VolumeFader
+            <Checkbox
                 {...baseProps}
             />,
         );
@@ -20,11 +20,11 @@ describe('<VolumeFader />', () => {
         expect(toJson(wrapper)).toMatchSnapshot();
     });
 
-    it('renders with custom class suffix', () => {
+    it('renders checked', () => {
         const wrapper = shallow(
-            <VolumeFader
+            <Checkbox
                 {...baseProps}
-                classSuffix="foo"
+                isChecked
             />,
         );
 
@@ -33,12 +33,12 @@ describe('<VolumeFader />', () => {
 
     it('calls onInput when changed', () => {
         const wrapper = mount(
-            <VolumeFader
+            <Checkbox
                 {...baseProps}
             />,
         );
 
-        wrapper.find('.volume-fader').simulate('input');
+        wrapper.find('.checkbox__input').simulate('input');
 
         expect(baseProps.onInput).toBeCalled();
     });

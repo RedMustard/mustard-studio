@@ -1,6 +1,6 @@
 import { h } from 'preact';
 import { useContext, useEffect } from 'preact/hooks';
-import { setMasterGainNode, handleChangeMasterVolume } from '../../lib/studioService/studioServiceActions';
+import { setMasterGainNode, setMasterVolume } from '../../lib/studioService/studioServiceActions';
 import { StudioServiceContext } from '../../lib/studioService/StudioServiceStore';
 import { VolumeFader } from '../VolumeFader/VolumeFader';
 
@@ -29,7 +29,7 @@ export const MasterVolume = ({ audioContext }: MasterVolumeProps) => {
             <VolumeFader
                 classSuffix="master"
                 value={masterVolume}
-                onChange={(value) => handleChangeMasterVolume(value, dispatch)}
+                onInput={(value) => setMasterVolume(value, dispatch)}
             />
         </div>
     );
