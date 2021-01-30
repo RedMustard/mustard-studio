@@ -27,14 +27,17 @@ export const setOscillatorEnabled = (isEnabled: boolean, oscillatorId: Oscillato
     }
 };
 
-// Todo: Uncomment for MS-58
-// export const setOscillatorType = (oscillatorType: OscillatorType, oscillatorId: OscillatorId, dispatch: DispatchFunction) => {
-//     switch (oscillatorId) {
-//         case 'osc1':
-//             break;
-//         case 'osc2':
-//             break;
-//         default:
-//             break;
-//     }
-// };
+export const setOscillatorType = (oscillatorType: OscillatorType, oscillatorId: OscillatorId, dispatch: DispatchFunction) => {
+    switch (oscillatorId) {
+        case 'osc1':
+            dispatch({ type: 'SET_OSC_1_TYPE', payload: oscillatorType });
+            logger.info(`Oscillator node 1 type set to ${oscillatorType}`);
+            break;
+        case 'osc2':
+            dispatch({ type: 'SET_OSC_2_TYPE', payload: oscillatorType });
+            logger.info(`Oscillator node 2 type set to ${oscillatorType}`);
+            break;
+        default:
+            break;
+    }
+};

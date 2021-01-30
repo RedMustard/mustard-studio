@@ -1,12 +1,16 @@
 @import '../../style/variables.scss';
 
 .oscillator {
-    align-items: center;
     border: 1px solid #fff;
     color: #fff;
-    display: flex;
-    justify-content: space-between;
     max-width: 300px;
     min-width: 150px;
     padding: 10px;
+}
+
+.oscillator__header {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
 }

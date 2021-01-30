@@ -15,7 +15,7 @@ interface KeyboardProps {
 export const Keyboard = ({ audioContext }: KeyboardProps) => {
     let osc1: OscillatorNode;
     let osc2: OscillatorNode;
-    const [studioService, dispatch] = useContext(StudioServiceContext);
+    const [studioService] = useContext(StudioServiceContext);
     const masterGainNode = studioService.gainNodes.master;
     const osc1Enabled = studioService.oscillatorNodes.osc1.enabled;
     const osc1Type = studioService.oscillatorNodes.osc1.type;

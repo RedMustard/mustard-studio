@@ -30,7 +30,6 @@ const initialState: StudioService = Object.freeze({
 
 export const getInitialState = () => deepClone(initialState);
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export const StudioServiceContext = createContext<[StudioService, DispatchFunction]>([getInitialState(), () => {}]);
 
 export const StudioServiceStore = ({ children }: any) => {

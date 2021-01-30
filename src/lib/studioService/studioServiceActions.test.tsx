@@ -1,5 +1,7 @@
 import { OscillatorId } from '../../types/types';
-import { setMasterVolume, setMasterGainNode, setOscillatorEnabled } from './studioServiceActions';
+import {
+    setMasterVolume, setMasterGainNode, setOscillatorEnabled, setOscillatorType,
+} from './studioServiceActions';
 
 describe('setMasterVolume', () => {
     it('calls dispatch', () => {
@@ -50,6 +52,38 @@ describe('setOscillatorEnabled', () => {
         const isEnabled = true;
 
         setOscillatorEnabled(isEnabled, oscillatorId, dispatch);
+
+        expect(dispatch).not.toBeCalled();
+    });
+});
+
+describe('setOscillatorType', () => {
+    it('calls dispatch for osc1', () => {
+        const dispatch = jest.fn();
+        const oscillatorType: OscillatorType = 'sawtooth';
+        const oscillatorId: OscillatorId = 'osc1';
+
+        setOscillatorType(oscillatorType, oscillatorId, dispatch);
+
+        expect(dispatch).toBeCalled();
+    });
+
+    it('calls dispatch for osc2', () => {
+        const dispatch = jest.fn();
+        const oscillatorType: OscillatorType = 'sawtooth';
+        const oscillatorId: OscillatorId = 'osc2';
+
+        setOscillatorType(oscillatorType, oscillatorId, dispatch);
+
+        expect(dispatch).toBeCalled();
+    });
+
+    it('does not call dispatch for unknown oscillatorId', () => {
+        const dispatch = jest.fn();
+        const oscillatorType: OscillatorType = 'sawtooth';
+        const oscillatorId: OscillatorId = 'osc3' as OscillatorId;
+
+        setOscillatorType(oscillatorType, oscillatorId, dispatch);
 
         expect(dispatch).not.toBeCalled();
     });

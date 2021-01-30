@@ -49,7 +49,7 @@ module.exports = {
             {
                 selector: 'variable',
                 modifiers: ['exported', 'const'],
-                format: ['UPPER_CASE', 'camelCase']
+                format: ['UPPER_CASE', 'camelCase', 'PascalCase']
             }
         ],
         'max-len': [

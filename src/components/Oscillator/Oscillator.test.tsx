@@ -3,7 +3,7 @@ import { shallow, mount } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import { Oscillator } from './Oscillator';
 import { OscillatorId } from '../../types/types';
-import { setOscillatorEnabled } from '../../lib/studioService/studioServiceActions';
+import { setOscillatorEnabled, setOscillatorType } from '../../lib/studioService/studioServiceActions';
 
 
 // eslint-disable-next-line import/newline-after-import
@@ -38,5 +38,16 @@ describe('<Oscillator />', () => {
 
         wrapper.find('.checkbox__input').simulate('input');
         expect(setOscillatorEnabled).toBeCalled();
+    });
+
+    it('calls setOscillatorType when oscillator type is selected', () => {
+        const wrapper = mount(
+            <Oscillator
+                {...baseProps}
+            />,
+        );
+
+        wrapper.find('.oscillator__wave-type').simulate('input');
+        expect(setOscillatorType).toBeCalled();
     });
 });
