@@ -142,6 +142,42 @@ describe('studioServiceReducer', () => {
         expect(studioServiceReducer(initialState, action)).toEqual(modifiedState);
     });
 
+    it('SET_OSC_1_TYPE', () => {
+        modifiedState = {
+            ...initialState,
+            oscillatorNodes: {
+                ...initialState.oscillatorNodes,
+                osc1: {
+                    ...initialState.oscillatorNodes.osc1,
+                    type: 'triangle',
+                },
+            },
+        };
+        action = {
+            type: 'SET_OSC_1_TYPE',
+            payload: 'triangle',
+        };
+        expect(studioServiceReducer(initialState, action)).toEqual(modifiedState);
+    });
+
+    it('SET_OSC_2_TYPE', () => {
+        modifiedState = {
+            ...initialState,
+            oscillatorNodes: {
+                ...initialState.oscillatorNodes,
+                osc2: {
+                    ...initialState.oscillatorNodes.osc2,
+                    type: 'square',
+                },
+            },
+        };
+        action = {
+            type: 'SET_OSC_2_TYPE',
+            payload: 'square',
+        };
+        expect(studioServiceReducer(initialState, action)).toEqual(modifiedState);
+    });
+
     it('returns same state with invalid action', () => {
         action = {
             // @ts-expect-error

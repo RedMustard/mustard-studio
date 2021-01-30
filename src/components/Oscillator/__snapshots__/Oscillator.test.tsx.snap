@@ -5,13 +5,52 @@ exports[`<Oscillator /> renders with basic props 1`] = `
   className="oscillator"
 >
   <div
-    className="oscillator__label"
+    className="oscillator__header"
   >
-    osc1
+    <div
+      className="oscillator__label"
+    >
+      osc1
+    </div>
+    <Checkbox
+      isChecked={true}
+      onInput={[Function]}
+    />
   </div>
-  <Checkbox
-    isChecked={true}
-    onInput={[Function]}
-  />
+  <div
+    className="oscillator__modifiers"
+  >
+    <select
+      className="oscillator__wave-type"
+      onInput={[Function]}
+      value="sine"
+    >
+      <option
+        value="sine"
+      >
+        sine
+      </option>
+      <option
+        value="sawtooth"
+      >
+        sawtooth
+      </option>
+      <option
+        value="triangle"
+      >
+        triangle
+      </option>
+      <option
+        value="square"
+      >
+        square
+      </option>
+      <option
+        value="custom"
+      >
+        custom
+      </option>
+    </select>
+  </div>
 </div>
 `;

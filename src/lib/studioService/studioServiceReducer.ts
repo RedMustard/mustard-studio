@@ -80,6 +80,30 @@ export const studioServiceReducer = (state: StudioService, action: StudioService
                 },
             };
 
+        case 'SET_OSC_1_TYPE':
+            return {
+                ...state,
+                oscillatorNodes: {
+                    ...state.oscillatorNodes,
+                    osc1: {
+                        ...state.oscillatorNodes.osc1,
+                        type: action.payload,
+                    },
+                },
+            };
+
+        case 'SET_OSC_2_TYPE':
+            return {
+                ...state,
+                oscillatorNodes: {
+                    ...state.oscillatorNodes,
+                    osc2: {
+                        ...state.oscillatorNodes.osc2,
+                        type: action.payload,
+                    },
+                },
+            };
+
         default:
             return state;
     }
