@@ -1,6 +1,11 @@
 import { OscillatorId } from '../../types/types';
 import {
-    setMasterVolume, setMasterGainNode, setOscillatorEnabled, setOscillatorType,
+    setMasterVolume,
+    setMasterGainNode,
+    setOscillatorEnabled,
+    setOscillatorType,
+    setOscillatorVolume,
+    setOscillatorGainNode,
 } from './studioServiceActions';
 
 describe('setMasterVolume', () => {
@@ -22,6 +27,69 @@ describe('setMasterGainNode', () => {
         setMasterGainNode(gainNode, dispatch);
 
         expect(dispatch).toBeCalled();
+    });
+});
+
+describe('setOscillatorVolume', () => {
+    it('calls dispatch for oscillator 1', () => {
+        const dispatch = jest.fn();
+        const value = 1.0;
+        const oscillatorId: OscillatorId = 'osc1';
+
+        setOscillatorVolume(value, oscillatorId, dispatch);
+
+        expect(dispatch).toBeCalled();
+    });
+    it('calls dispatch for oscillator 2', () => {
+        const dispatch = jest.fn();
+        const value = 1.0;
+        const oscillatorId: OscillatorId = 'osc2';
+
+        setOscillatorVolume(value, oscillatorId, dispatch);
+
+        expect(dispatch).toBeCalled();
+    });
+    it('does not call dispatch for unknown oscillatorId', () => {
+        const dispatch = jest.fn();
+        const value = 1.0;
+        const oscillatorId = 'foo' as OscillatorId;
+
+        setOscillatorVolume(value, oscillatorId, dispatch);
+
+        expect(dispatch).not.toBeCalled();
+    });
+});
+
+describe('setOscillatorGainNode', () => {
+    it('calls dispatch for oscillator 1', () => {
+        const dispatch = jest.fn();
+        const gainNode: GainNode = undefined;
+        const oscillatorId: OscillatorId = 'osc1';
+
+
+        setOscillatorGainNode(gainNode, oscillatorId, dispatch);
+
+        expect(dispatch).toBeCalled();
+    });
+    it('calls dispatch for oscillator 2', () => {
+        const dispatch = jest.fn();
+        const gainNode: GainNode = undefined;
+        const oscillatorId: OscillatorId = 'osc2';
+
+
+        setOscillatorGainNode(gainNode, oscillatorId, dispatch);
+
+        expect(dispatch).toBeCalled();
+    });
+    it('does not call dispatch for unknown oscillatorId', () => {
+        const dispatch = jest.fn();
+        const gainNode: GainNode = undefined;
+        const oscillatorId = 'foo' as OscillatorId;
+
+
+        setOscillatorGainNode(gainNode, oscillatorId, dispatch);
+
+        expect(dispatch).not.toBeCalled();
     });
 });
 
@@ -48,7 +116,7 @@ describe('setOscillatorEnabled', () => {
 
     it('does not call dispatch for unknown oscillatorId', () => {
         const dispatch = jest.fn();
-        const oscillatorId = 'osc3' as OscillatorId;
+        const oscillatorId = 'foo' as OscillatorId;
         const isEnabled = true;
 
         setOscillatorEnabled(isEnabled, oscillatorId, dispatch);
@@ -81,7 +149,7 @@ describe('setOscillatorType', () => {
     it('does not call dispatch for unknown oscillatorId', () => {
         const dispatch = jest.fn();
         const oscillatorType: OscillatorType = 'sawtooth';
-        const oscillatorId: OscillatorId = 'osc3' as OscillatorId;
+        const oscillatorId: OscillatorId = 'foo' as OscillatorId;
 
         setOscillatorType(oscillatorType, oscillatorId, dispatch);
 

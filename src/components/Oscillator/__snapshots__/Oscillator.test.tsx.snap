@@ -51,6 +51,27 @@ exports[`<Oscillator /> renders with basic props 1`] = `
         custom
       </option>
     </select>
+    <OscillatorVolume
+      audioContext={
+        AudioContext {
+          "currentTime": 0,
+          "destination": AudioDestinationNode {
+            "channelCount": 2,
+            "channelCountMode": "explicit",
+            "channelInterpretation": "speakers",
+            "context": [Circular],
+            "maxChannelCount": 2,
+            "numberOfInputs": 1,
+            "numberOfOutputs": 0,
+          },
+          "listener": AudioListener {},
+          "onstatechange": null,
+          "sampleRate": 44100,
+          "state": "running",
+        }
+      }
+      oscillatorId="osc1"
+    />
   </div>
 </div>
 `;
