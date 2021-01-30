@@ -1,27 +1,27 @@
 import { h } from 'preact';
-import { MAX_VOLUME, MIN_VOLUME, VOLUME_STEPS } from '../../constants';
+import { MAX_DETUNE, MIN_DETUNE, DETUNE_STEPS } from '../../constants';
 import { ValueUnitEnum } from '../../types/runtimeTypes';
 import { Fader } from '../Fader/Fader';
 
 
-interface VolumeFaderProps {
+interface DetuneFaderProps {
     value: number;
     classSuffix: string;
     onInput: (value: number) => void;
 }
 
-export const VolumeFader = ({
+export const DetuneFader = ({
     value,
     onInput,
     classSuffix,
-}: VolumeFaderProps) => (
+}: DetuneFaderProps) => (
     <Fader
         classSuffix={classSuffix}
-        maxValue={MAX_VOLUME}
-        minValue={MIN_VOLUME}
+        maxValue={MAX_DETUNE}
+        minValue={MIN_DETUNE}
         onInput={onInput}
-        stepResolution={VOLUME_STEPS}
+        stepResolution={DETUNE_STEPS}
         value={value}
-        valueUnit={ValueUnitEnum.PERCENT}
+        valueUnit={ValueUnitEnum.CENT}
     />
 );

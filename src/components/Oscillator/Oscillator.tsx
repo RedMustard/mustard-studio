@@ -5,6 +5,7 @@ import { StudioServiceContext } from '../../lib/studioService/StudioServiceStore
 import { OscillatorTypes } from '../../types/runtimeTypes';
 import { OscillatorId } from '../../types/types';
 import { Checkbox } from '../Checkbox/Checkbox';
+import { OscillatorDetune } from '../OscillatorDetune/OscillatorDetune';
 import { OscillatorVolume } from '../OscillatorVolume/OscillatorVolume';
 
 
@@ -26,6 +27,7 @@ export const Oscillator = ({ audioContext, oscillatorId }: OscillatorProps) => {
                     {oscillatorId}
                 </div>
 
+                {/* Todo: Replace with LED Button component */}
                 <Checkbox
                     onInput={(isChecked) => {
                         setOscillatorEnabled(isChecked, oscillatorId, dispatch);
@@ -34,6 +36,7 @@ export const Oscillator = ({ audioContext, oscillatorId }: OscillatorProps) => {
                 />
             </div>
             <div className="oscillator__modifiers">
+                {/* Todo: Replace with styled dropdown component */}
                 <select
                     className="oscillator__wave-type"
                     onInput={(event) => {
@@ -52,6 +55,10 @@ export const Oscillator = ({ audioContext, oscillatorId }: OscillatorProps) => {
                 <OscillatorVolume
                     oscillatorId={oscillatorId}
                     audioContext={audioContext}
+                />
+
+                <OscillatorDetune
+                    oscillatorId={oscillatorId}
                 />
             </div>
         </div>

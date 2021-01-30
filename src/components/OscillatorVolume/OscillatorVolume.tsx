@@ -30,7 +30,7 @@ export const OscillatorVolume = ({ audioContext, oscillatorId }: OscillatorVolum
         <div className="oscillator-volume">
             Vol: &nbsp;
             <VolumeFader
-                classSuffix="oscillator"
+                classSuffix="oscillator-volume"
                 value={oscillatorVolume}
                 onInput={(value) => setOscillatorVolume(value, oscillatorId, dispatch)}
             />

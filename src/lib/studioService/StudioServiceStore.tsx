@@ -20,10 +20,12 @@ const initialState: StudioService = Object.freeze({
         osc1: {
             enabled: true,
             type: 'sine',
+            detune: 0,
         },
         osc2: {
-            enabled: false,
-            type: 'sawtooth',
+            enabled: true,
+            type: 'sine',
+            detune: 0,
         },
     },
 });
@@ -41,8 +43,3 @@ export const StudioServiceStore = ({ children }: any) => {
         </StudioServiceContext.Provider>
     );
 };
-
-
-// Todo: Remove/move?
-// eslint-disable-next-line @typescript-eslint/naming-convention
-// export const Audio = createContext<[AudioContext, Function]>([new window.AudioContext(), () => {}]);

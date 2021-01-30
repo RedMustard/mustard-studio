@@ -3,10 +3,15 @@ import { FunctionalComponent, h } from 'preact';
 import { Keyboard } from '../../components/Keyboard/Keyboard';
 import { MasterVolume } from '../../components/MasterVolume/MasterVolume';
 import { Oscillator } from '../../components/Oscillator/Oscillator';
+import { getAudioContext, setAudioContext } from '../../lib/audioContext/audioContext';
 
 const Studio: FunctionalComponent = () => {
-    const audioContext = new AudioContext();
+    let audioContext = getAudioContext();
 
+    if (!audioContext) {
+        setAudioContext();
+        audioContext = getAudioContext();
+    }
 
     return (
         <div class="studio">

@@ -73,3 +73,18 @@ export const setOscillatorType = (oscillatorType: OscillatorType, oscillatorId: 
             break;
     }
 };
+
+export const setOscillatorDetune = (value: number, oscillatorId: OscillatorId, dispatch: DispatchFunction) => {
+    switch (oscillatorId) {
+        case 'osc1':
+            dispatch({ type: 'SET_OSC_1_DETUNE', payload: value });
+            logger.info(`Oscillator node 1 detune set to ${value}`);
+            break;
+        case 'osc2':
+            dispatch({ type: 'SET_OSC_2_DETUNE', payload: value });
+            logger.info(`Oscillator node 2 detune set to ${value}`);
+            break;
+        default:
+            break;
+    }
+};

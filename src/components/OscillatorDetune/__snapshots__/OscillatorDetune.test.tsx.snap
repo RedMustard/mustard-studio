@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<OscillatorDetune /> renders with basic props 1`] = `
+<div
+  className="oscillator-detune"
+>
+  Detune:  
+  <DetuneFader
+    classSuffix="oscillator-detune"
+    onInput={[Function]}
+    value={0}
+  />
+</div>
+`;

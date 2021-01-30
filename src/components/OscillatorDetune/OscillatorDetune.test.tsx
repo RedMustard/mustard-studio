@@ -1,8 +1,8 @@
 import { h } from 'preact';
 import { mount, shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
-import { OscillatorVolume } from './OscillatorVolume';
-import { setOscillatorVolume } from '../../lib/studioService/studioServiceActions';
+import { OscillatorDetune } from './OscillatorDetune';
+import { setOscillatorDetune } from '../../lib/studioService/studioServiceActions';
 import { OscillatorId } from '../../types/types';
 
 
@@ -13,7 +13,7 @@ const audioContext = new wamock.AudioContext();
 jest.mock('../../lib/studioService/studioServiceActions');
 
 
-describe('<OscillatorVolume />', () => {
+describe('<OscillatorDetune />', () => {
     const baseProps = {
         audioContext,
         oscillatorId: 'osc1' as OscillatorId,
@@ -21,22 +21,20 @@ describe('<OscillatorVolume />', () => {
 
     it('renders with basic props', () => {
         const wrapper = shallow(
-            <OscillatorVolume
+            <OscillatorDetune
                 {...baseProps}
             />,
         );
-
         expect(toJson(wrapper)).toMatchSnapshot();
     });
 
-    it('calls setOscillatorVolume when volume changed', () => {
+    it('calls setOscillatorDetune when volume changed', () => {
         const wrapper = mount(
-            <OscillatorVolume
+            <OscillatorDetune
                 {...baseProps}
             />,
         );
-
         wrapper.find('input').simulate('input');
-        expect(setOscillatorVolume).toBeCalled();
+        expect(setOscillatorDetune).toBeCalled();
     });
 });

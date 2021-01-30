@@ -23,7 +23,6 @@ describe('<MasterVolume />', () => {
                 {...baseProps}
             />,
         );
-
         expect(toJson(wrapper)).toMatchSnapshot();
     });
 
@@ -33,8 +32,7 @@ describe('<MasterVolume />', () => {
                 {...baseProps}
             />,
         );
-
-        wrapper.find('.volume-fader').simulate('input');
+        wrapper.find('input').simulate('input');
         expect(setMasterVolume).toBeCalled();
     });
 });

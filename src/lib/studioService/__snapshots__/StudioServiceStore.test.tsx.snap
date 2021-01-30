@@ -12,12 +12,14 @@ exports[`<StudioServiceStore /> renders with basic props 1`] = `
         },
         "oscillatorNodes": Object {
           "osc1": Object {
+            "detune": 0,
             "enabled": true,
             "type": "sine",
           },
           "osc2": Object {
-            "enabled": false,
-            "type": "sawtooth",
+            "detune": 0,
+            "enabled": true,
+            "type": "sine",
           },
         },
         "volume": Object {

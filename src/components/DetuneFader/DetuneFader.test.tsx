@@ -1,10 +1,10 @@
 import { h } from 'preact';
 import { shallow, mount } from 'enzyme';
 import toJson from 'enzyme-to-json';
-import { VolumeFader } from './VolumeFader';
+import { DetuneFader } from './DetuneFader';
 
 
-describe('<VolumeFader />', () => {
+describe('<DetuneFader />', () => {
     const baseProps = {
         value: 1.0,
         onInput: jest.fn(),
@@ -13,7 +13,7 @@ describe('<VolumeFader />', () => {
 
     it('renders with basic props', () => {
         const wrapper = shallow(
-            <VolumeFader
+            <DetuneFader
                 {...baseProps}
             />,
         );
@@ -22,7 +22,7 @@ describe('<VolumeFader />', () => {
 
     it('calls onInput when changed', () => {
         const wrapper = mount(
-            <VolumeFader
+            <DetuneFader
                 {...baseProps}
             />,
         );

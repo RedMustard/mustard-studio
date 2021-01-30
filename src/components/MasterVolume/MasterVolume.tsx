@@ -27,7 +27,7 @@ export const MasterVolume = ({ audioContext }: MasterVolumeProps) => {
         <div className="master-volume">
             M Vol: &nbsp;
             <VolumeFader
-                classSuffix="master"
+                classSuffix="master-volume"
                 value={masterVolume}
                 onInput={(value) => setMasterVolume(value, dispatch)}
             />

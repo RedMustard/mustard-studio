@@ -16,18 +16,22 @@ export const Keyboard = ({ audioContext }: KeyboardProps) => {
     let osc1: OscillatorNode;
     let osc2: OscillatorNode;
     const [studioService] = useContext(StudioServiceContext);
-    const masterGainNode = studioService.gainNodes.master;
+
     const osc1GainNode = studioService.gainNodes.osc1;
-    const osc2GainNode = studioService.gainNodes.osc2;
     const osc1Enabled = studioService.oscillatorNodes.osc1.enabled;
     const osc1Type = studioService.oscillatorNodes.osc1.type;
+    const osc1Detune = studioService.oscillatorNodes.osc1.detune;
+
+    const osc2GainNode = studioService.gainNodes.osc2;
     const osc2Enabled = studioService.oscillatorNodes.osc2.enabled;
     const osc2Type = studioService.oscillatorNodes.osc2.type;
+    const osc2Detune = studioService.oscillatorNodes.osc2.detune;
 
     const handleOnMouseDownAndOver = (keyNumber: number) => {
         if (osc1Enabled) {
             osc1 = audioContext.createOscillator();
             osc1.type = osc1Type;
+            osc1.detune.value = osc1Detune;
             osc1.frequency.value = getNoteFrequencyByKeyNumber(keyNumber);
             osc1.connect(osc1GainNode);
             osc1.start();
@@ -36,6 +40,7 @@ export const Keyboard = ({ audioContext }: KeyboardProps) => {
         if (osc2Enabled) {
             osc2 = audioContext.createOscillator();
             osc2.type = osc2Type;
+            osc2.detune.value = osc2Detune;
             osc2.frequency.value = getNoteFrequencyByKeyNumber(keyNumber);
             osc2.connect(osc2GainNode);
             osc2.start();
