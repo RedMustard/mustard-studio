@@ -17,6 +17,8 @@ export const Keyboard = ({ audioContext }: KeyboardProps) => {
     let osc2: OscillatorNode;
     const [studioService] = useContext(StudioServiceContext);
     const masterGainNode = studioService.gainNodes.master;
+    const osc1GainNode = studioService.gainNodes.osc1;
+    const osc2GainNode = studioService.gainNodes.osc2;
     const osc1Enabled = studioService.oscillatorNodes.osc1.enabled;
     const osc1Type = studioService.oscillatorNodes.osc1.type;
     const osc2Enabled = studioService.oscillatorNodes.osc2.enabled;
@@ -27,7 +29,7 @@ export const Keyboard = ({ audioContext }: KeyboardProps) => {
             osc1 = audioContext.createOscillator();
             osc1.type = osc1Type;
             osc1.frequency.value = getNoteFrequencyByKeyNumber(keyNumber);
-            osc1.connect(masterGainNode);
+            osc1.connect(osc1GainNode);
             osc1.start();
         }
 
@@ -35,7 +37,7 @@ export const Keyboard = ({ audioContext }: KeyboardProps) => {
             osc2 = audioContext.createOscillator();
             osc2.type = osc2Type;
             osc2.frequency.value = getNoteFrequencyByKeyNumber(keyNumber);
-            osc2.connect(masterGainNode);
+            osc2.connect(osc2GainNode);
             osc2.start();
         }
     };

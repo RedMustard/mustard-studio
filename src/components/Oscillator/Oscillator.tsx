@@ -2,9 +2,10 @@ import { h } from 'preact';
 import { useContext } from 'preact/hooks';
 import { setOscillatorEnabled, setOscillatorType } from '../../lib/studioService/studioServiceActions';
 import { StudioServiceContext } from '../../lib/studioService/StudioServiceStore';
-import { OscillatorTypeEnum, OscillatorTypes } from '../../types/runtimeTypes';
+import { OscillatorTypes } from '../../types/runtimeTypes';
 import { OscillatorId } from '../../types/types';
 import { Checkbox } from '../Checkbox/Checkbox';
+import { OscillatorVolume } from '../OscillatorVolume/OscillatorVolume';
 
 
 interface OscillatorProps {
@@ -47,6 +48,11 @@ export const Oscillator = ({ audioContext, oscillatorId }: OscillatorProps) => {
                         ))
                     }
                 </select>
+
+                <OscillatorVolume
+                    oscillatorId={oscillatorId}
+                    audioContext={audioContext}
+                />
             </div>
         </div>
     );

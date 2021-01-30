@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<OscillatorVolume /> renders with basic props 1`] = `
+<div
+  className="oscillator-volume"
+>
+  Vol:  
+  <VolumeFader
+    classSuffix="oscillator"
+    onInput={[Function]}
+    value={0.5}
+  />
+</div>
+`;
