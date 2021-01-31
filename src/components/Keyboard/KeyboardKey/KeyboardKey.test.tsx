@@ -4,21 +4,20 @@ import toJson from 'enzyme-to-json';
 import { KeyboardKey } from './KeyboardKey';
 
 
-describe('<KeyboardKey />', () => {
-    const baseProps = {
-        onMouseDown: jest.fn(),
-        onMouseUp: jest.fn(),
-        onMouseOver: jest.fn(),
-        onMouseLeave: jest.fn(),
-    };
+const baseProps = {
+    onMouseDown: jest.fn(),
+    onMouseUp: jest.fn(),
+    onMouseOver: jest.fn(),
+    onMouseLeave: jest.fn(),
+};
 
+describe('<KeyboardKey />', () => {
     it('renders with basic props', () => {
         const wrapper = shallow(
             <KeyboardKey
                 {...baseProps}
             />,
         );
-
         expect(toJson(wrapper)).toMatchSnapshot();
     });
 
@@ -29,7 +28,6 @@ describe('<KeyboardKey />', () => {
                 {...baseProps}
             />,
         );
-
         expect(toJson(wrapper)).toMatchSnapshot();
     });
 
@@ -39,7 +37,6 @@ describe('<KeyboardKey />', () => {
                 {...baseProps}
             />,
         );
-
         wrapper.find('div').simulate('mouseover');
         expect(toJson(wrapper)).toMatchSnapshot();
         expect(baseProps.onMouseOver).toBeCalled();
@@ -51,7 +48,6 @@ describe('<KeyboardKey />', () => {
                 {...baseProps}
             />,
         );
-
         wrapper.find('div').simulate('mousedown');
         expect(toJson(wrapper)).toMatchSnapshot();
         expect(baseProps.onMouseOver).toBeCalled();
@@ -64,7 +60,6 @@ describe('<KeyboardKey />', () => {
                 {...baseProps}
             />,
         );
-
         wrapper.find('div').simulate('mouseover');
         wrapper.find('div').simulate('mouseleave');
         expect(toJson(wrapper)).toMatchSnapshot();
@@ -78,7 +73,6 @@ describe('<KeyboardKey />', () => {
                 {...baseProps}
             />,
         );
-
         wrapper.find('div').simulate('mousedown');
         wrapper.find('div').simulate('mouseup');
         expect(toJson(wrapper)).toMatchSnapshot();

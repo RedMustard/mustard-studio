@@ -3,27 +3,27 @@ import { shallow, mount } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import { Keyboard } from './Keyboard';
 
-const wamock = require('web-audio-mock-api');
 
+// eslint-disable-next-line import/newline-after-import
+const wamock = require('web-audio-mock-api');
+const audioContext = new wamock.AudioContext();
+const baseProps = {
+    audioContext,
+};
+const mockOscillator = {
+    start: jest.fn().mockReturnThis(),
+    stop: jest.fn().mockReturnThis(),
+    connect: jest.fn().mockReturnThis(),
+    disconnect: jest.fn().mockReturnThis(),
+    detune: {
+        value: 1,
+    },
+    frequency: {
+        value: 1,
+    },
+};
 
 describe('<Keyboard />', () => {
-    const audioContext = new wamock.AudioContext();
-    const baseProps = {
-        audioContext,
-    };
-    const mockOscillator = {
-        start: jest.fn().mockReturnThis(),
-        stop: jest.fn().mockReturnThis(),
-        connect: jest.fn().mockReturnThis(),
-        disconnect: jest.fn().mockReturnThis(),
-        detune: {
-            value: 1,
-        },
-        frequency: {
-            value: 1,
-        },
-    };
-
     beforeEach(() => {
         jest.spyOn(audioContext, 'createOscillator').mockImplementation(() => mockOscillator);
     });

@@ -29,6 +29,8 @@ export const Fader = ({
         switch (valueUnit) {
             case ValueUnitEnum.PERCENT:
                 return `${Math.floor(value * 100)}%`;
+            case ValueUnitEnum.PAN:
+                return `${Math.floor(value * 10)}`;
             case ValueUnitEnum.CENT:
             default:
                 return value;

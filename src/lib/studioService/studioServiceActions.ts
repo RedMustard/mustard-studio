@@ -11,6 +11,16 @@ export const setMasterGainNode = (gainNode: GainNode, dispatch: DispatchFunction
     logger.info('Master gain node added', gainNode);
 };
 
+export const setMasterPanNode = (panNode: StereoPannerNode, dispatch: DispatchFunction) => {
+    dispatch({ type: 'SET_MASTER_PAN_NODE', payload: panNode });
+    logger.info('Master pan node added', panNode);
+};
+
+export const setMasterPanPosition = (position: number, dispatch: DispatchFunction) => {
+    dispatch({ type: 'SET_MASTER_PAN_POSITION', payload: position });
+    logger.info('Master pan position set with value ', position);
+};
+
 export const setOscillatorVolume = (value: number, oscillatorId: OscillatorId, dispatch: DispatchFunction) => {
     switch (oscillatorId) {
         case 'osc1':

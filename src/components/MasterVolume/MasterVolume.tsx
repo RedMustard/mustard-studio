@@ -10,7 +10,7 @@ interface MasterVolumeProps {
 
 export const MasterVolume = ({ audioContext }: MasterVolumeProps) => {
     const [studioService, dispatch] = useContext(StudioServiceContext);
-    const masterVolume = studioService.volume.master;
+    const masterVolume = studioService.settings.master.volume;
     let masterGainNode = studioService.gainNodes.master;
 
     useEffect(() => {

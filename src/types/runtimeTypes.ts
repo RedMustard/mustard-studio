@@ -11,4 +11,5 @@ export const OscillatorTypes = Object.values(OscillatorTypeEnum) as OscillatorTy
 export enum ValueUnitEnum {
     PERCENT = 'percent',
     CENT = 'cent',
+    PAN = 'pan',
 }

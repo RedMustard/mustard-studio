@@ -12,20 +12,18 @@ const audioContext = new wamock.AudioContext();
 
 jest.mock('../../lib/studioService/studioServiceActions');
 
+const baseProps = {
+    audioContext,
+    oscillatorId: 'osc1' as OscillatorId,
+};
 
 describe('<Oscillator />', () => {
-    const baseProps = {
-        audioContext,
-        oscillatorId: 'osc1' as OscillatorId,
-    };
-
     it('renders with basic props', () => {
         const wrapper = shallow(
             <Oscillator
                 {...baseProps}
             />,
         );
-
         expect(toJson(wrapper)).toMatchSnapshot();
     });
 
@@ -35,7 +33,6 @@ describe('<Oscillator />', () => {
                 {...baseProps}
             />,
         );
-
         wrapper.find('.checkbox__input').simulate('input');
         expect(setOscillatorEnabled).toBeCalled();
     });
@@ -46,7 +43,6 @@ describe('<Oscillator />', () => {
                 {...baseProps}
             />,
         );
-
         wrapper.find('.oscillator__wave-type').simulate('input');
         expect(setOscillatorType).toBeCalled();
     });

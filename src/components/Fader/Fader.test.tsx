@@ -5,17 +5,17 @@ import { Fader } from './Fader';
 import { ValueUnitEnum } from '../../types/runtimeTypes';
 
 
-describe('<FaderKey />', () => {
-    const baseProps = {
-        classSuffix: 'foo',
-        maxValue: 1,
-        minValue: 0,
-        onInput: jest.fn(),
-        stepResolution: 0.1,
-        value: 0.5,
-        valueUnit: ValueUnitEnum.CENT,
-    };
+const baseProps = {
+    classSuffix: 'foo',
+    maxValue: 1,
+    minValue: 0,
+    onInput: jest.fn(),
+    stepResolution: 0.1,
+    value: 0.5,
+    valueUnit: ValueUnitEnum.CENT,
+};
 
+describe('<FaderKey />', () => {
     it('renders with basic props', () => {
         const wrapper = shallow(
             <Fader
