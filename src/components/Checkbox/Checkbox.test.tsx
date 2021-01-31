@@ -4,19 +4,18 @@ import toJson from 'enzyme-to-json';
 import { Checkbox } from './Checkbox';
 
 
-describe('<Checkbox />', () => {
-    const baseProps = {
-        isChecked: false,
-        onInput: jest.fn(),
-    };
+const baseProps = {
+    isChecked: false,
+    onInput: jest.fn(),
+};
 
+describe('<Checkbox />', () => {
     it('renders with basic props', () => {
         const wrapper = shallow(
             <Checkbox
                 {...baseProps}
             />,
         );
-
         expect(toJson(wrapper)).toMatchSnapshot();
     });
 
@@ -27,7 +26,6 @@ describe('<Checkbox />', () => {
                 isChecked
             />,
         );
-
         expect(toJson(wrapper)).toMatchSnapshot();
     });
 
@@ -37,9 +35,7 @@ describe('<Checkbox />', () => {
                 {...baseProps}
             />,
         );
-
         wrapper.find('.checkbox__input').simulate('input');
-
         expect(baseProps.onInput).toBeCalled();
     });
 });

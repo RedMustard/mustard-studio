@@ -5,17 +5,17 @@ import { Fader } from './Fader';
 import { ValueUnitEnum } from '../../types/runtimeTypes';
 
 
-describe('<FaderKey />', () => {
-    const baseProps = {
-        classSuffix: 'foo',
-        maxValue: 1,
-        minValue: 0,
-        onInput: jest.fn(),
-        stepResolution: 0.1,
-        value: 0.5,
-        valueUnit: ValueUnitEnum.CENT,
-    };
+const baseProps = {
+    classSuffix: 'foo',
+    maxValue: 1,
+    minValue: 0,
+    onInput: jest.fn(),
+    stepResolution: 0.1,
+    value: 0.5,
+    valueUnit: ValueUnitEnum.CENT,
+};
 
+describe('<FaderKey />', () => {
     it('renders with basic props', () => {
         const wrapper = shallow(
             <Fader
@@ -43,6 +43,28 @@ describe('<FaderKey />', () => {
         );
         wrapper.find('input').simulate('mousedown');
         wrapper.find('input').simulate('mouseup');
+        expect(toJson(wrapper)).toMatchSnapshot();
+    });
+
+    it('renders with PERCENT valueUnit', () => {
+        const wrapper = shallow(
+            <Fader
+                {...baseProps}
+                valueUnit={ValueUnitEnum.PERCENT}
+            />,
+        );
+        wrapper.find('input').simulate('mousedown');
+        expect(toJson(wrapper)).toMatchSnapshot();
+    });
+
+    it('renders with PAN valueUnit onMouseDown', () => {
+        const wrapper = shallow(
+            <Fader
+                {...baseProps}
+                valueUnit={ValueUnitEnum.PAN}
+            />,
+        );
+        wrapper.find('input').simulate('mousedown');
         expect(toJson(wrapper)).toMatchSnapshot();
     });
 

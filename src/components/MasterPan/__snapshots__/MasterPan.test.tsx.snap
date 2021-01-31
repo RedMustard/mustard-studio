@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<MasterPan /> renders with basic props 1`] = `
+<div
+  className="master-pan"
+>
+  M Pan:  
+  <Fader
+    classSuffix="master-pan"
+    maxValue={1}
+    minValue={-1}
+    onInput={[Function]}
+    stepResolution={0.01}
+    value={0}
+    valueUnit="pan"
+  />
+</div>
+`;

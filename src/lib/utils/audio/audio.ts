@@ -6,3 +6,4 @@ export const getNoteFrequencyByKeyNumber = (keyNumber: number) => {
     const roundedFrequency = Math.round(getFrequencyEquation() * 10000) / 10000;
     return roundedFrequency;
 };
+

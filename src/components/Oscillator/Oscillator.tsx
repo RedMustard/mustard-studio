@@ -16,9 +16,9 @@ interface OscillatorProps {
 
 export const Oscillator = ({ audioContext, oscillatorId }: OscillatorProps) => {
     const [studioService, dispatch] = useContext(StudioServiceContext);
-    const oscillator = studioService.oscillatorNodes[oscillatorId];
-    const oscillatorType = oscillator.type;
-    const oscillatorEnabled = oscillator.enabled;
+    const oscillatorSettings = studioService.settings[oscillatorId];
+    const oscillatorType = oscillatorSettings.type;
+    const oscillatorEnabled = oscillatorSettings.enabled;
 
     return (
         <div className="oscillator">

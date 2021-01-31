@@ -4,21 +4,20 @@ import toJson from 'enzyme-to-json';
 import { BlackKey } from './BlackKey';
 
 
-describe('<BlackKey />', () => {
-    const baseProps = {
-        onMouseDown: jest.fn(),
-        onMouseUp: jest.fn(),
-        onMouseOver: jest.fn(),
-        onMouseLeave: jest.fn(),
-    };
+const baseProps = {
+    onMouseDown: jest.fn(),
+    onMouseUp: jest.fn(),
+    onMouseOver: jest.fn(),
+    onMouseLeave: jest.fn(),
+};
 
+describe('<BlackKey />', () => {
     it('renders with basic props', () => {
         const wrapper = shallow(
             <BlackKey
                 {...baseProps}
             />,
         );
-
         expect(toJson(wrapper)).toMatchSnapshot();
     });
 
@@ -28,7 +27,6 @@ describe('<BlackKey />', () => {
                 {...baseProps}
             />,
         );
-
         wrapper.find('div').simulate('mousedown');
         expect(baseProps.onMouseDown).toBeCalled();
     });
@@ -39,7 +37,6 @@ describe('<BlackKey />', () => {
                 {...baseProps}
             />,
         );
-
         wrapper.find('div').simulate('mouseup');
         expect(baseProps.onMouseUp).toBeCalled();
     });
@@ -50,7 +47,6 @@ describe('<BlackKey />', () => {
                 {...baseProps}
             />,
         );
-
         wrapper.find('div').simulate('mouseover');
         expect(baseProps.onMouseDown).toBeCalled();
     });
@@ -61,7 +57,6 @@ describe('<BlackKey />', () => {
                 {...baseProps}
             />,
         );
-
         wrapper.find('div').simulate('mouseleave');
         expect(baseProps.onMouseDown).toBeCalled();
     });

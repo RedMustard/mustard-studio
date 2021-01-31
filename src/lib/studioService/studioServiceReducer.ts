@@ -5,27 +5,12 @@ export const studioServiceReducer = (state: StudioService, action: StudioService
         case 'SET_MASTER_VOLUME':
             return {
                 ...state,
-                volume: {
-                    ...state.volume,
-                    master: action.payload,
-                },
-            };
-
-        case 'SET_OSC_1_VOLUME':
-            return {
-                ...state,
-                volume: {
-                    ...state.volume,
-                    osc1: action.payload,
-                },
-            };
-
-        case 'SET_OSC_2_VOLUME':
-            return {
-                ...state,
-                volume: {
-                    ...state.volume,
-                    osc2: action.payload,
+                settings: {
+                    ...state.settings,
+                    master: {
+                        ...state.settings.master,
+                        volume: action.payload,
+                    },
                 },
             };
 
@@ -35,6 +20,51 @@ export const studioServiceReducer = (state: StudioService, action: StudioService
                 gainNodes: {
                     ...state.gainNodes,
                     master: action.payload,
+                },
+            };
+
+        case 'SET_MASTER_PAN_NODE':
+            return {
+                ...state,
+                panNodes: {
+                    ...state.panNodes,
+                    master: action.payload,
+                },
+            };
+
+        case 'SET_MASTER_PAN_POSITION':
+            return {
+                ...state,
+                settings: {
+                    ...state.settings,
+                    master: {
+                        ...state.settings.master,
+                        pan: action.payload,
+                    },
+                },
+            };
+
+        case 'SET_OSC_1_VOLUME':
+            return {
+                ...state,
+                settings: {
+                    ...state.settings,
+                    osc1: {
+                        ...state.settings.osc1,
+                        volume: action.payload,
+                    },
+                },
+            };
+
+        case 'SET_OSC_2_VOLUME':
+            return {
+                ...state,
+                settings: {
+                    ...state.settings,
+                    osc2: {
+                        ...state.settings.osc2,
+                        volume: action.payload,
+                    },
                 },
             };
 
@@ -59,10 +89,10 @@ export const studioServiceReducer = (state: StudioService, action: StudioService
         case 'SET_OSC_1_ENABLED':
             return {
                 ...state,
-                oscillatorNodes: {
-                    ...state.oscillatorNodes,
+                settings: {
+                    ...state.settings,
                     osc1: {
-                        ...state.oscillatorNodes.osc1,
+                        ...state.settings.osc1,
                         enabled: action.payload,
                     },
                 },
@@ -71,10 +101,10 @@ export const studioServiceReducer = (state: StudioService, action: StudioService
         case 'SET_OSC_2_ENABLED':
             return {
                 ...state,
-                oscillatorNodes: {
-                    ...state.oscillatorNodes,
+                settings: {
+                    ...state.settings,
                     osc2: {
-                        ...state.oscillatorNodes.osc2,
+                        ...state.settings.osc2,
                         enabled: action.payload,
                     },
                 },
@@ -83,10 +113,10 @@ export const studioServiceReducer = (state: StudioService, action: StudioService
         case 'SET_OSC_1_TYPE':
             return {
                 ...state,
-                oscillatorNodes: {
-                    ...state.oscillatorNodes,
+                settings: {
+                    ...state.settings,
                     osc1: {
-                        ...state.oscillatorNodes.osc1,
+                        ...state.settings.osc1,
                         type: action.payload,
                     },
                 },
@@ -95,10 +125,10 @@ export const studioServiceReducer = (state: StudioService, action: StudioService
         case 'SET_OSC_2_TYPE':
             return {
                 ...state,
-                oscillatorNodes: {
-                    ...state.oscillatorNodes,
+                settings: {
+                    ...state.settings,
                     osc2: {
-                        ...state.oscillatorNodes.osc2,
+                        ...state.settings.osc2,
                         type: action.payload,
                     },
                 },
@@ -107,10 +137,10 @@ export const studioServiceReducer = (state: StudioService, action: StudioService
         case 'SET_OSC_1_DETUNE':
             return {
                 ...state,
-                oscillatorNodes: {
-                    ...state.oscillatorNodes,
+                settings: {
+                    ...state.settings,
                     osc1: {
-                        ...state.oscillatorNodes.osc1,
+                        ...state.settings.osc1,
                         detune: action.payload,
                     },
                 },
@@ -119,10 +149,10 @@ export const studioServiceReducer = (state: StudioService, action: StudioService
         case 'SET_OSC_2_DETUNE':
             return {
                 ...state,
-                oscillatorNodes: {
-                    ...state.oscillatorNodes,
+                settings: {
+                    ...state.settings,
                     osc2: {
-                        ...state.oscillatorNodes.osc2,
+                        ...state.settings.osc2,
                         detune: action.payload,
                     },
                 },

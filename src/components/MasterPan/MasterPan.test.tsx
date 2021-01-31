@@ -1,8 +1,8 @@
 import { h } from 'preact';
 import { mount, shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
-import { MasterVolume } from './MasterVolume';
-import { setMasterGainNode, setMasterVolume } from '../../lib/studioService/studioServiceActions';
+import { MasterPan } from './MasterPan';
+import { setMasterPanPosition, setMasterPanNode } from '../../lib/studioService/studioServiceActions';
 import { getInitialState, StudioServiceContext } from '../../lib/studioService/StudioServiceStore';
 
 
@@ -14,7 +14,13 @@ const audioContext = new wamock.AudioContext();
 const baseProps = {
     audioContext,
 };
+const mockPanNode = {
+    pan: {
+        value: 1.0,
+    },
+};
 const mockGainNode = {
+    connect: jest.fn().mockReturnThis(),
     gain: {
         value: 1.0,
     },
@@ -23,51 +29,55 @@ const initialState = {
     ...getInitialState(),
     settings: {
         master: {
-            volume: 0.25,
+            pan: 0.5,
         },
+    },
+    panNodes: {
+        master: mockPanNode,
     },
     gainNodes: {
         master: mockGainNode,
     },
 };
 
-describe('<MasterVolume />', () => {
+describe('<MasterPan />', () => {
     it('renders with basic props', () => {
         const wrapper = shallow(
-            <MasterVolume
+            <MasterPan
                 {...baseProps}
             />,
         );
         expect(toJson(wrapper)).toMatchSnapshot();
     });
 
-    it('calls setMasterVolume when volume changed', () => {
+    it('calls setMasterPanNode if masterPanNode does not exist', () => {
+        shallow(
+            <MasterPan
+                {...baseProps}
+            />,
+        );
+        expect(setMasterPanNode).toBeCalled();
+    });
+
+    it('calls setMasterPanPosition when pan changed', () => {
         const wrapper = mount(
-            <MasterVolume
+            <MasterPan
                 {...baseProps}
             />,
         );
         wrapper.find('input').simulate('input');
-        expect(setMasterVolume).toBeCalled();
+        expect(setMasterPanPosition).toBeCalled();
     });
 
-    it('calls setMasterGainNode when masterGainNode undefined', () => {
-        shallow(
-            <MasterVolume
-                {...baseProps}
-            />,
-        );
-        expect(setMasterGainNode).toBeCalled();
-    });
-
-    it('sets masterGainNode.gain.value when masterGainNode exists', () => {
+    it('sets mockPanNode.pan.value and connects to master gain node if masterPanNode exists', () => {
         mount(
             <StudioServiceContext.Provider value={[initialState, jest.fn()]}>
-                <MasterVolume
+                <MasterPan
                     {...baseProps}
                 />
             </StudioServiceContext.Provider>,
         );
-        expect(mockGainNode.gain.value).toBe(initialState.settings.master.volume);
+        expect(mockGainNode.connect).toBeCalled();
+        expect(mockPanNode.pan.value).toBe(initialState.settings.master.pan);
     });
 });

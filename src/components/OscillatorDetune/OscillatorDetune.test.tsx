@@ -6,19 +6,17 @@ import { setOscillatorDetune } from '../../lib/studioService/studioServiceAction
 import { OscillatorId } from '../../types/types';
 
 
+jest.mock('../../lib/studioService/studioServiceActions');
+
 // eslint-disable-next-line import/newline-after-import
 const wamock = require('web-audio-mock-api');
 const audioContext = new wamock.AudioContext();
-
-jest.mock('../../lib/studioService/studioServiceActions');
-
+const baseProps = {
+    audioContext,
+    oscillatorId: 'osc1' as OscillatorId,
+};
 
 describe('<OscillatorDetune />', () => {
-    const baseProps = {
-        audioContext,
-        oscillatorId: 'osc1' as OscillatorId,
-    };
-
     it('renders with basic props', () => {
         const wrapper = shallow(
             <OscillatorDetune

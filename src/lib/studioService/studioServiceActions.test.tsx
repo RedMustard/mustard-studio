@@ -7,6 +7,8 @@ import {
     setOscillatorVolume,
     setOscillatorGainNode,
     setOscillatorDetune,
+    setMasterPanNode,
+    setMasterPanPosition,
 } from './studioServiceActions';
 
 
@@ -20,13 +22,32 @@ describe('setMasterVolume', () => {
     });
 });
 
-
 describe('setMasterGainNode', () => {
     it('calls dispatch', () => {
         const dispatch = jest.fn();
         const gainNode: GainNode = undefined;
 
         setMasterGainNode(gainNode, dispatch);
+        expect(dispatch).toBeCalled();
+    });
+});
+
+describe('setMasterPanNode', () => {
+    it('calls dispatch', () => {
+        const dispatch = jest.fn();
+        const panNode: StereoPannerNode = undefined;
+
+        setMasterPanNode(panNode, dispatch);
+        expect(dispatch).toBeCalled();
+    });
+});
+
+describe('setMasterPanPosition', () => {
+    it('calls dispatch', () => {
+        const dispatch = jest.fn();
+        const panPosition: number = 0.5;
+
+        setMasterPanPosition(panPosition, dispatch);
         expect(dispatch).toBeCalled();
     });
 });

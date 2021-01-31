@@ -4,13 +4,13 @@ import toJson from 'enzyme-to-json';
 import { VolumeFader } from './VolumeFader';
 
 
-describe('<VolumeFader />', () => {
-    const baseProps = {
-        value: 1.0,
-        onInput: jest.fn(),
-        classSuffix: 'foo',
-    };
+const baseProps = {
+    value: 1.0,
+    onInput: jest.fn(),
+    classSuffix: 'foo',
+};
 
+describe('<VolumeFader />', () => {
     it('renders with basic props', () => {
         const wrapper = shallow(
             <VolumeFader

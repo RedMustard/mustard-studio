@@ -10,22 +10,30 @@ exports[`<StudioServiceStore /> renders with basic props 1`] = `
           "osc1": undefined,
           "osc2": undefined,
         },
-        "oscillatorNodes": Object {
+        "panNodes": Object {
+          "master": undefined,
+          "osc1": undefined,
+          "osc2": undefined,
+        },
+        "settings": Object {
+          "master": Object {
+            "pan": 0,
+            "volume": 0.1,
+          },
           "osc1": Object {
             "detune": 0,
             "enabled": true,
+            "pan": 0,
             "type": "sine",
+            "volume": 0.5,
           },
           "osc2": Object {
             "detune": 0,
             "enabled": true,
+            "pan": 0,
             "type": "sine",
+            "volume": 0.5,
           },
-        },
-        "volume": Object {
-          "master": 0.1,
-          "osc1": 0.5,
-          "osc2": 0.5,
         },
       },
       [Function],
