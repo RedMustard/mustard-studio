@@ -171,7 +171,7 @@ describe('studioServiceReducer', () => {
             settings: {
                 ...initialState.settings,
                 osc2: {
-                    ...initialState.settings.osc1,
+                    ...initialState.settings.osc2,
                     enabled: true,
                 },
             },
@@ -207,7 +207,7 @@ describe('studioServiceReducer', () => {
             settings: {
                 ...initialState.settings,
                 osc2: {
-                    ...initialState.settings.osc1,
+                    ...initialState.settings.osc2,
                     type: 'square',
                 },
             },
@@ -243,7 +243,7 @@ describe('studioServiceReducer', () => {
             settings: {
                 ...initialState.settings,
                 osc2: {
-                    ...initialState.settings.osc1,
+                    ...initialState.settings.osc2,
                     detune: 400,
                 },
             },
