@@ -6,3 +6,9 @@ export enum OscillatorTypeEnum {
     CUSTOM = 'custom',
 }
 export const OscillatorTypes = Object.values(OscillatorTypeEnum) as OscillatorType[];
+
+
+export enum ValueUnitEnum {
+    PERCENT = 'percent',
+    CENT = 'cent',
+}

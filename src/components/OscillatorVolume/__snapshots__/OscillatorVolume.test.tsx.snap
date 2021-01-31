@@ -6,7 +6,7 @@ exports[`<OscillatorVolume /> renders with basic props 1`] = `
 >
   Vol:  
   <VolumeFader
-    classSuffix="oscillator"
+    classSuffix="oscillator-volume"
     onInput={[Function]}
     value={0.5}
   />

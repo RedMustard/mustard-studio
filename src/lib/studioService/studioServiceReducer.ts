@@ -104,6 +104,30 @@ export const studioServiceReducer = (state: StudioService, action: StudioService
                 },
             };
 
+        case 'SET_OSC_1_DETUNE':
+            return {
+                ...state,
+                oscillatorNodes: {
+                    ...state.oscillatorNodes,
+                    osc1: {
+                        ...state.oscillatorNodes.osc1,
+                        detune: action.payload,
+                    },
+                },
+            };
+
+        case 'SET_OSC_2_DETUNE':
+            return {
+                ...state,
+                oscillatorNodes: {
+                    ...state.oscillatorNodes,
+                    osc2: {
+                        ...state.oscillatorNodes.osc2,
+                        detune: action.payload,
+                    },
+                },
+            };
+
         default:
             return state;
     }

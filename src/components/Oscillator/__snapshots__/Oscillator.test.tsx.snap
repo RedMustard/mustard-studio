@@ -72,6 +72,9 @@ exports[`<Oscillator /> renders with basic props 1`] = `
       }
       oscillatorId="osc1"
     />
+    <OscillatorDetune
+      oscillatorId="osc1"
+    />
   </div>
 </div>
 `;

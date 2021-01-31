@@ -178,6 +178,42 @@ describe('studioServiceReducer', () => {
         expect(studioServiceReducer(initialState, action)).toEqual(modifiedState);
     });
 
+    it('SET_OSC_1_DETUNE', () => {
+        modifiedState = {
+            ...initialState,
+            oscillatorNodes: {
+                ...initialState.oscillatorNodes,
+                osc1: {
+                    ...initialState.oscillatorNodes.osc1,
+                    detune: 400,
+                },
+            },
+        };
+        action = {
+            type: 'SET_OSC_1_DETUNE',
+            payload: 400,
+        };
+        expect(studioServiceReducer(initialState, action)).toEqual(modifiedState);
+    });
+
+    it('SET_OSC_2_DETUNE', () => {
+        modifiedState = {
+            ...initialState,
+            oscillatorNodes: {
+                ...initialState.oscillatorNodes,
+                osc2: {
+                    ...initialState.oscillatorNodes.osc2,
+                    detune: 400,
+                },
+            },
+        };
+        action = {
+            type: 'SET_OSC_2_DETUNE',
+            payload: 400,
+        };
+        expect(studioServiceReducer(initialState, action)).toEqual(modifiedState);
+    });
+
     it('returns same state with invalid action', () => {
         action = {
             // @ts-expect-error

@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<DetuneFader /> renders with basic props 1`] = `
+<Fader
+  classSuffix="foo"
+  maxValue={1200}
+  minValue={-1200}
+  onInput={[MockFunction]}
+  stepResolution={100}
+  value={1}
+  valueUnit="cent"
+/>
+`;

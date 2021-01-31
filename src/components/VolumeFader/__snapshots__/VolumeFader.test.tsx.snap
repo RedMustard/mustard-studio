@@ -1,57 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<VolumeFader /> renders with basic props 1`] = `
-Array [
-  <input
-    className="volume-fader "
-    list="volumes"
-    max={1}
-    min={0}
-    name="volume"
-    onInput={[Function]}
-    step={0.01}
-    type="range"
-    value={1}
-  />,
-  <datalist
-    id="volumes"
-  >
-    <option
-      label="Mute"
-      value={0}
-    />
-    <option
-      label="100%"
-      value={1}
-    />
-  </datalist>,
-]
-`;
-
-exports[`<VolumeFader /> renders with custom class suffix 1`] = `
-Array [
-  <input
-    className="volume-fader foo-volume-fader"
-    list="volumes"
-    max={1}
-    min={0}
-    name="foo-volume"
-    onInput={[Function]}
-    step={0.01}
-    type="range"
-    value={1}
-  />,
-  <datalist
-    id="volumes"
-  >
-    <option
-      label="Mute"
-      value={0}
-    />
-    <option
-      label="100%"
-      value={1}
-    />
-  </datalist>,
-]
+<Fader
+  classSuffix="foo"
+  maxValue={1}
+  minValue={0}
+  onInput={[MockFunction]}
+  stepResolution={0.01}
+  value={1}
+  valueUnit="percent"
+/>
 `;
