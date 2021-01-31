@@ -46,6 +46,28 @@ describe('<FaderKey />', () => {
         expect(toJson(wrapper)).toMatchSnapshot();
     });
 
+    it('renders with PERCENT valueUnit', () => {
+        const wrapper = shallow(
+            <Fader
+                {...baseProps}
+                valueUnit={ValueUnitEnum.PERCENT}
+            />,
+        );
+        wrapper.find('input').simulate('mousedown');
+        expect(toJson(wrapper)).toMatchSnapshot();
+    });
+
+    it('renders with PAN valueUnit onMouseDown', () => {
+        const wrapper = shallow(
+            <Fader
+                {...baseProps}
+                valueUnit={ValueUnitEnum.PAN}
+            />,
+        );
+        wrapper.find('input').simulate('mousedown');
+        expect(toJson(wrapper)).toMatchSnapshot();
+    });
+
     it('fires onInput', () => {
         const wrapper = mount(
             <Fader

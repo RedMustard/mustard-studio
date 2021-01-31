@@ -1,5 +1,79 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`<FaderKey /> renders with PAN valueUnit onMouseDown 1`] = `
+<div
+  className="fader  foo__fader"
+>
+  <span
+    className="fader__value"
+  >
+    5
+  </span>
+  <input
+    list="foo-fader"
+    max={1}
+    min={0}
+    name="foo-fader"
+    onInput={[Function]}
+    onMouseDown={[Function]}
+    onMouseUp={[Function]}
+    step={0.1}
+    title="5"
+    type="range"
+    value={0.5}
+  />
+  <datalist
+    id="foo-fader"
+  >
+    <option
+      label="Mute"
+      value={1}
+    />
+    <option
+      label="100%"
+      value={0}
+    />
+  </datalist>
+</div>
+`;
+
+exports[`<FaderKey /> renders with PERCENT valueUnit 1`] = `
+<div
+  className="fader  foo__fader"
+>
+  <span
+    className="fader__value"
+  >
+    50%
+  </span>
+  <input
+    list="foo-fader"
+    max={1}
+    min={0}
+    name="foo-fader"
+    onInput={[Function]}
+    onMouseDown={[Function]}
+    onMouseUp={[Function]}
+    step={0.1}
+    title="50%"
+    type="range"
+    value={0.5}
+  />
+  <datalist
+    id="foo-fader"
+  >
+    <option
+      label="Mute"
+      value={1}
+    />
+    <option
+      label="100%"
+      value={0}
+    />
+  </datalist>
+</div>
+`;
+
 exports[`<FaderKey /> renders with basic props 1`] = `
 <div
   className="fader  foo__fader"
