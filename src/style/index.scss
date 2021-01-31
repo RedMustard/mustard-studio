@@ -23,12 +23,13 @@ body {
 @import '../components/header/style.scss';
 @import '../routes/studio/style.scss';
 @import '../routes/notfound/style.scss';
-@import '../components/Keyboard/Keyboard.scss';
 @import '../components/Fader/Fader.scss';
+@import '../components/Checkbox/Checkbox.scss';
+@import '../components/Keyboard/Keyboard.scss';
 @import '../components/VolumeFader/VolumeFader.scss';
 @import '../components/MasterVolume/MasterVolume.scss';
 @import '../components/MasterPan/MasterPan.scss';
+@import '../components/Oscillator/Oscillator.scss';
 @import '../components/OscillatorVolume/OscillatorVolume.scss';
 @import '../components/OscillatorDetune/OscillatorDetune.scss';
-@import '../components/Oscillator/Oscillator.scss';
-@import '../components/Checkbox/Checkbox.scss';
+@import '../components/OscillatorPan/OscillatorPan.scss';

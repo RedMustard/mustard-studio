@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<OscillatorPan /> renders with basic props 1`] = `
+<div
+  className="oscillator-pan"
+>
+  Pan:  
+  <Fader
+    classSuffix="oscillator-pan"
+    maxValue={1}
+    minValue={-1}
+    onInput={[Function]}
+    stepResolution={0.01}
+    value={0}
+    valueUnit="pan"
+  />
+</div>
+`;

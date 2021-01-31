@@ -36,6 +36,9 @@ const initialState = {
 };
 
 describe('<OscillatorVolume />', () => {
+    beforeEach(() => {
+        jest.spyOn(audioContext, 'createGain').mockImplementation(() => mockGainNode);
+    });
     it('renders with basic props', () => {
         const wrapper = shallow(
             <OscillatorVolume
@@ -63,6 +66,7 @@ describe('<OscillatorVolume />', () => {
                 {...baseProps}
             />,
         );
+        expect(audioContext.createGain).toBeCalled();
         expect(setOscillatorGainNode).toBeCalled();
     });
 

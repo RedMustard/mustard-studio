@@ -52,7 +52,11 @@ export type StudioServiceActionType =
     'SET_OSC_1_TYPE' |
     'SET_OSC_2_TYPE' |
     'SET_OSC_1_DETUNE' |
-    'SET_OSC_2_DETUNE';
+    'SET_OSC_2_DETUNE' |
+    'SET_OSC_1_PAN_NODE' |
+    'SET_OSC_2_PAN_NODE' |
+    'SET_OSC_1_PAN_POSITION' |
+    'SET_OSC_2_PAN_POSITION';
 
 export type StudioServiceAction = {
     type: StudioServiceActionType;

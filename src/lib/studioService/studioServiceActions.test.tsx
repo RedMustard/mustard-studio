@@ -9,8 +9,14 @@ import {
     setOscillatorDetune,
     setMasterPanNode,
     setMasterPanPosition,
+    setOscillatorPanNode,
+    setOscillatorPanPosition,
 } from './studioServiceActions';
 
+
+// eslint-disable-next-line import/newline-after-import
+const wamock = require('web-audio-mock-api');
+const audioContext = new wamock.AudioContext();
 
 describe('setMasterVolume', () => {
     it('calls dispatch', () => {
@@ -25,7 +31,7 @@ describe('setMasterVolume', () => {
 describe('setMasterGainNode', () => {
     it('calls dispatch', () => {
         const dispatch = jest.fn();
-        const gainNode: GainNode = undefined;
+        const gainNode: GainNode = audioContext.createGain();
 
         setMasterGainNode(gainNode, dispatch);
         expect(dispatch).toBeCalled();
@@ -35,7 +41,7 @@ describe('setMasterGainNode', () => {
 describe('setMasterPanNode', () => {
     it('calls dispatch', () => {
         const dispatch = jest.fn();
-        const panNode: StereoPannerNode = undefined;
+        const panNode: StereoPannerNode = audioContext.createStereoPanner();
 
         setMasterPanNode(panNode, dispatch);
         expect(dispatch).toBeCalled();
@@ -84,7 +90,7 @@ describe('setOscillatorVolume', () => {
 describe('setOscillatorGainNode', () => {
     it('calls dispatch for oscillator 1', () => {
         const dispatch = jest.fn();
-        const gainNode: GainNode = undefined;
+        const gainNode: GainNode = audioContext.createGain();
         const oscillatorId: OscillatorId = 'osc1';
 
         setOscillatorGainNode(gainNode, oscillatorId, dispatch);
@@ -92,7 +98,7 @@ describe('setOscillatorGainNode', () => {
     });
     it('calls dispatch for oscillator 2', () => {
         const dispatch = jest.fn();
-        const gainNode: GainNode = undefined;
+        const gainNode: GainNode = audioContext.createGain();
         const oscillatorId: OscillatorId = 'osc2';
 
         setOscillatorGainNode(gainNode, oscillatorId, dispatch);
@@ -100,7 +106,7 @@ describe('setOscillatorGainNode', () => {
     });
     it('does not call dispatch for unknown oscillatorId', () => {
         const dispatch = jest.fn();
-        const gainNode: GainNode = undefined;
+        const gainNode: GainNode = audioContext.createGain();
         const oscillatorId = 'foo' as OscillatorId;
 
         setOscillatorGainNode(gainNode, oscillatorId, dispatch);
@@ -194,6 +200,64 @@ describe('setOscillatorDetune', () => {
         const oscillatorId: OscillatorId = 'foo' as OscillatorId;
 
         setOscillatorDetune(detuneValue, oscillatorId, dispatch);
+        expect(dispatch).not.toBeCalled();
+    });
+});
+
+describe('setOscillatorPanNode', () => {
+    it('calls dispatch for osc1', () => {
+        const dispatch = jest.fn();
+        const panNode: StereoPannerNode = audioContext.createStereoPanner();
+        const oscillatorId: OscillatorId = 'osc1';
+
+        setOscillatorPanNode(panNode, oscillatorId, dispatch);
+        expect(dispatch).toBeCalled();
+    });
+
+    it('calls dispatch for osc2', () => {
+        const dispatch = jest.fn();
+        const panNode: StereoPannerNode = audioContext.createStereoPanner();
+        const oscillatorId: OscillatorId = 'osc2';
+
+        setOscillatorPanNode(panNode, oscillatorId, dispatch);
+        expect(dispatch).toBeCalled();
+    });
+
+    it('does not call dispatch for unknown oscillatorId', () => {
+        const dispatch = jest.fn();
+        const panNode: StereoPannerNode = audioContext.createStereoPanner();
+        const oscillatorId: OscillatorId = 'foo' as OscillatorId;
+
+        setOscillatorPanNode(panNode, oscillatorId, dispatch);
+        expect(dispatch).not.toBeCalled();
+    });
+});
+
+describe('setOscillatorPanPosition', () => {
+    it('calls dispatch for osc1', () => {
+        const dispatch = jest.fn();
+        const panPosition = 0.8;
+        const oscillatorId: OscillatorId = 'osc1';
+
+        setOscillatorPanPosition(panPosition, oscillatorId, dispatch);
+        expect(dispatch).toBeCalled();
+    });
+
+    it('calls dispatch for osc2', () => {
+        const dispatch = jest.fn();
+        const panPosition = 0.8;
+        const oscillatorId: OscillatorId = 'osc2';
+
+        setOscillatorPanPosition(panPosition, oscillatorId, dispatch);
+        expect(dispatch).toBeCalled();
+    });
+
+    it('does not call dispatch for unknown oscillatorId', () => {
+        const dispatch = jest.fn();
+        const panPosition = 0.8;
+        const oscillatorId: OscillatorId = 'foo' as OscillatorId;
+
+        setOscillatorPanPosition(panPosition, oscillatorId, dispatch);
         expect(dispatch).not.toBeCalled();
     });
 });
