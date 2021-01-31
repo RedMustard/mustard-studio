@@ -110,7 +110,6 @@ export const Keyboard = ({ audioContext }: KeyboardProps) => {
         />
     );
 
-    // Todo: test
     const getKeysByOctaveCount = (octaveCount: number, startingKey: number) => {
         const octaveKeyPattern: KeyboardKeyColor[] = ['white', 'black', 'white', 'black', 'white', 'white', 'black', 'white', 'black', 'white', 'black', 'white'];
         const keys: h.JSX.Element[] = [];

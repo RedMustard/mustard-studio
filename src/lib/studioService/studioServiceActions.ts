@@ -45,7 +45,7 @@ export const setOscillatorGainNode = (gainNode: GainNode, oscillatorId: Oscillat
             break;
         case 'osc2':
             dispatch({ type: 'SET_OSC_2_GAIN', payload: gainNode });
-            logger.info('Oscillator 1 gain node added', gainNode);
+            logger.info('Oscillator 2 gain node added', gainNode);
             break;
         default:
             logger.info('Unknown oscillatorId provided, no oscillator gain node set. Received: ', oscillatorId);
@@ -61,7 +61,7 @@ export const setOscillatorEnabled = (isEnabled: boolean, oscillatorId: Oscillato
             break;
         case 'osc2':
             dispatch({ type: 'SET_OSC_2_ENABLED', payload: isEnabled });
-            logger.info('Oscillator node 1 isEnabled: ', isEnabled);
+            logger.info('Oscillator node 2 isEnabled: ', isEnabled);
             break;
         default:
             logger.info('Unknown oscillatorId provided, no oscillator set. Received: ', oscillatorId);
@@ -80,6 +80,7 @@ export const setOscillatorType = (oscillatorType: OscillatorType, oscillatorId: 
             logger.info(`Oscillator node 2 type set to ${oscillatorType}`);
             break;
         default:
+            logger.info('Unknown oscillatorId provided, no oscillator type set. Received: ', oscillatorId);
             break;
     }
 };
@@ -95,6 +96,39 @@ export const setOscillatorDetune = (value: number, oscillatorId: OscillatorId, d
             logger.info(`Oscillator node 2 detune set to ${value}`);
             break;
         default:
+            logger.info('Unknown oscillatorId provided, no oscillator detune set. Received: ', oscillatorId);
+            break;
+    }
+};
+
+export const setOscillatorPanNode = (panNode: StereoPannerNode, oscillatorId: OscillatorId, dispatch: DispatchFunction) => {
+    switch (oscillatorId) {
+        case 'osc1':
+            dispatch({ type: 'SET_OSC_1_PAN_NODE', payload: panNode });
+            logger.info('Oscillator 1 pan node added', panNode);
+            break;
+        case 'osc2':
+            dispatch({ type: 'SET_OSC_2_PAN_NODE', payload: panNode });
+            logger.info('Oscillator 2 pan node added', panNode);
+            break;
+        default:
+            logger.info('Unknown oscillatorId provided, no oscillator pan node set. Received: ', oscillatorId);
+            break;
+    }
+};
+
+export const setOscillatorPanPosition = (position: number, oscillatorId: OscillatorId, dispatch: DispatchFunction) => {
+    switch (oscillatorId) {
+        case 'osc1':
+            dispatch({ type: 'SET_OSC_1_PAN_POSITION', payload: position });
+            logger.info('Oscillator 1 pan position set with value ', position);
+            break;
+        case 'osc2':
+            dispatch({ type: 'SET_OSC_2_PAN_POSITION', payload: position });
+            logger.info('Oscillator 2 pan position set with value ', position);
+            break;
+        default:
+            logger.info('Unknown oscillatorId provided, no oscillator pan node set. Received: ', oscillatorId);
             break;
     }
 };

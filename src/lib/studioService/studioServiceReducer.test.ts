@@ -255,6 +255,72 @@ describe('studioServiceReducer', () => {
         expect(studioServiceReducer(initialState, action)).toEqual(modifiedState);
     });
 
+    it('SET_OSC_1_PAN_NODE', () => {
+        modifiedState = {
+            ...initialState,
+            panNodes: {
+                ...initialState.panNodes,
+                osc1: audioContext.createStereoPanner(),
+            },
+        };
+        action = {
+            type: 'SET_OSC_1_PAN_NODE',
+            payload: audioContext.createStereoPanner(),
+        };
+        expect(studioServiceReducer(initialState, action)).toEqual(modifiedState);
+    });
+
+    it('SET_OSC_2_PAN_NODE', () => {
+        modifiedState = {
+            ...initialState,
+            panNodes: {
+                ...initialState.panNodes,
+                osc2: audioContext.createStereoPanner(),
+            },
+        };
+        action = {
+            type: 'SET_OSC_2_PAN_NODE',
+            payload: audioContext.createStereoPanner(),
+        };
+        expect(studioServiceReducer(initialState, action)).toEqual(modifiedState);
+    });
+
+    it('SET_OSC_1_PAN_POSITION', () => {
+        modifiedState = {
+            ...initialState,
+            settings: {
+                ...initialState.settings,
+                osc1: {
+                    ...initialState.settings.osc1,
+                    pan: 1.0,
+                },
+            },
+        };
+        action = {
+            type: 'SET_OSC_1_PAN_POSITION',
+            payload: 1.0,
+        };
+        expect(studioServiceReducer(initialState, action)).toEqual(modifiedState);
+    });
+
+    it('SET_OSC_2_PAN_POSITION', () => {
+        modifiedState = {
+            ...initialState,
+            settings: {
+                ...initialState.settings,
+                osc2: {
+                    ...initialState.settings.osc2,
+                    pan: 1.0,
+                },
+            },
+        };
+        action = {
+            type: 'SET_OSC_2_PAN_POSITION',
+            payload: 1.0,
+        };
+        expect(studioServiceReducer(initialState, action)).toEqual(modifiedState);
+    });
+
     it('returns same state with invalid action', () => {
         action = {
             // @ts-expect-error

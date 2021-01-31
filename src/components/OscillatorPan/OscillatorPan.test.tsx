@@ -1,9 +1,10 @@
 import { h } from 'preact';
 import { mount, shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
-import { MasterPan } from './MasterPan';
-import { setMasterPanPosition, setMasterPanNode } from '../../lib/studioService/studioServiceActions';
+import { OscillatorPan } from './OscillatorPan';
+import { setOscillatorPanPosition, setOscillatorPanNode } from '../../lib/studioService/studioServiceActions';
 import { getInitialState, StudioServiceContext } from '../../lib/studioService/StudioServiceStore';
+import { OscillatorId } from '../../types/types';
 
 
 jest.mock('../../lib/studioService/studioServiceActions');
@@ -13,6 +14,7 @@ const wamock = require('web-audio-mock-api');
 const audioContext = new wamock.AudioContext();
 const baseProps = {
     audioContext,
+    oscillatorId: 'osc1' as OscillatorId,
 };
 const mockPanNode = {
     connect: jest.fn().mockReturnThis(),
@@ -29,61 +31,62 @@ const mockGainNode = {
 const initialState = {
     ...getInitialState(),
     settings: {
-        master: {
+        osc1: {
             pan: 0.5,
         },
     },
     panNodes: {
-        master: mockPanNode,
+        osc1: mockPanNode,
     },
     gainNodes: {
-        master: mockGainNode,
+        osc1: mockGainNode,
     },
 };
 
-describe('<MasterPan />', () => {
+describe('<OscillatorPan />', () => {
     beforeEach(() => {
         jest.spyOn(audioContext, 'createStereoPanner').mockImplementation(() => mockPanNode);
     });
+
     it('renders with basic props', () => {
         const wrapper = shallow(
-            <MasterPan
+            <OscillatorPan
                 {...baseProps}
             />,
         );
         expect(toJson(wrapper)).toMatchSnapshot();
     });
 
-    it('calls setMasterPanNode if masterPanNode does not exist', () => {
+    it('calls setOscillatorPanNode if oscillatorPanNode does not exist', () => {
         shallow(
-            <MasterPan
+            <OscillatorPan
                 {...baseProps}
             />,
         );
         expect(audioContext.createStereoPanner).toBeCalled();
-        expect(setMasterPanNode).toBeCalled();
+        expect(setOscillatorPanNode).toBeCalled();
     });
 
-    it('calls setMasterPanPosition when pan changed', () => {
+    it('calls setOscillatorPanPosition when pan changed', () => {
         const wrapper = mount(
-            <MasterPan
+            <OscillatorPan
                 {...baseProps}
             />,
         );
         wrapper.find('input').simulate('input');
-        expect(setMasterPanPosition).toBeCalled();
+        expect(setOscillatorPanPosition).toBeCalled();
     });
 
-    it('sets mockPanNode.pan.value and connects to master gain node if masterPanNode exists', () => {
+    it('sets mockPanNode.pan.value, connects mockPanNode to master gain node if OscillatorPanNode exists', () => {
         mount(
             <StudioServiceContext.Provider value={[initialState, jest.fn()]}>
-                <MasterPan
+                <OscillatorPan
                     {...baseProps}
                 />
             </StudioServiceContext.Provider>,
         );
         expect(mockGainNode.connect).toBeCalled();
         expect(mockPanNode.connect).toBeCalled();
-        expect(mockPanNode.pan.value).toBe(initialState.settings.master.pan);
+        expect(mockPanNode.pan.value).toBe(initialState.settings.osc1.pan);
     });
 });

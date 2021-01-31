@@ -19,10 +19,10 @@ export const MasterPan = ({ audioContext }: MasterPanProps) => {
     useEffect(() => {
         if (!masterPanNode) {
             masterPanNode = audioContext.createStereoPanner();
-            masterPanNode.connect(audioContext.destination);
             setMasterPanNode(masterPanNode, dispatch);
         } else {
             masterPanNode.pan.value = masterPanPosition;
+            masterPanNode.connect(audioContext.destination);
             masterGainNode.connect(masterPanNode);
         }
     }, [masterPanNode, masterPanPosition, masterGainNode]);

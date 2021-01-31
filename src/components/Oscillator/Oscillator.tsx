@@ -6,6 +6,7 @@ import { OscillatorTypes } from '../../types/runtimeTypes';
 import { OscillatorId } from '../../types/types';
 import { Checkbox } from '../Checkbox/Checkbox';
 import { OscillatorDetune } from '../OscillatorDetune/OscillatorDetune';
+import { OscillatorPan } from '../OscillatorPan/OscillatorPan';
 import { OscillatorVolume } from '../OscillatorVolume/OscillatorVolume';
 
 
@@ -53,11 +54,16 @@ export const Oscillator = ({ audioContext, oscillatorId }: OscillatorProps) => {
                 </select>
 
                 <OscillatorVolume
-                    oscillatorId={oscillatorId}
                     audioContext={audioContext}
+                    oscillatorId={oscillatorId}
                 />
 
                 <OscillatorDetune
+                    oscillatorId={oscillatorId}
+                />
+
+                <OscillatorPan
+                    audioContext={audioContext}
                     oscillatorId={oscillatorId}
                 />
             </div>

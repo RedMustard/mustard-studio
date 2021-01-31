@@ -158,6 +158,48 @@ export const studioServiceReducer = (state: StudioService, action: StudioService
                 },
             };
 
+        case 'SET_OSC_1_PAN_NODE':
+            return {
+                ...state,
+                panNodes: {
+                    ...state.panNodes,
+                    osc1: action.payload,
+                },
+            };
+
+        case 'SET_OSC_2_PAN_NODE':
+            return {
+                ...state,
+                panNodes: {
+                    ...state.panNodes,
+                    osc2: action.payload,
+                },
+            };
+
+        case 'SET_OSC_1_PAN_POSITION':
+            return {
+                ...state,
+                settings: {
+                    ...state.settings,
+                    osc1: {
+                        ...state.settings.osc1,
+                        pan: action.payload,
+                    },
+                },
+            };
+
+        case 'SET_OSC_2_PAN_POSITION':
+            return {
+                ...state,
+                settings: {
+                    ...state.settings,
+                    osc2: {
+                        ...state.settings.osc2,
+                        pan: action.payload,
+                    },
+                },
+            };
+
         default:
             return state;
     }
