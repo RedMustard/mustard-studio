@@ -37,7 +37,7 @@ export const MasterPan = ({ audioContext }: MasterPanProps) => {
                 maxValue={MAX_PAN}
                 minValue={MIN_PAN}
                 stepResolution={PAN_STEPS}
-                valueUnit={ValueUnitEnum.PAN} // Todo: rename CENT
+                valueUnit={ValueUnitEnum.PAN}
             />
         </div>
     );

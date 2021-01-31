@@ -50,7 +50,7 @@ describe('<MasterPan />', () => {
         expect(toJson(wrapper)).toMatchSnapshot();
     });
 
-    it('renders with basic props', () => {
+    it('calls setMasterPanNode if masterPanNode does not exist', () => {
         shallow(
             <MasterPan
                 {...baseProps}
@@ -69,7 +69,7 @@ describe('<MasterPan />', () => {
         expect(setMasterPanPosition).toBeCalled();
     });
 
-    it('sets mockPanNode.pan.value and connects to master gain node', () => {
+    it('sets mockPanNode.pan.value and connects to master gain node if masterPanNode exists', () => {
         mount(
             <StudioServiceContext.Provider value={[initialState, jest.fn()]}>
                 <MasterPan

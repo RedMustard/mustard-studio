@@ -16,16 +16,17 @@ export const Keyboard = ({ audioContext }: KeyboardProps) => {
     let osc1: OscillatorNode;
     let osc2: OscillatorNode;
     const [studioService] = useContext(StudioServiceContext);
+    const { settings, gainNodes } = studioService;
 
-    const osc1GainNode = studioService.gainNodes.osc1;
-    const osc1Enabled = studioService.settings.osc1.enabled;
-    const osc1Type = studioService.settings.osc1.type;
-    const osc1Detune = studioService.settings.osc1.detune;
+    const osc1GainNode = gainNodes.osc1;
+    const osc1Enabled = settings.osc1.enabled;
+    const osc1Type = settings.osc1.type;
+    const osc1Detune = settings.osc1.detune;
 
-    const osc2GainNode = studioService.gainNodes.osc2;
-    const osc2Enabled = studioService.settings.osc2.enabled;
-    const osc2Type = studioService.settings.osc2.type;
-    const osc2Detune = studioService.settings.osc2.detune;
+    const osc2GainNode = gainNodes.osc2;
+    const osc2Enabled = settings.osc2.enabled;
+    const osc2Type = settings.osc2.type;
+    const osc2Detune = settings.osc2.detune;
 
     const handleOnMouseDownAndOver = (keyNumber: number) => {
         if (osc1Enabled) {

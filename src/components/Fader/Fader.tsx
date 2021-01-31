@@ -30,7 +30,7 @@ export const Fader = ({
             case ValueUnitEnum.PERCENT:
                 return `${Math.floor(value * 100)}%`;
             case ValueUnitEnum.PAN:
-                return `${Math.floor(value * 10)}`;
+                return Math.floor(value * 10);
             case ValueUnitEnum.CENT:
             default:
                 return value;

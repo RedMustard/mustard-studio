@@ -12,9 +12,10 @@ interface OscillatorVolumeProps {
 
 export const OscillatorVolume = ({ audioContext, oscillatorId }: OscillatorVolumeProps) => {
     const [studioService, dispatch] = useContext(StudioServiceContext);
-    const oscillatorVolume = studioService.settings[oscillatorId].volume;
-    const masterGainNode = studioService.gainNodes.master;
-    let oscillatorGainNode = studioService.gainNodes[oscillatorId];
+    const { settings, gainNodes } = studioService;
+    const oscillatorVolume = settings[oscillatorId].volume;
+    const masterGainNode = gainNodes.master;
+    let oscillatorGainNode = gainNodes[oscillatorId];
 
     useEffect(() => {
         if (!oscillatorGainNode) {

@@ -2,7 +2,7 @@ import { h } from 'preact';
 import { mount, shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import { OscillatorVolume } from './OscillatorVolume';
-import { setOscillatorVolume } from '../../lib/studioService/studioServiceActions';
+import { setOscillatorGainNode, setOscillatorVolume } from '../../lib/studioService/studioServiceActions';
 import { OscillatorId } from '../../types/types';
 import { getInitialState, StudioServiceContext } from '../../lib/studioService/StudioServiceStore';
 
@@ -45,7 +45,7 @@ describe('<OscillatorVolume />', () => {
         expect(toJson(wrapper)).toMatchSnapshot();
     });
 
-    it('sets oscillatorGainNode.gain.value and connects to master gain node', () => {
+    it('sets oscillatorGainNode.gain.value and calls connect when oscillatorGainNode exists', () => {
         mount(
             <StudioServiceContext.Provider value={[initialState, jest.fn()]}>
                 <OscillatorVolume
@@ -55,6 +55,15 @@ describe('<OscillatorVolume />', () => {
         );
         expect(mockGainNode.connect).toBeCalled();
         expect(mockGainNode.gain.value).toBe(initialState.settings.osc1.volume);
+    });
+
+    it('calls setOscillatorGainNode when oscillatorGainNode undefined', () => {
+        shallow(
+            <OscillatorVolume
+                {...baseProps}
+            />,
+        );
+        expect(setOscillatorGainNode).toBeCalled();
     });
 
     it('calls setOscillatorVolume when volume changed', () => {

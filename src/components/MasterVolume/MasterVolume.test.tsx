@@ -2,7 +2,7 @@ import { h } from 'preact';
 import { mount, shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import { MasterVolume } from './MasterVolume';
-import { setMasterVolume } from '../../lib/studioService/studioServiceActions';
+import { setMasterGainNode, setMasterVolume } from '../../lib/studioService/studioServiceActions';
 import { getInitialState, StudioServiceContext } from '../../lib/studioService/StudioServiceStore';
 
 
@@ -51,7 +51,16 @@ describe('<MasterVolume />', () => {
         expect(setMasterVolume).toBeCalled();
     });
 
-    it('sets masterGainNode.gain.value', () => {
+    it('calls setMasterGainNode when masterGainNode undefined', () => {
+        shallow(
+            <MasterVolume
+                {...baseProps}
+            />,
+        );
+        expect(setMasterGainNode).toBeCalled();
+    });
+
+    it('sets masterGainNode.gain.value when masterGainNode exists', () => {
         mount(
             <StudioServiceContext.Provider value={[initialState, jest.fn()]}>
                 <MasterVolume
