@@ -18,9 +18,10 @@ const Studio: FunctionalComponent = () => {
         <div class="studio">
             <Oscillator oscillatorId="osc1" audioContext={audioContext} />
             <Oscillator oscillatorId="osc2" audioContext={audioContext} />
+            <Oscillator oscillatorId="oscSub" audioContext={audioContext} />
             <MasterVolume audioContext={audioContext} />
             <MasterPan audioContext={audioContext} />
-            <Keyboard audioContext={audioContext} />
+            <Keyboard />
         </div>
     );
 };

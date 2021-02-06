@@ -19,6 +19,7 @@ module.exports = {
         'no-underscore-dangle': [0],
         'no-use-before-define': [0],
         'no-useless-escape': [1],
+        'no-prototype-builtins': [0],
         'import/prefer-default-export': [0],
         'react/jsx-indent': [0],
         'react/jsx-indent-props': [0],

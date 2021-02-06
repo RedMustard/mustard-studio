@@ -12,7 +12,7 @@ interface OscillatorDetuneProps {
 export const OscillatorDetune = ({ oscillatorId }: OscillatorDetuneProps) => {
     const [studioService, dispatch] = useContext(StudioServiceContext);
     const oscillatorNode = studioService.settings[oscillatorId];
-    const oscillatorDetune = oscillatorNode.detune;
+    const oscillatorDetune = oscillatorNode.detune; // fix
 
     return (
         <div className="oscillator-detune">

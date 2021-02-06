@@ -14,6 +14,7 @@ const initialState: StudioService = Object.freeze({
         osc1: {
             detune: 0,
             enabled: true,
+            octave: 0,
             pan: 0,
             type: 'sine',
             volume: 0.5,
@@ -21,6 +22,14 @@ const initialState: StudioService = Object.freeze({
         osc2: {
             detune: 0,
             enabled: true,
+            octave: 0,
+            pan: 0,
+            type: 'sine',
+            volume: 0.5,
+        },
+        oscSub: {
+            enabled: true,
+            octave: -1,
             pan: 0,
             type: 'sine',
             volume: 0.5,
@@ -30,11 +39,13 @@ const initialState: StudioService = Object.freeze({
         master: undefined,
         osc1: undefined,
         osc2: undefined,
+        oscSub: undefined,
     },
     panNodes: {
         master: undefined,
         osc1: undefined,
         osc2: undefined,
+        oscSub: undefined,
     },
 });
 

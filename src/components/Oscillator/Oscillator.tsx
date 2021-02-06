@@ -8,6 +8,7 @@ import { Checkbox } from '../Checkbox/Checkbox';
 import { OscillatorDetune } from '../OscillatorDetune/OscillatorDetune';
 import { OscillatorPan } from '../OscillatorPan/OscillatorPan';
 import { OscillatorVolume } from '../OscillatorVolume/OscillatorVolume';
+import { OscillatorOctave } from '../OscillatorOctave/OscillatorOctave';
 
 
 interface OscillatorProps {
@@ -58,12 +59,22 @@ export const Oscillator = ({ audioContext, oscillatorId }: OscillatorProps) => {
                     oscillatorId={oscillatorId}
                 />
 
-                <OscillatorDetune
-                    oscillatorId={oscillatorId}
-                />
+                {
+                    oscillatorSettings.hasOwnProperty('detune')
+                        ? (
+                            <OscillatorDetune
+                                oscillatorId={oscillatorId}
+                            />
+                        )
+                        : null
+                }
 
                 <OscillatorPan
                     audioContext={audioContext}
+                    oscillatorId={oscillatorId}
+                />
+
+                <OscillatorOctave
                     oscillatorId={oscillatorId}
                 />
             </div>

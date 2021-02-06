@@ -12,3 +12,8 @@ export const DETUNE_STEPS = 100;
 export const MAX_PAN = 1;
 export const MIN_PAN = -1;
 export const PAN_STEPS = 0.01;
+
+// Octave Number
+export const MAX_OCTAVE = 8;
+export const MIN_OCTAVE = -8;
+export const OCTAVE_STEPS = 1;

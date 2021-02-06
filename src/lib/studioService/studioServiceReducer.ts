@@ -68,6 +68,18 @@ export const studioServiceReducer = (state: StudioService, action: StudioService
                 },
             };
 
+        case 'SET_OSC_SUB_VOLUME':
+            return {
+                ...state,
+                settings: {
+                    ...state.settings,
+                    oscSub: {
+                        ...state.settings.oscSub,
+                        volume: action.payload,
+                    },
+                },
+            };
+
         case 'SET_OSC_1_GAIN':
             return {
                 ...state,
@@ -83,6 +95,15 @@ export const studioServiceReducer = (state: StudioService, action: StudioService
                 gainNodes: {
                     ...state.gainNodes,
                     osc2: action.payload,
+                },
+            };
+
+        case 'SET_OSC_SUB_GAIN':
+            return {
+                ...state,
+                gainNodes: {
+                    ...state.gainNodes,
+                    oscSub: action.payload,
                 },
             };
 
@@ -110,6 +131,18 @@ export const studioServiceReducer = (state: StudioService, action: StudioService
                 },
             };
 
+        case 'SET_OSC_SUB_ENABLED':
+            return {
+                ...state,
+                settings: {
+                    ...state.settings,
+                    oscSub: {
+                        ...state.settings.oscSub,
+                        enabled: action.payload,
+                    },
+                },
+            };
+
         case 'SET_OSC_1_TYPE':
             return {
                 ...state,
@@ -129,6 +162,18 @@ export const studioServiceReducer = (state: StudioService, action: StudioService
                     ...state.settings,
                     osc2: {
                         ...state.settings.osc2,
+                        type: action.payload,
+                    },
+                },
+            };
+
+        case 'SET_OSC_SUB_TYPE':
+            return {
+                ...state,
+                settings: {
+                    ...state.settings,
+                    oscSub: {
+                        ...state.settings.oscSub,
                         type: action.payload,
                     },
                 },
@@ -176,6 +221,15 @@ export const studioServiceReducer = (state: StudioService, action: StudioService
                 },
             };
 
+        case 'SET_OSC_SUB_PAN_NODE':
+            return {
+                ...state,
+                panNodes: {
+                    ...state.panNodes,
+                    oscSub: action.payload,
+                },
+            };
+
         case 'SET_OSC_1_PAN_POSITION':
             return {
                 ...state,
@@ -196,6 +250,54 @@ export const studioServiceReducer = (state: StudioService, action: StudioService
                     osc2: {
                         ...state.settings.osc2,
                         pan: action.payload,
+                    },
+                },
+            };
+
+        case 'SET_OSC_SUB_PAN_POSITION':
+            return {
+                ...state,
+                settings: {
+                    ...state.settings,
+                    oscSub: {
+                        ...state.settings.oscSub,
+                        pan: action.payload,
+                    },
+                },
+            };
+
+        case 'SET_OSC_1_OCTAVE':
+            return {
+                ...state,
+                settings: {
+                    ...state.settings,
+                    osc1: {
+                        ...state.settings.osc1,
+                        octave: action.payload,
+                    },
+                },
+            };
+
+        case 'SET_OSC_2_OCTAVE':
+            return {
+                ...state,
+                settings: {
+                    ...state.settings,
+                    osc2: {
+                        ...state.settings.osc2,
+                        octave: action.payload,
+                    },
+                },
+            };
+
+        case 'SET_OSC_SUB_OCTAVE':
+            return {
+                ...state,
+                settings: {
+                    ...state.settings,
+                    oscSub: {
+                        ...state.settings.oscSub,
+                        octave: action.payload,
                     },
                 },
             };
