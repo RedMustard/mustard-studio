@@ -27,6 +27,16 @@ describe('<Oscillator />', () => {
         expect(toJson(wrapper)).toMatchSnapshot();
     });
 
+    it('renders without detune', () => {
+        const wrapper = shallow(
+            <Oscillator
+                {...baseProps}
+                oscillatorId="oscSub"
+            />,
+        );
+        expect(toJson(wrapper)).toMatchSnapshot();
+    });
+
     it('calls setOscillatorEnabled when power checkbox pressed', () => {
         const wrapper = mount(
             <Oscillator

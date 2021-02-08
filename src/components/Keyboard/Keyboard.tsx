@@ -1,63 +1,24 @@
 import { h } from 'preact';
 import { useContext } from 'preact/hooks';
-import { getNoteFrequencyByKeyNumber } from '../../lib/utils/audio/audio';
+import { getFrequencyByKeyNumber } from '../../lib/utils/audio/audio';
 import { BlackKey } from './BlackKey/BlackKey';
 import { WhiteKey } from './WhiteKey/WhiteKey';
 import { KeyboardKeyColor } from '../../types/types';
 import { logger } from '../../lib/utils/logger/logger';
 import { StudioServiceContext } from '../../lib/studioService/StudioServiceStore';
-
-interface KeyboardProps {
-    audioContext: AudioContext;
-}
+import { startOscillators, stopOscillators } from '../../lib/oscillators/oscillators';
 
 
-export const Keyboard = ({ audioContext }: KeyboardProps) => {
-    let osc1: OscillatorNode;
-    let osc2: OscillatorNode;
+export const Keyboard = () => {
     const [studioService] = useContext(StudioServiceContext);
-    const { settings, gainNodes } = studioService;
-
-    const osc1GainNode = gainNodes.osc1;
-    const osc1Enabled = settings.osc1.enabled;
-    const osc1Type = settings.osc1.type;
-    const osc1Detune = settings.osc1.detune;
-
-    const osc2GainNode = gainNodes.osc2;
-    const osc2Enabled = settings.osc2.enabled;
-    const osc2Type = settings.osc2.type;
-    const osc2Detune = settings.osc2.detune;
 
     const handleOnMouseDownAndOver = (keyNumber: number) => {
-        if (osc1Enabled) {
-            osc1 = audioContext.createOscillator();
-            osc1.type = osc1Type;
-            osc1.detune.value = osc1Detune;
-            osc1.frequency.value = getNoteFrequencyByKeyNumber(keyNumber);
-            osc1.connect(osc1GainNode);
-            osc1.start();
-        }
-
-        if (osc2Enabled) {
-            osc2 = audioContext.createOscillator();
-            osc2.type = osc2Type;
-            osc2.detune.value = osc2Detune;
-            osc2.frequency.value = getNoteFrequencyByKeyNumber(keyNumber);
-            osc2.connect(osc2GainNode);
-            osc2.start();
-        }
+        const frequency = getFrequencyByKeyNumber(keyNumber);
+        startOscillators(frequency, studioService);
     };
 
     const handleOnMouseUpAndLeave = () => {
-        if (osc1) {
-            osc1.stop();
-            osc1.disconnect();
-        }
-
-        if (osc2) {
-            osc2.stop();
-            osc2.disconnect();
-        }
+        stopOscillators();
     };
 
     const whiteKey = (keyNumber: number) => (
