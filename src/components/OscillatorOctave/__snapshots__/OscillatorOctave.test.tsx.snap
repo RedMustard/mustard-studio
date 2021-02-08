@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<OscillatorOctave /> renders with basic props 1`] = `
+<div
+  className="oscillator-octave"
+>
+  Octave:  
+  <Fader
+    classSuffix="oscillator-octave"
+    maxValue={8}
+    minValue={-8}
+    onInput={[Function]}
+    stepResolution={1}
+    value={0}
+    valueUnit="cent"
+  />
+</div>
+`;

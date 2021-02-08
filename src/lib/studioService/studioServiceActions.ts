@@ -1,4 +1,5 @@
 import { DispatchFunction, OscillatorId } from '../../types/types';
+import { stopOscillatorById } from '../oscillators/oscillators';
 import { logger } from '../utils/logger/logger';
 
 export const setMasterVolume = (value: number, dispatch: DispatchFunction) => {
@@ -65,14 +66,17 @@ export const setOscillatorEnabled = (isEnabled: boolean, oscillatorId: Oscillato
     switch (oscillatorId) {
         case 'osc1':
             dispatch({ type: 'SET_OSC_1_ENABLED', payload: isEnabled });
+            stopOscillatorById('osc1');
             logger.info('Oscillator 1 isEnabled: ', isEnabled);
             break;
         case 'osc2':
             dispatch({ type: 'SET_OSC_2_ENABLED', payload: isEnabled });
+            stopOscillatorById('osc2');
             logger.info('Oscillator 2 isEnabled: ', isEnabled);
             break;
         case 'oscSub':
             dispatch({ type: 'SET_OSC_SUB_ENABLED', payload: isEnabled });
+            stopOscillatorById('oscSub');
             logger.info('Oscillator Sub isEnabled: ', isEnabled);
             break;
         default:

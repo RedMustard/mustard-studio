@@ -13,7 +13,7 @@ export const getFrequencyByOctaveOffset = (octaveOffset: number, frequency: numb
     const offset = 2 * octaveOffset;
 
     if (offset < 0) {
-        calculatedFrequency = frequency / offset;
+        calculatedFrequency = (frequency / offset) * -1;
     } else if (offset > 0) {
         calculatedFrequency = frequency * offset;
     } else {

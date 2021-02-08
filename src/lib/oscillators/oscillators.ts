@@ -1,89 +1,90 @@
-import { OscillatorId, StudioService } from '../../types/types';
+import { OscillatorDetune, OscillatorId, StudioService } from '../../types/types';
 import { getAudioContext } from '../audioContext/audioContext';
 import { getFrequencyByOctaveOffset } from '../utils/audio/audio';
 import { logger } from '../utils/logger/logger';
 
+const oscillators: {
+    [key in OscillatorId]: OscillatorNode;
+} = {
+    osc1: undefined,
+    osc2: undefined,
+    oscSub: undefined,
+};
 
-let osc1: OscillatorNode;
-let osc2: OscillatorNode;
-let oscSub: OscillatorNode;
-
-export const startOscillatorById = (
-    oscillatorId: OscillatorId,
-    studioService: StudioService,
-    oscillatorFrequency: number,
-) => {
-    const { gainNodes, settings } = studioService;
-    const audioContext = getAudioContext();
-    const oscSettings = settings[oscillatorId];
-    const oscGainNode = gainNodes[oscillatorId];
-    const oscEnabled = oscSettings.enabled;
-    const oscType = oscSettings.type;
-    const oscOctave = oscSettings.octave;
-    const calculatedFrequency = getFrequencyByOctaveOffset(oscOctave, oscillatorFrequency);
-    let oscDetune;
-
+export const setOscillatorById = (oscillatorId: OscillatorId, oscillator: OscillatorNode) => {
     switch (oscillatorId) {
         case 'osc1':
-            if (oscEnabled) {
-                oscDetune = settings.osc1.detune;
-                osc1 = audioContext.createOscillator();
-                osc1.type = oscType;
-                osc1.detune.value = oscDetune;
-                osc1.frequency.value = calculatedFrequency;
-                osc1.connect(oscGainNode);
-                osc1.start();
-                logger.info('Starting Oscillator 1 with frequency', calculatedFrequency);
-            }
+            oscillators.osc1 = oscillator;
             break;
-
         case 'osc2':
-            if (oscEnabled) {
-                oscDetune = settings.osc1.detune;
-                osc2 = audioContext.createOscillator();
-                osc2.type = oscType;
-                osc2.detune.value = oscDetune;
-                osc2.frequency.value = calculatedFrequency;
-                osc2.connect(oscGainNode);
-                osc2.start();
-                logger.info('Starting Oscillator 2 with frequency', calculatedFrequency);
-            }
+            oscillators.osc2 = oscillator;
             break;
-
         case 'oscSub':
-            if (oscEnabled) {
-                oscSub = audioContext.createOscillator();
-                oscSub.type = oscType;
-                oscSub.frequency.value = calculatedFrequency;
-                oscSub.connect(oscGainNode);
-                oscSub.start();
-                logger.info('Starting Oscillator Sub with frequency', calculatedFrequency);
-            }
+            oscillators.oscSub = oscillator;
             break;
-
         default:
             break;
     }
+};
+
+export const getOscillators = () => oscillators;
+
+export const resetOscillators = () => {
+    oscillators.osc1 = undefined;
+    oscillators.osc2 = undefined;
+    oscillators.oscSub = undefined;
+};
+
+export const startOscillators = (
+    oscillatorFrequency: number,
+    studioService: StudioService,
+) => {
+    const { gainNodes, settings } = studioService;
+    const audioContext = getAudioContext();
+
+    (Object.keys(oscillators) as OscillatorId[]).forEach((oscillatorId) => {
+        const oscSettings = settings[oscillatorId];
+        const oscGainNode = gainNodes[oscillatorId];
+        const oscEnabled = oscSettings.enabled;
+        const oscType = oscSettings.type;
+        const oscOctave = oscSettings.octave;
+        const calculatedFrequency = getFrequencyByOctaveOffset(oscOctave, oscillatorFrequency);
+
+
+        if (oscEnabled) {
+            oscillators[oscillatorId] = audioContext.createOscillator();
+            oscillators[oscillatorId].type = oscType;
+            oscillators[oscillatorId].frequency.value = calculatedFrequency;
+
+            if (oscSettings.hasOwnProperty('detune')) {
+                oscillators[oscillatorId].detune.value = (oscSettings as OscillatorDetune).detune;
+            }
+
+            oscillators[oscillatorId].connect(oscGainNode);
+            oscillators[oscillatorId].start();
+            logger.info(`Starting oscillator ${oscillatorId} with frequency`, calculatedFrequency);
+        }
+    });
 };
 
 export const stopOscillatorById = (oscillatorId: OscillatorId) => {
     switch (oscillatorId) {
         case 'osc1':
-            if (osc1) {
-                osc1.stop();
-                logger.info('Stopping Oscillator 1');
+            if (oscillators.osc1) {
+                oscillators.osc1.stop();
+                logger.info('Stopping oscillator', oscillatorId);
             }
             break;
         case 'osc2':
-            if (osc2) {
-                osc2.stop();
-                logger.info('Stopping Oscillator 2');
+            if (oscillators.osc2) {
+                oscillators.osc2.stop();
+                logger.info('Stopping oscillator', oscillatorId);
             }
             break;
         case 'oscSub':
-            if (oscSub) {
-                oscSub.stop();
-                logger.info('Stopping Oscillator Sub');
+            if (oscillators.oscSub) {
+                oscillators.oscSub.stop();
+                logger.info('Stopping oscillator', oscillatorId);
             }
             break;
         default:
@@ -91,8 +92,13 @@ export const stopOscillatorById = (oscillatorId: OscillatorId) => {
     }
 };
 
-export const resetOscillators = () => {
-    osc1 = undefined;
-    osc2 = undefined;
-    oscSub = undefined;
+
+export const stopOscillators = () => {
+    (Object.keys(oscillators) as OscillatorId[]).forEach((oscillatorId) => {
+        if (oscillators[oscillatorId]) {
+            oscillators[oscillatorId].stop();
+            oscillators[oscillatorId] = undefined;
+            logger.info('Stopping oscillator', oscillatorId);
+        }
+    });
 };

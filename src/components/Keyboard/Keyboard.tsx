@@ -6,7 +6,7 @@ import { WhiteKey } from './WhiteKey/WhiteKey';
 import { KeyboardKeyColor } from '../../types/types';
 import { logger } from '../../lib/utils/logger/logger';
 import { StudioServiceContext } from '../../lib/studioService/StudioServiceStore';
-import { stopOscillatorById, startOscillatorById } from '../../lib/oscillators/oscillators';
+import { startOscillators, stopOscillators } from '../../lib/oscillators/oscillators';
 
 
 export const Keyboard = () => {
@@ -14,15 +14,11 @@ export const Keyboard = () => {
 
     const handleOnMouseDownAndOver = (keyNumber: number) => {
         const frequency = getFrequencyByKeyNumber(keyNumber);
-        startOscillatorById('osc1', studioService, frequency);
-        startOscillatorById('osc2', studioService, frequency);
-        startOscillatorById('oscSub', studioService, frequency);
+        startOscillators(frequency, studioService);
     };
 
     const handleOnMouseUpAndLeave = () => {
-        stopOscillatorById('osc1');
-        stopOscillatorById('osc2');
-        stopOscillatorById('oscSub');
+        stopOscillators();
     };
 
     const whiteKey = (keyNumber: number) => (

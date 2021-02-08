@@ -9,11 +9,13 @@ exports[`<StudioServiceStore /> renders with basic props 1`] = `
           "master": undefined,
           "osc1": undefined,
           "osc2": undefined,
+          "oscSub": undefined,
         },
         "panNodes": Object {
           "master": undefined,
           "osc1": undefined,
           "osc2": undefined,
+          "oscSub": undefined,
         },
         "settings": Object {
           "master": Object {
@@ -23,6 +25,7 @@ exports[`<StudioServiceStore /> renders with basic props 1`] = `
           "osc1": Object {
             "detune": 0,
             "enabled": true,
+            "octave": 0,
             "pan": 0,
             "type": "sine",
             "volume": 0.5,
@@ -30,6 +33,14 @@ exports[`<StudioServiceStore /> renders with basic props 1`] = `
           "osc2": Object {
             "detune": 0,
             "enabled": true,
+            "octave": 0,
+            "pan": 0,
+            "type": "sine",
+            "volume": 0.5,
+          },
+          "oscSub": Object {
+            "enabled": true,
+            "octave": -1,
             "pan": 0,
             "type": "sine",
             "volume": 0.5,

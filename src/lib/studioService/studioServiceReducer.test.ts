@@ -102,6 +102,24 @@ describe('studioServiceReducer', () => {
         expect(studioServiceReducer(initialState, action)).toEqual(modifiedState);
     });
 
+    it('SET_OSC_SUB_VOLUME', () => {
+        modifiedState = {
+            ...initialState,
+            settings: {
+                ...initialState.settings,
+                oscSub: {
+                    ...initialState.settings.oscSub,
+                    volume: 1.0,
+                },
+            },
+        };
+        action = {
+            type: 'SET_OSC_SUB_VOLUME',
+            payload: 1.0,
+        };
+        expect(studioServiceReducer(initialState, action)).toEqual(modifiedState);
+    });
+
     it('SET_MASTER_GAIN', () => {
         modifiedState = {
             ...initialState,
@@ -147,6 +165,21 @@ describe('studioServiceReducer', () => {
         expect(studioServiceReducer(initialState, action)).toEqual(modifiedState);
     });
 
+    it('SET_OSC_SUB_GAIN', () => {
+        modifiedState = {
+            ...initialState,
+            gainNodes: {
+                ...initialState.gainNodes,
+                oscSub: audioContext.createGain(),
+            },
+        };
+        action = {
+            type: 'SET_OSC_SUB_GAIN',
+            payload: audioContext.createGain(),
+        };
+        expect(studioServiceReducer(initialState, action)).toEqual(modifiedState);
+    });
+
     it('SET_OSC_1_ENABLED', () => {
         modifiedState = {
             ...initialState,
@@ -183,6 +216,24 @@ describe('studioServiceReducer', () => {
         expect(studioServiceReducer(initialState, action)).toEqual(modifiedState);
     });
 
+    it('SET_OSC_SUB_ENABLED', () => {
+        modifiedState = {
+            ...initialState,
+            settings: {
+                ...initialState.settings,
+                oscSub: {
+                    ...initialState.settings.oscSub,
+                    enabled: true,
+                },
+            },
+        };
+        action = {
+            type: 'SET_OSC_SUB_ENABLED',
+            payload: true,
+        };
+        expect(studioServiceReducer(initialState, action)).toEqual(modifiedState);
+    });
+
     it('SET_OSC_1_TYPE', () => {
         modifiedState = {
             ...initialState,
@@ -214,6 +265,24 @@ describe('studioServiceReducer', () => {
         };
         action = {
             type: 'SET_OSC_2_TYPE',
+            payload: 'square',
+        };
+        expect(studioServiceReducer(initialState, action)).toEqual(modifiedState);
+    });
+
+    it('SET_OSC_SUB_TYPE', () => {
+        modifiedState = {
+            ...initialState,
+            settings: {
+                ...initialState.settings,
+                oscSub: {
+                    ...initialState.settings.oscSub,
+                    type: 'square',
+                },
+            },
+        };
+        action = {
+            type: 'SET_OSC_SUB_TYPE',
             payload: 'square',
         };
         expect(studioServiceReducer(initialState, action)).toEqual(modifiedState);
@@ -285,6 +354,21 @@ describe('studioServiceReducer', () => {
         expect(studioServiceReducer(initialState, action)).toEqual(modifiedState);
     });
 
+    it('SET_OSC_SUB_PAN_NODE', () => {
+        modifiedState = {
+            ...initialState,
+            panNodes: {
+                ...initialState.panNodes,
+                oscSub: audioContext.createStereoPanner(),
+            },
+        };
+        action = {
+            type: 'SET_OSC_SUB_PAN_NODE',
+            payload: audioContext.createStereoPanner(),
+        };
+        expect(studioServiceReducer(initialState, action)).toEqual(modifiedState);
+    });
+
     it('SET_OSC_1_PAN_POSITION', () => {
         modifiedState = {
             ...initialState,
@@ -316,6 +400,78 @@ describe('studioServiceReducer', () => {
         };
         action = {
             type: 'SET_OSC_2_PAN_POSITION',
+            payload: 1.0,
+        };
+        expect(studioServiceReducer(initialState, action)).toEqual(modifiedState);
+    });
+
+    it('SET_OSC_SUB_PAN_POSITION', () => {
+        modifiedState = {
+            ...initialState,
+            settings: {
+                ...initialState.settings,
+                oscSub: {
+                    ...initialState.settings.oscSub,
+                    pan: 1.0,
+                },
+            },
+        };
+        action = {
+            type: 'SET_OSC_SUB_PAN_POSITION',
+            payload: 1.0,
+        };
+        expect(studioServiceReducer(initialState, action)).toEqual(modifiedState);
+    });
+
+    it('SET_OSC_1_OCTAVE', () => {
+        modifiedState = {
+            ...initialState,
+            settings: {
+                ...initialState.settings,
+                osc1: {
+                    ...initialState.settings.osc1,
+                    octave: 1,
+                },
+            },
+        };
+        action = {
+            type: 'SET_OSC_1_OCTAVE',
+            payload: 1.0,
+        };
+        expect(studioServiceReducer(initialState, action)).toEqual(modifiedState);
+    });
+
+    it('SET_OSC_2_OCTAVE', () => {
+        modifiedState = {
+            ...initialState,
+            settings: {
+                ...initialState.settings,
+                osc2: {
+                    ...initialState.settings.osc2,
+                    octave: 1,
+                },
+            },
+        };
+        action = {
+            type: 'SET_OSC_2_OCTAVE',
+            payload: 1.0,
+        };
+        expect(studioServiceReducer(initialState, action)).toEqual(modifiedState);
+    });
+
+    it('SET_OSC_SUB_OCTAVE', () => {
+        modifiedState = {
+            ...initialState,
+            settings: {
+                ...initialState.settings,
+                oscSub: {
+                    ...initialState.settings.oscSub,
+                    octave: 1,
+                },
+            },
+        };
+        action = {
+            type: 'SET_OSC_SUB_OCTAVE',
             payload: 1.0,
         };
         expect(studioServiceReducer(initialState, action)).toEqual(modifiedState);
