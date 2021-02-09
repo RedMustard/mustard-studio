@@ -1,6 +1,6 @@
 import { h } from 'preact';
 import { useContext, useEffect } from 'preact/hooks';
-import { setOscillatorGainNode, setOscillatorVolume } from '../../lib/studioService/studioServiceActions';
+import { resetOscillatorVolume, setOscillatorGainNode, setOscillatorVolume } from '../../lib/studioService/studioServiceActions';
 import { StudioServiceContext } from '../../lib/studioService/StudioServiceStore';
 import { OscillatorId } from '../../types/types';
 import { VolumeFader } from '../VolumeFader/VolumeFader';
@@ -16,6 +16,12 @@ export const OscillatorVolume = ({ audioContext, oscillatorId }: OscillatorVolum
     const oscillatorVolume = settings[oscillatorId].volume;
     const masterGainNode = gainNodes.master;
     let oscillatorGainNode = gainNodes[oscillatorId];
+
+    const handleOnMouseDown = (e: MouseEvent) => {
+        if (e.buttons === 1 && (e.ctrlKey || e.metaKey)) {
+            resetOscillatorVolume(oscillatorId, dispatch);
+        }
+    };
 
     useEffect(() => {
         if (!oscillatorGainNode) {
@@ -34,6 +40,7 @@ export const OscillatorVolume = ({ audioContext, oscillatorId }: OscillatorVolum
                 classSuffix="oscillator-volume"
                 value={oscillatorVolume}
                 onInput={(value) => setOscillatorVolume(value, oscillatorId, dispatch)}
+                onMouseDown={(e: MouseEvent) => handleOnMouseDown(e)}
             />
         </div>
     );

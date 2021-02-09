@@ -1,7 +1,7 @@
 import { h } from 'preact';
 import { useContext, useEffect } from 'preact/hooks';
 import { MAX_PAN, MIN_PAN, PAN_STEPS } from '../../constants';
-import { setOscillatorPanNode, setOscillatorPanPosition } from '../../lib/studioService/studioServiceActions';
+import { resetOscillatorPanPosition, setOscillatorPanNode, setOscillatorPanPosition } from '../../lib/studioService/studioServiceActions';
 import { StudioServiceContext } from '../../lib/studioService/StudioServiceStore';
 import { ValueUnitEnum } from '../../types/runtimeTypes';
 import { OscillatorId } from '../../types/types';
@@ -19,6 +19,12 @@ export const OscillatorPan = ({ audioContext, oscillatorId }: OscillatorPanProps
     const oscillatorGainNode = gainNodes[oscillatorId];
     const masterGainNode = gainNodes.master;
     let oscillatorPanNode = panNodes[oscillatorId];
+
+    const handleOnMouseDown = (e: MouseEvent) => {
+        if (e.buttons === 1 && (e.ctrlKey || e.metaKey)) {
+            resetOscillatorPanPosition(oscillatorId, dispatch);
+        }
+    };
 
     useEffect(() => {
         if (!oscillatorPanNode) {
@@ -38,6 +44,7 @@ export const OscillatorPan = ({ audioContext, oscillatorId }: OscillatorPanProps
                 classSuffix="oscillator-pan"
                 value={oscillatorPanPosition}
                 onInput={(value) => setOscillatorPanPosition(value, oscillatorId, dispatch)}
+                onMouseDown={(e: MouseEvent) => handleOnMouseDown(e)}
                 maxValue={MAX_PAN}
                 minValue={MIN_PAN}
                 stepResolution={PAN_STEPS}

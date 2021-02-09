@@ -10,6 +10,7 @@ const baseProps = {
     maxValue: 1,
     minValue: 0,
     onInput: jest.fn(),
+    onMouseDown: jest.fn(),
     stepResolution: 0.1,
     value: 0.5,
     valueUnit: ValueUnitEnum.CENT,
@@ -76,5 +77,15 @@ describe('<FaderKey />', () => {
         );
         wrapper.find('input').simulate('input');
         expect(baseProps.onInput).toBeCalled();
+    });
+
+    it('fires onMouseDown', () => {
+        const wrapper = mount(
+            <Fader
+                {...baseProps}
+            />,
+        );
+        wrapper.find('input').simulate('mousedown');
+        expect(baseProps.onMouseDown).toBeCalled();
     });
 });

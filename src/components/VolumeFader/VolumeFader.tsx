@@ -8,11 +8,13 @@ interface VolumeFaderProps {
     value: number;
     classSuffix: string;
     onInput: (value: number) => void;
+    onMouseDown: (e: MouseEvent) => void;
 }
 
 export const VolumeFader = ({
     value,
     onInput,
+    onMouseDown,
     classSuffix,
 }: VolumeFaderProps) => (
     <Fader
@@ -20,6 +22,7 @@ export const VolumeFader = ({
         maxValue={MAX_VOLUME}
         minValue={MIN_VOLUME}
         onInput={onInput}
+        onMouseDown={onMouseDown}
         stepResolution={VOLUME_STEPS}
         value={value}
         valueUnit={ValueUnitEnum.PERCENT}

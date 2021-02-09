@@ -2,7 +2,7 @@ import { h } from 'preact';
 import { mount, shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import { OscillatorPan } from './OscillatorPan';
-import { setOscillatorPanPosition, setOscillatorPanNode } from '../../lib/studioService/studioServiceActions';
+import { setOscillatorPanPosition, setOscillatorPanNode, resetOscillatorPanPosition } from '../../lib/studioService/studioServiceActions';
 import { getInitialState, StudioServiceContext } from '../../lib/studioService/StudioServiceStore';
 import { OscillatorId } from '../../types/types';
 
@@ -88,5 +88,35 @@ describe('<OscillatorPan />', () => {
         expect(mockGainNode.connect).toBeCalled();
         expect(mockPanNode.connect).toBeCalled();
         expect(mockPanNode.pan.value).toBe(initialState.settings.osc1.pan);
+    });
+
+    it('calls resetOscillatorPanPosition when ctrl clicked', () => {
+        const wrapper = mount(
+            <OscillatorPan
+                {...baseProps}
+            />,
+        );
+        wrapper.find('input').simulate('mousedown', { buttons: 1, ctrlKey: true });
+        expect(resetOscillatorPanPosition).toBeCalled();
+    });
+
+    it('calls resetOscillatorPanPosition when cmd clicked', () => {
+        const wrapper = mount(
+            <OscillatorPan
+                {...baseProps}
+            />,
+        );
+        wrapper.find('input').simulate('mousedown', { buttons: 1, metaKey: true });
+        expect(resetOscillatorPanPosition).toBeCalled();
+    });
+
+    it('does not call resetOscillatorPanPosition when not ctrl or cmd clicked', () => {
+        const wrapper = mount(
+            <OscillatorPan
+                {...baseProps}
+            />,
+        );
+        wrapper.find('input').simulate('mousedown', { buttons: 1 });
+        expect(resetOscillatorPanPosition).toBeCalled();
     });
 });

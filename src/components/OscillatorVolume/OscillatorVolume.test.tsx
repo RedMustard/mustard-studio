@@ -2,7 +2,7 @@ import { h } from 'preact';
 import { mount, shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import { OscillatorVolume } from './OscillatorVolume';
-import { setOscillatorGainNode, setOscillatorVolume } from '../../lib/studioService/studioServiceActions';
+import { resetOscillatorVolume, setOscillatorGainNode, setOscillatorVolume } from '../../lib/studioService/studioServiceActions';
 import { OscillatorId } from '../../types/types';
 import { getInitialState, StudioServiceContext } from '../../lib/studioService/StudioServiceStore';
 
@@ -78,5 +78,35 @@ describe('<OscillatorVolume />', () => {
         );
         wrapper.find('input').simulate('input');
         expect(setOscillatorVolume).toBeCalled();
+    });
+
+    it('calls resetOscillatorVolume when ctrl clicked', () => {
+        const wrapper = mount(
+            <OscillatorVolume
+                {...baseProps}
+            />,
+        );
+        wrapper.find('input').simulate('mousedown', { buttons: 1, ctrlKey: true });
+        expect(resetOscillatorVolume).toBeCalled();
+    });
+
+    it('calls resetOscillatorVolume when cmd clicked', () => {
+        const wrapper = mount(
+            <OscillatorVolume
+                {...baseProps}
+            />,
+        );
+        wrapper.find('input').simulate('mousedown', { buttons: 1, metaKey: true });
+        expect(resetOscillatorVolume).toBeCalled();
+    });
+
+    it('does not call resetOscillatorVolume when not ctrl or cmd clicked', () => {
+        const wrapper = mount(
+            <OscillatorVolume
+                {...baseProps}
+            />,
+        );
+        wrapper.find('input').simulate('mousedown', { buttons: 1 });
+        expect(resetOscillatorVolume).toBeCalled();
     });
 });

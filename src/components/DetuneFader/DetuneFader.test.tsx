@@ -7,6 +7,7 @@ import { DetuneFader } from './DetuneFader';
 const baseProps = {
     value: 1.0,
     onInput: jest.fn(),
+    onMouseDown: jest.fn(),
     classSuffix: 'foo',
 };
 
@@ -27,6 +28,16 @@ describe('<DetuneFader />', () => {
             />,
         );
         wrapper.find('input').simulate('input');
+        expect(baseProps.onInput).toBeCalled();
+    });
+
+    it('calls onMouseDown when clicked', () => {
+        const wrapper = mount(
+            <DetuneFader
+                {...baseProps}
+            />,
+        );
+        wrapper.find('input').simulate('mousedown');
         expect(baseProps.onInput).toBeCalled();
     });
 });

@@ -2,7 +2,7 @@ import { h } from 'preact';
 import { mount, shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import { OscillatorOctave } from './OscillatorOctave';
-import { setOscillatorOctave } from '../../lib/studioService/studioServiceActions';
+import { resetOscillatorOctave, setOscillatorOctave } from '../../lib/studioService/studioServiceActions';
 import { OscillatorId } from '../../types/types';
 
 
@@ -34,5 +34,35 @@ describe('<OscillatorOctave />', () => {
         );
         wrapper.find('input').simulate('input');
         expect(setOscillatorOctave).toBeCalled();
+    });
+
+    it('calls resetOscillatorOctave when ctrl clicked', () => {
+        const wrapper = mount(
+            <OscillatorOctave
+                {...baseProps}
+            />,
+        );
+        wrapper.find('input').simulate('mousedown', { buttons: 1, ctrlKey: true });
+        expect(resetOscillatorOctave).toBeCalled();
+    });
+
+    it('calls resetOscillatorOctave when cmd clicked', () => {
+        const wrapper = mount(
+            <OscillatorOctave
+                {...baseProps}
+            />,
+        );
+        wrapper.find('input').simulate('mousedown', { buttons: 1, metaKey: true });
+        expect(resetOscillatorOctave).toBeCalled();
+    });
+
+    it('does not call resetOscillatorOctave when not ctrl or cmd clicked', () => {
+        const wrapper = mount(
+            <OscillatorOctave
+                {...baseProps}
+            />,
+        );
+        wrapper.find('input').simulate('mousedown', { buttons: 1 });
+        expect(resetOscillatorOctave).toBeCalled();
     });
 });

@@ -8,6 +8,7 @@ exports[`<OscillatorVolume /> renders with basic props 1`] = `
   <VolumeFader
     classSuffix="oscillator-volume"
     onInput={[Function]}
+    onMouseDown={[Function]}
     value={0.5}
   />
 </div>

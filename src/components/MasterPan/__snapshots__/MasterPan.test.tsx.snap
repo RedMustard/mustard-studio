@@ -10,6 +10,7 @@ exports[`<MasterPan /> renders with basic props 1`] = `
     maxValue={1}
     minValue={-1}
     onInput={[Function]}
+    onMouseDown={[Function]}
     stepResolution={0.01}
     value={0}
     valueUnit="pan"
