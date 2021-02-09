@@ -8,11 +8,13 @@ interface DetuneFaderProps {
     value: number;
     classSuffix: string;
     onInput: (value: number) => void;
+    onMouseDown: (e: MouseEvent) => void;
 }
 
 export const DetuneFader = ({
     value,
     onInput,
+    onMouseDown,
     classSuffix,
 }: DetuneFaderProps) => (
     <Fader
@@ -20,6 +22,7 @@ export const DetuneFader = ({
         maxValue={MAX_DETUNE}
         minValue={MIN_DETUNE}
         onInput={onInput}
+        onMouseDown={onMouseDown}
         stepResolution={DETUNE_STEPS}
         value={value}
         valueUnit={ValueUnitEnum.CENT}

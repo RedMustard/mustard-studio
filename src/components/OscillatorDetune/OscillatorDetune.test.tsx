@@ -2,7 +2,7 @@ import { h } from 'preact';
 import { mount, shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import { OscillatorDetune } from './OscillatorDetune';
-import { setOscillatorDetune } from '../../lib/studioService/studioServiceActions';
+import { resetOscillatorDetune, setOscillatorDetune } from '../../lib/studioService/studioServiceActions';
 import { OscillatorId } from '../../types/types';
 
 
@@ -34,5 +34,35 @@ describe('<OscillatorDetune />', () => {
         );
         wrapper.find('input').simulate('input');
         expect(setOscillatorDetune).toBeCalled();
+    });
+
+    it('calls resetOscillatorDetune when ctrl clicked', () => {
+        const wrapper = mount(
+            <OscillatorDetune
+                {...baseProps}
+            />,
+        );
+        wrapper.find('input').simulate('mousedown', { buttons: 1, ctrlKey: true });
+        expect(resetOscillatorDetune).toBeCalled();
+    });
+
+    it('calls resetOscillatorDetune when cmd clicked', () => {
+        const wrapper = mount(
+            <OscillatorDetune
+                {...baseProps}
+            />,
+        );
+        wrapper.find('input').simulate('mousedown', { buttons: 1, metaKey: true });
+        expect(resetOscillatorDetune).toBeCalled();
+    });
+
+    it('does not call resetOscillatorDetune when not ctrl or cmd clicked', () => {
+        const wrapper = mount(
+            <OscillatorDetune
+                {...baseProps}
+            />,
+        );
+        wrapper.find('input').simulate('mousedown', { buttons: 1 });
+        expect(resetOscillatorDetune).toBeCalled();
     });
 });

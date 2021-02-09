@@ -1,6 +1,6 @@
 import { h } from 'preact';
 import { useContext, useEffect } from 'preact/hooks';
-import { setMasterGainNode, setMasterVolume } from '../../lib/studioService/studioServiceActions';
+import { resetMasterVolume, setMasterGainNode, setMasterVolume } from '../../lib/studioService/studioServiceActions';
 import { StudioServiceContext } from '../../lib/studioService/StudioServiceStore';
 import { VolumeFader } from '../VolumeFader/VolumeFader';
 
@@ -12,6 +12,12 @@ export const MasterVolume = ({ audioContext }: MasterVolumeProps) => {
     const [studioService, dispatch] = useContext(StudioServiceContext);
     const masterVolume = studioService.settings.master.volume;
     let masterGainNode = studioService.gainNodes.master;
+
+    const handleOnMouseDown = (e: MouseEvent) => {
+        if (e.buttons === 1 && (e.ctrlKey || e.metaKey)) {
+            resetMasterVolume(dispatch);
+        }
+    };
 
     useEffect(() => {
         if (!masterGainNode) {
@@ -30,6 +36,7 @@ export const MasterVolume = ({ audioContext }: MasterVolumeProps) => {
                 classSuffix="master-volume"
                 value={masterVolume}
                 onInput={(value) => setMasterVolume(value, dispatch)}
+                onMouseDown={(e: MouseEvent) => handleOnMouseDown(e)}
             />
         </div>
     );

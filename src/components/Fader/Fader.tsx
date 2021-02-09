@@ -9,6 +9,7 @@ interface FaderProps {
     maxValue: number;
     minValue: number;
     onInput: (value: number) => void;
+    onMouseDown: (e: MouseEvent) => void;
     stepResolution: number;
     value: number;
     valueUnit: ValueUnit;
@@ -19,6 +20,7 @@ export const Fader = ({
     maxValue,
     minValue,
     onInput,
+    onMouseDown,
     stepResolution,
     value,
     valueUnit,
@@ -47,7 +49,10 @@ export const Fader = ({
             <input
                 title={getPrettifiedValue().toString()}
                 onInput={(event) => onInput(parseFloat(event.currentTarget.value))}
-                onMouseDown={() => setShowValue(true)}
+                onMouseDown={(e: MouseEvent) => {
+                    onMouseDown(e);
+                    setShowValue(true);
+                }}
                 onMouseUp={() => setShowValue(false)}
                 list={`${classSuffix}-fader`}
                 max={maxValue}

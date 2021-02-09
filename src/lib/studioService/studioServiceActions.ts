@@ -1,6 +1,7 @@
-import { DispatchFunction, OscillatorId } from '../../types/types';
+import { DispatchFunction, OscillatorId, StudioService } from '../../types/types';
 import { stopOscillatorById } from '../oscillators/oscillators';
 import { logger } from '../utils/logger/logger';
+import { getInitialState } from './StudioServiceStore';
 
 export const setMasterVolume = (value: number, dispatch: DispatchFunction) => {
     dispatch({ type: 'SET_MASTER_VOLUME', payload: value });
@@ -20,6 +21,20 @@ export const setMasterPanNode = (panNode: StereoPannerNode, dispatch: DispatchFu
 export const setMasterPanPosition = (position: number, dispatch: DispatchFunction) => {
     dispatch({ type: 'SET_MASTER_PAN_POSITION', payload: position });
     logger.info('Master pan position set with value ', position);
+};
+
+export const resetMasterVolume = (dispatch: DispatchFunction) => {
+    const initialState: StudioService = getInitialState();
+    const initialVolume = initialState.settings.master.volume;
+    dispatch({ type: 'SET_MASTER_VOLUME', payload: initialVolume });
+    logger.info('Master volume reset to value', initialVolume);
+};
+
+export const resetMasterPanPosition = (dispatch: DispatchFunction) => {
+    const initialState: StudioService = getInitialState();
+    const initialPanPosition = initialState.settings.master.pan;
+    dispatch({ type: 'SET_MASTER_PAN_POSITION', payload: initialPanPosition });
+    logger.info('Master pan position reset to value', initialPanPosition);
 };
 
 export const setOscillatorVolume = (value: number, oscillatorId: OscillatorId, dispatch: DispatchFunction) => {
@@ -156,7 +171,7 @@ export const setOscillatorPanPosition = (position: number, oscillatorId: Oscilla
             logger.info('Oscillator Sub pan position set with value ', position);
             break;
         default:
-            logger.info('setOscillatorPanPosition unknown oscillatorId provided, no oscillator pan node set. Received: ', oscillatorId);
+            logger.info('setOscillatorPanPosition unknown oscillatorId provided, no oscillator pan position set. Received: ', oscillatorId);
             break;
     }
 };
@@ -176,7 +191,106 @@ export const setOscillatorOctave = (octave: number, oscillatorId: OscillatorId, 
             logger.info('Oscillator Sub octave set with value ', octave);
             break;
         default:
-            logger.info('setOscillatorOctave unknown oscillatorId provided, no oscillator pan node set. Received: ', oscillatorId);
+            logger.info('setOscillatorOctave unknown oscillatorId provided, no oscillator octave set. Received: ', oscillatorId);
+            break;
+    }
+};
+
+export const resetOscillatorVolume = (oscillatorId: OscillatorId, dispatch: DispatchFunction) => {
+    const initialState: StudioService = getInitialState();
+    let initialVolume: number;
+
+    switch (oscillatorId) {
+        case 'osc1':
+            initialVolume = initialState.settings.osc1.volume;
+            dispatch({ type: 'SET_OSC_1_VOLUME', payload: initialVolume });
+            logger.info('Oscillator 1 volume reset to value', initialVolume);
+            break;
+        case 'osc2':
+            initialVolume = initialState.settings.osc2.volume;
+            dispatch({ type: 'SET_OSC_2_VOLUME', payload: initialVolume });
+            logger.info('Oscillator 2 reset to value', initialVolume);
+            break;
+        case 'oscSub':
+            initialVolume = initialState.settings.oscSub.volume;
+            dispatch({ type: 'SET_OSC_SUB_VOLUME', payload: initialVolume });
+            logger.info('Oscillator Sub reset to value', initialVolume);
+            break;
+        default:
+            logger.info('resetOscillatorVolume unknown oscillatorId provided, oscillator volume not reset. Received: ', oscillatorId);
+            break;
+    }
+};
+
+export const resetOscillatorDetune = (oscillatorId: OscillatorId, dispatch: DispatchFunction) => {
+    const initialState: StudioService = getInitialState();
+    let initialDetune: number;
+
+    switch (oscillatorId) {
+        case 'osc1':
+            initialDetune = initialState.settings.osc1.detune;
+            dispatch({ type: 'SET_OSC_1_DETUNE', payload: initialDetune });
+            logger.info(`Oscillator 1 detune reset to value ${initialDetune}`);
+            break;
+        case 'osc2':
+            initialDetune = initialState.settings.osc2.detune;
+            dispatch({ type: 'SET_OSC_2_DETUNE', payload: initialDetune });
+            logger.info(`Oscillator 2 detune reset to value ${initialDetune}`);
+            break;
+        default:
+            logger.info('resetOscillatorDetune unknown oscillatorId provided, oscillator detune not reset. Received: ', oscillatorId);
+            break;
+    }
+};
+
+export const resetOscillatorPanPosition = (oscillatorId: OscillatorId, dispatch: DispatchFunction) => {
+    const initialState: StudioService = getInitialState();
+    let initialPanPosition: number;
+
+    switch (oscillatorId) {
+        case 'osc1':
+            initialPanPosition = initialState.settings.osc1.pan;
+            dispatch({ type: 'SET_OSC_1_PAN_POSITION', payload: initialPanPosition });
+            logger.info('Oscillator 1 pan position reset to value', initialPanPosition);
+            break;
+        case 'osc2':
+            initialPanPosition = initialState.settings.osc2.pan;
+            dispatch({ type: 'SET_OSC_2_PAN_POSITION', payload: initialPanPosition });
+            logger.info('Oscillator 2 pan position reset to value', initialPanPosition);
+            break;
+        case 'oscSub':
+            initialPanPosition = initialState.settings.oscSub.pan;
+            dispatch({ type: 'SET_OSC_SUB_PAN_POSITION', payload: initialPanPosition });
+            logger.info('Oscillator Sub pan position reset to value', initialPanPosition);
+            break;
+        default:
+            logger.info('resetOscillatorPanPosition unknown oscillatorId provided, oscillator pan position not reset. Received: ', oscillatorId);
+            break;
+    }
+};
+
+export const resetOscillatorOctave = (oscillatorId: OscillatorId, dispatch: DispatchFunction) => {
+    const initialState: StudioService = getInitialState();
+    let initialOctave: number;
+
+    switch (oscillatorId) {
+        case 'osc1':
+            initialOctave = initialState.settings.osc1.octave;
+            dispatch({ type: 'SET_OSC_1_OCTAVE', payload: initialOctave });
+            logger.info('Oscillator 1 octave reset to value', initialOctave);
+            break;
+        case 'osc2':
+            initialOctave = initialState.settings.osc2.octave;
+            dispatch({ type: 'SET_OSC_2_OCTAVE', payload: initialOctave });
+            logger.info('Oscillator 2 octave reset to value', initialOctave);
+            break;
+        case 'oscSub':
+            initialOctave = initialState.settings.oscSub.octave;
+            dispatch({ type: 'SET_OSC_SUB_OCTAVE', payload: initialOctave });
+            logger.info('Oscillator Sub octave reset to value', initialOctave);
+            break;
+        default:
+            logger.info('resetOscillatorOctave unknown oscillatorId provided, oscillator octave not reset. Received: ', oscillatorId);
             break;
     }
 };

@@ -8,6 +8,7 @@ exports[`<OscillatorDetune /> renders with basic props 1`] = `
   <DetuneFader
     classSuffix="oscillator-detune"
     onInput={[Function]}
+    onMouseDown={[Function]}
     value={0}
   />
 </div>

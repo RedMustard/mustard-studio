@@ -2,7 +2,7 @@ import { h } from 'preact';
 import { mount, shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import { MasterPan } from './MasterPan';
-import { setMasterPanPosition, setMasterPanNode } from '../../lib/studioService/studioServiceActions';
+import { setMasterPanPosition, setMasterPanNode, resetMasterPanPosition } from '../../lib/studioService/studioServiceActions';
 import { getInitialState, StudioServiceContext } from '../../lib/studioService/StudioServiceStore';
 
 
@@ -85,5 +85,35 @@ describe('<MasterPan />', () => {
         expect(mockGainNode.connect).toBeCalled();
         expect(mockPanNode.connect).toBeCalled();
         expect(mockPanNode.pan.value).toBe(initialState.settings.master.pan);
+    });
+
+    it('calls resetMasterPanPosition when ctrl clicked', () => {
+        const wrapper = mount(
+            <MasterPan
+                {...baseProps}
+            />,
+        );
+        wrapper.find('input').simulate('mousedown', { buttons: 1, ctrlKey: true });
+        expect(resetMasterPanPosition).toBeCalled();
+    });
+
+    it('calls resetMasterPanPosition when cmd clicked', () => {
+        const wrapper = mount(
+            <MasterPan
+                {...baseProps}
+            />,
+        );
+        wrapper.find('input').simulate('mousedown', { buttons: 1, metaKey: true });
+        expect(resetMasterPanPosition).toBeCalled();
+    });
+
+    it('does not call resetMasterPanPosition when not ctrl or cmd clicked', () => {
+        const wrapper = mount(
+            <MasterPan
+                {...baseProps}
+            />,
+        );
+        wrapper.find('input').simulate('mousedown', { buttons: 1 });
+        expect(resetMasterPanPosition).toBeCalled();
     });
 });

@@ -1,7 +1,7 @@
 import { h } from 'preact';
 import { useContext, useEffect } from 'preact/hooks';
 import { MAX_PAN, MIN_PAN, PAN_STEPS } from '../../constants';
-import { setMasterPanNode, setMasterPanPosition } from '../../lib/studioService/studioServiceActions';
+import { resetMasterPanPosition, setMasterPanNode, setMasterPanPosition } from '../../lib/studioService/studioServiceActions';
 import { StudioServiceContext } from '../../lib/studioService/StudioServiceStore';
 import { ValueUnitEnum } from '../../types/runtimeTypes';
 import { Fader } from '../Fader/Fader';
@@ -15,6 +15,12 @@ export const MasterPan = ({ audioContext }: MasterPanProps) => {
     const masterPanPosition = studioService.settings.master.pan;
     const masterGainNode = studioService.gainNodes.master;
     let masterPanNode = studioService.panNodes.master;
+
+    const handleOnMouseDown = (e: MouseEvent) => {
+        if (e.buttons === 1 && (e.ctrlKey || e.metaKey)) {
+            resetMasterPanPosition(dispatch);
+        }
+    };
 
     useEffect(() => {
         if (!masterPanNode) {
@@ -34,6 +40,7 @@ export const MasterPan = ({ audioContext }: MasterPanProps) => {
                 classSuffix="master-pan"
                 value={masterPanPosition}
                 onInput={(value) => setMasterPanPosition(value, dispatch)}
+                onMouseDown={(e: MouseEvent) => handleOnMouseDown(e)}
                 maxValue={MAX_PAN}
                 minValue={MIN_PAN}
                 stepResolution={PAN_STEPS}

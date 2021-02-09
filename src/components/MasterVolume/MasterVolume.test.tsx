@@ -2,7 +2,7 @@ import { h } from 'preact';
 import { mount, shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import { MasterVolume } from './MasterVolume';
-import { setMasterGainNode, setMasterVolume } from '../../lib/studioService/studioServiceActions';
+import { resetMasterVolume, setMasterGainNode, setMasterVolume } from '../../lib/studioService/studioServiceActions';
 import { getInitialState, StudioServiceContext } from '../../lib/studioService/StudioServiceStore';
 
 
@@ -69,5 +69,35 @@ describe('<MasterVolume />', () => {
             </StudioServiceContext.Provider>,
         );
         expect(mockGainNode.gain.value).toBe(initialState.settings.master.volume);
+    });
+
+    it('calls resetMasterVolume when ctrl clicked', () => {
+        const wrapper = mount(
+            <MasterVolume
+                {...baseProps}
+            />,
+        );
+        wrapper.find('input').simulate('mousedown', { buttons: 1, ctrlKey: true });
+        expect(resetMasterVolume).toBeCalled();
+    });
+
+    it('calls resetMasterVolume when cmd clicked', () => {
+        const wrapper = mount(
+            <MasterVolume
+                {...baseProps}
+            />,
+        );
+        wrapper.find('input').simulate('mousedown', { buttons: 1, metaKey: true });
+        expect(resetMasterVolume).toBeCalled();
+    });
+
+    it('does not call resetMasterVolume when not ctrl or cmd clicked', () => {
+        const wrapper = mount(
+            <MasterVolume
+                {...baseProps}
+            />,
+        );
+        wrapper.find('input').simulate('mousedown', { buttons: 1 });
+        expect(resetMasterVolume).toBeCalled();
     });
 });

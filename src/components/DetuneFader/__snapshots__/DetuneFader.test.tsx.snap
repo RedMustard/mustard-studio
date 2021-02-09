@@ -6,6 +6,7 @@ exports[`<DetuneFader /> renders with basic props 1`] = `
   maxValue={1200}
   minValue={-1200}
   onInput={[MockFunction]}
+  onMouseDown={[MockFunction]}
   stepResolution={100}
   value={1}
   valueUnit="cent"

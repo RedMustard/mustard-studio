@@ -13,6 +13,12 @@ import {
     setOscillatorPanNode,
     setOscillatorPanPosition,
     setOscillatorOctave,
+    resetOscillatorVolume,
+    resetOscillatorDetune,
+    resetOscillatorPanPosition,
+    resetOscillatorOctave,
+    resetMasterVolume,
+    resetMasterPanPosition,
 } from './studioServiceActions';
 
 
@@ -61,6 +67,23 @@ describe('setMasterPanPosition', () => {
     });
 });
 
+
+describe('resetMasterVolume', () => {
+    it('calls dispatch', () => {
+        const dispatch = jest.fn();
+        resetMasterVolume(dispatch);
+        expect(dispatch).toBeCalled();
+    });
+});
+
+
+describe('resetMasterPanPosition', () => {
+    it('calls dispatch', () => {
+        const dispatch = jest.fn();
+        resetMasterPanPosition(dispatch);
+        expect(dispatch).toBeCalled();
+    });
+});
 
 describe('setOscillatorVolume', () => {
     it('calls dispatch for oscillator 1', () => {
@@ -333,6 +356,123 @@ describe('setOscillatorOctave', () => {
         const octave = 2;
         const oscillatorId: OscillatorId = 'foo' as OscillatorId;
         setOscillatorOctave(octave, oscillatorId, dispatch);
+        expect(dispatch).not.toBeCalled();
+    });
+});
+
+
+describe('resetOscillatorVolume', () => {
+    it('calls dispatch for oscillator 1', () => {
+        const dispatch = jest.fn();
+        const oscillatorId: OscillatorId = 'osc1';
+        resetOscillatorVolume(oscillatorId, dispatch);
+        expect(dispatch).toBeCalled();
+    });
+
+    it('calls dispatch for oscillator 2', () => {
+        const dispatch = jest.fn();
+        const oscillatorId: OscillatorId = 'osc2';
+        resetOscillatorVolume(oscillatorId, dispatch);
+        expect(dispatch).toBeCalled();
+    });
+
+    it('calls dispatch for oscillator sub', () => {
+        const dispatch = jest.fn();
+        const oscillatorId: OscillatorId = 'oscSub';
+        resetOscillatorVolume(oscillatorId, dispatch);
+        expect(dispatch).toBeCalled();
+    });
+
+    it('does not call dispatch for unknown oscillatorId', () => {
+        const dispatch = jest.fn();
+        const oscillatorId = 'foo' as OscillatorId;
+        resetOscillatorVolume(oscillatorId, dispatch);
+        expect(dispatch).not.toBeCalled();
+    });
+});
+
+
+describe('resetOscillatorDetune', () => {
+    it('calls dispatch for osc1', () => {
+        const dispatch = jest.fn();
+        const oscillatorId: OscillatorId = 'osc1';
+        resetOscillatorDetune(oscillatorId, dispatch);
+        expect(dispatch).toBeCalled();
+    });
+
+    it('calls dispatch for osc2', () => {
+        const dispatch = jest.fn();
+        const oscillatorId: OscillatorId = 'osc2';
+        resetOscillatorDetune(oscillatorId, dispatch);
+        expect(dispatch).toBeCalled();
+    });
+
+    it('does not call dispatch for unknown oscillatorId', () => {
+        const dispatch = jest.fn();
+        const oscillatorId: OscillatorId = 'foo' as OscillatorId;
+        resetOscillatorDetune(oscillatorId, dispatch);
+        expect(dispatch).not.toBeCalled();
+    });
+});
+
+
+describe('resetOscillatorPanPosition', () => {
+    it('calls dispatch for osc1', () => {
+        const dispatch = jest.fn();
+        const oscillatorId: OscillatorId = 'osc1';
+        resetOscillatorPanPosition(oscillatorId, dispatch);
+        expect(dispatch).toBeCalled();
+    });
+
+    it('calls dispatch for osc2', () => {
+        const dispatch = jest.fn();
+        const oscillatorId: OscillatorId = 'osc2';
+        resetOscillatorPanPosition(oscillatorId, dispatch);
+        expect(dispatch).toBeCalled();
+    });
+
+    it('calls dispatch for oscSub', () => {
+        const dispatch = jest.fn();
+        const oscillatorId: OscillatorId = 'oscSub';
+        resetOscillatorPanPosition(oscillatorId, dispatch);
+        expect(dispatch).toBeCalled();
+    });
+
+    it('does not call dispatch for unknown oscillatorId', () => {
+        const dispatch = jest.fn();
+        const oscillatorId: OscillatorId = 'foo' as OscillatorId;
+        resetOscillatorPanPosition(oscillatorId, dispatch);
+        expect(dispatch).not.toBeCalled();
+    });
+});
+
+
+describe('resetOscillatorOctave', () => {
+    it('calls dispatch for osc1', () => {
+        const dispatch = jest.fn();
+        const oscillatorId: OscillatorId = 'osc1';
+        resetOscillatorOctave(oscillatorId, dispatch);
+        expect(dispatch).toBeCalled();
+    });
+
+    it('calls dispatch for osc2', () => {
+        const dispatch = jest.fn();
+        const oscillatorId: OscillatorId = 'osc2';
+        resetOscillatorOctave(oscillatorId, dispatch);
+        expect(dispatch).toBeCalled();
+    });
+
+    it('calls dispatch for oscSub', () => {
+        const dispatch = jest.fn();
+        const oscillatorId: OscillatorId = 'oscSub';
+        resetOscillatorOctave(oscillatorId, dispatch);
+        expect(dispatch).toBeCalled();
+    });
+
+    it('does not call dispatch for unknown oscillatorId', () => {
+        const dispatch = jest.fn();
+        const oscillatorId: OscillatorId = 'foo' as OscillatorId;
+        resetOscillatorOctave(oscillatorId, dispatch);
         expect(dispatch).not.toBeCalled();
     });
 });

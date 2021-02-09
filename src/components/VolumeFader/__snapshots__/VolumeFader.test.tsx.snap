@@ -6,6 +6,7 @@ exports[`<VolumeFader /> renders with basic props 1`] = `
   maxValue={1}
   minValue={0}
   onInput={[MockFunction]}
+  onMouseDown={[MockFunction]}
   stepResolution={0.01}
   value={1}
   valueUnit="percent"
