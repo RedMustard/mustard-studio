@@ -10,8 +10,8 @@ interface MasterVolumeProps {
 
 export const MasterVolume = ({ audioContext }: MasterVolumeProps) => {
     const [studioService, dispatch] = useContext(StudioServiceContext);
-    const masterVolume = studioService.settings.master.volume;
-    let masterGainNode = studioService.gainNodes.master;
+    const masterVolume = studioService.master.settings.volume;
+    let masterGainNode = studioService.master.gainNode;
 
     const handleOnMouseDown = (e: MouseEvent) => {
         if (e.buttons === 1 && (e.ctrlKey || e.metaKey)) {

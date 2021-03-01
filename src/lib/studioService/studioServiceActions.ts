@@ -1,4 +1,10 @@
-import { DispatchFunction, OscillatorId, StudioService } from '../../types/types';
+import {
+    DispatchFunction,
+    OscillatorDetuneSetting,
+    OscillatorId,
+    OscillatorSettings,
+    StudioService,
+} from '../../types/types';
 import { stopOscillatorById } from '../oscillators/oscillators';
 import { logger } from '../utils/logger/logger';
 import { getInitialState } from './StudioServiceStore';
@@ -25,14 +31,14 @@ export const setMasterPanPosition = (position: number, dispatch: DispatchFunctio
 
 export const resetMasterVolume = (dispatch: DispatchFunction) => {
     const initialState: StudioService = getInitialState();
-    const initialVolume = initialState.settings.master.volume;
+    const initialVolume = initialState.master.settings.volume;
     dispatch({ type: 'SET_MASTER_VOLUME', payload: initialVolume });
     logger.info('Master volume reset to value', initialVolume);
 };
 
 export const resetMasterPanPosition = (dispatch: DispatchFunction) => {
     const initialState: StudioService = getInitialState();
-    const initialPanPosition = initialState.settings.master.pan;
+    const initialPanPosition = initialState.master.settings.pan;
     dispatch({ type: 'SET_MASTER_PAN_POSITION', payload: initialPanPosition });
     logger.info('Master pan position reset to value', initialPanPosition);
 };
@@ -202,17 +208,17 @@ export const resetOscillatorVolume = (oscillatorId: OscillatorId, dispatch: Disp
 
     switch (oscillatorId) {
         case 'osc1':
-            initialVolume = initialState.settings.osc1.volume;
+            initialVolume = initialState.oscillators.osc1.settings.volume;
             dispatch({ type: 'SET_OSC_1_VOLUME', payload: initialVolume });
             logger.info('Oscillator 1 volume reset to value', initialVolume);
             break;
         case 'osc2':
-            initialVolume = initialState.settings.osc2.volume;
+            initialVolume = initialState.oscillators.osc2.settings.volume;
             dispatch({ type: 'SET_OSC_2_VOLUME', payload: initialVolume });
             logger.info('Oscillator 2 reset to value', initialVolume);
             break;
         case 'oscSub':
-            initialVolume = initialState.settings.oscSub.volume;
+            initialVolume = initialState.oscillators.oscSub.settings.volume;
             dispatch({ type: 'SET_OSC_SUB_VOLUME', payload: initialVolume });
             logger.info('Oscillator Sub reset to value', initialVolume);
             break;
@@ -228,12 +234,12 @@ export const resetOscillatorDetune = (oscillatorId: OscillatorId, dispatch: Disp
 
     switch (oscillatorId) {
         case 'osc1':
-            initialDetune = initialState.settings.osc1.detune;
+            initialDetune = (initialState.oscillators.osc1.settings as OscillatorSettings & OscillatorDetuneSetting).detune;
             dispatch({ type: 'SET_OSC_1_DETUNE', payload: initialDetune });
             logger.info(`Oscillator 1 detune reset to value ${initialDetune}`);
             break;
         case 'osc2':
-            initialDetune = initialState.settings.osc2.detune;
+            initialDetune = (initialState.oscillators.osc2.settings as OscillatorSettings & OscillatorDetuneSetting).detune;
             dispatch({ type: 'SET_OSC_2_DETUNE', payload: initialDetune });
             logger.info(`Oscillator 2 detune reset to value ${initialDetune}`);
             break;
@@ -249,17 +255,17 @@ export const resetOscillatorPanPosition = (oscillatorId: OscillatorId, dispatch:
 
     switch (oscillatorId) {
         case 'osc1':
-            initialPanPosition = initialState.settings.osc1.pan;
+            initialPanPosition = initialState.oscillators.osc1.settings.pan;
             dispatch({ type: 'SET_OSC_1_PAN_POSITION', payload: initialPanPosition });
             logger.info('Oscillator 1 pan position reset to value', initialPanPosition);
             break;
         case 'osc2':
-            initialPanPosition = initialState.settings.osc2.pan;
+            initialPanPosition = initialState.oscillators.osc2.settings.pan;
             dispatch({ type: 'SET_OSC_2_PAN_POSITION', payload: initialPanPosition });
             logger.info('Oscillator 2 pan position reset to value', initialPanPosition);
             break;
         case 'oscSub':
-            initialPanPosition = initialState.settings.oscSub.pan;
+            initialPanPosition = initialState.oscillators.oscSub.settings.pan;
             dispatch({ type: 'SET_OSC_SUB_PAN_POSITION', payload: initialPanPosition });
             logger.info('Oscillator Sub pan position reset to value', initialPanPosition);
             break;
@@ -275,17 +281,17 @@ export const resetOscillatorOctave = (oscillatorId: OscillatorId, dispatch: Disp
 
     switch (oscillatorId) {
         case 'osc1':
-            initialOctave = initialState.settings.osc1.octave;
+            initialOctave = initialState.oscillators.osc1.settings.octave;
             dispatch({ type: 'SET_OSC_1_OCTAVE', payload: initialOctave });
             logger.info('Oscillator 1 octave reset to value', initialOctave);
             break;
         case 'osc2':
-            initialOctave = initialState.settings.osc2.octave;
+            initialOctave = initialState.oscillators.osc1.settings.octave;
             dispatch({ type: 'SET_OSC_2_OCTAVE', payload: initialOctave });
             logger.info('Oscillator 2 octave reset to value', initialOctave);
             break;
         case 'oscSub':
-            initialOctave = initialState.settings.oscSub.octave;
+            initialOctave = initialState.oscillators.osc1.settings.octave;
             dispatch({ type: 'SET_OSC_SUB_OCTAVE', payload: initialOctave });
             logger.info('Oscillator Sub octave reset to value', initialOctave);
             break;

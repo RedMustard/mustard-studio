@@ -14,11 +14,11 @@ interface OscillatorPanProps {
 
 export const OscillatorPan = ({ audioContext, oscillatorId }: OscillatorPanProps) => {
     const [studioService, dispatch] = useContext(StudioServiceContext);
-    const { settings, gainNodes, panNodes } = studioService;
-    const oscillatorPanPosition = settings[oscillatorId].pan;
-    const oscillatorGainNode = gainNodes[oscillatorId];
-    const masterGainNode = gainNodes.master;
-    let oscillatorPanNode = panNodes[oscillatorId];
+    const { oscillators, master } = studioService;
+    const oscillatorPanPosition = oscillators[oscillatorId].settings.pan;
+    const oscillatorGainNode = oscillators[oscillatorId].gainNode;
+    const masterGainNode = master.gainNode;
+    let oscillatorPanNode = oscillators[oscillatorId].panNode;
 
     const handleOnMouseDown = (e: MouseEvent) => {
         if (e.buttons === 1 && (e.ctrlKey || e.metaKey)) {

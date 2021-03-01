@@ -12,10 +12,10 @@ interface OscillatorVolumeProps {
 
 export const OscillatorVolume = ({ audioContext, oscillatorId }: OscillatorVolumeProps) => {
     const [studioService, dispatch] = useContext(StudioServiceContext);
-    const { settings, gainNodes } = studioService;
-    const oscillatorVolume = settings[oscillatorId].volume;
-    const masterGainNode = gainNodes.master;
-    let oscillatorGainNode = gainNodes[oscillatorId];
+    const { oscillators, master } = studioService;
+    const oscillatorVolume = oscillators[oscillatorId].settings.volume;
+    const masterGainNode = master.gainNode;
+    let oscillatorGainNode = oscillators[oscillatorId].gainNode;
 
     const handleOnMouseDown = (e: MouseEvent) => {
         if (e.buttons === 1 && (e.ctrlKey || e.metaKey)) {

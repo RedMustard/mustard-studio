@@ -12,9 +12,9 @@ interface MasterPanProps {
 
 export const MasterPan = ({ audioContext }: MasterPanProps) => {
     const [studioService, dispatch] = useContext(StudioServiceContext);
-    const masterPanPosition = studioService.settings.master.pan;
-    const masterGainNode = studioService.gainNodes.master;
-    let masterPanNode = studioService.panNodes.master;
+    const masterPanPosition = studioService.master.settings.pan;
+    const masterGainNode = studioService.master.gainNode;
+    let masterPanNode = studioService.master.panNode;
 
     const handleOnMouseDown = (e: MouseEvent) => {
         if (e.buttons === 1 && (e.ctrlKey || e.metaKey)) {

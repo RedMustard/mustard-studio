@@ -1,51 +1,42 @@
 import { createContext, h } from 'preact';
 import { useReducer } from 'preact/hooks';
+import { OSC_1_INITIAL_SETTINGS, OSC_2_INITIAL_SETTINGS, OSC_SUB_INITIAL_SETTINGS } from '../../constants';
 import { DispatchFunction, StudioService } from '../../types/types';
 import { deepClone } from '../utils/objects/objects';
 import { studioServiceReducer } from './studioServiceReducer';
 
 
 const initialState: StudioService = Object.freeze({
-    settings: {
-        master: {
+    master: {
+        gainNode: undefined,
+        panNode: undefined,
+        settings: {
             volume: 0.1,
             pan: 0,
         },
+    },
+    oscillators: {
         osc1: {
-            detune: 0,
-            enabled: true,
-            octave: 0,
-            pan: 0,
-            type: 'sine',
-            volume: 0.5,
+            gainNode: undefined,
+            panNode: undefined,
+            settings: {
+                ...OSC_1_INITIAL_SETTINGS,
+            },
         },
         osc2: {
-            detune: 0,
-            enabled: true,
-            octave: 0,
-            pan: 0,
-            type: 'sine',
-            volume: 0.5,
+            gainNode: undefined,
+            panNode: undefined,
+            settings: {
+                ...OSC_2_INITIAL_SETTINGS,
+            },
         },
         oscSub: {
-            enabled: true,
-            octave: -1,
-            pan: 0,
-            type: 'sine',
-            volume: 0.5,
+            gainNode: undefined,
+            panNode: undefined,
+            settings: {
+                ...OSC_SUB_INITIAL_SETTINGS,
+            },
         },
-    },
-    gainNodes: {
-        master: undefined,
-        osc1: undefined,
-        osc2: undefined,
-        oscSub: undefined,
-    },
-    panNodes: {
-        master: undefined,
-        osc1: undefined,
-        osc2: undefined,
-        oscSub: undefined,
     },
 });
 

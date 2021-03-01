@@ -2,7 +2,8 @@ import { h } from 'preact';
 import { useContext } from 'preact/hooks';
 import { resetOscillatorDetune, setOscillatorDetune } from '../../lib/studioService/studioServiceActions';
 import { StudioServiceContext } from '../../lib/studioService/StudioServiceStore';
-import { OscillatorId } from '../../types/types';
+import { OscillatorIdEnum } from '../../types/runtimeTypes';
+import { OscillatorDetuneSetting, OscillatorId } from '../../types/types';
 import { DetuneFader } from '../DetuneFader/DetuneFader';
 
 interface OscillatorDetuneProps {
@@ -11,7 +12,8 @@ interface OscillatorDetuneProps {
 
 export const OscillatorDetune = ({ oscillatorId }: OscillatorDetuneProps) => {
     const [studioService, dispatch] = useContext(StudioServiceContext);
-    const oscillatorSettings = studioService.settings[oscillatorId as 'osc1' | 'osc2'];
+    const { oscillators } = studioService;
+    const oscillatorSettings = oscillators[oscillatorId as OscillatorIdEnum.OSC_1 | OscillatorIdEnum.OSC_2].settings as OscillatorDetuneSetting;
     const oscillatorDetune = oscillatorSettings.detune;
 
     const handleOnMouseDown = (e: MouseEvent) => {
