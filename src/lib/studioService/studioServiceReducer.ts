@@ -1,308 +1,439 @@
+import { OscillatorIdEnum } from '../../types/runtimeTypes';
 import { StudioServiceAction, StudioService } from '../../types/types';
+import {
+    setOscillatorGainNodeByOscillatorId,
+    setOscillatorSettingsByOscillatorId,
+    setOscillatorPanNodeByOscillatorId,
+} from '../oscillators/oscillators';
 
 export const studioServiceReducer = (state: StudioService, action: StudioServiceAction): StudioService => {
+    let newState: StudioService;
+
     switch (action.type) {
         case 'SET_MASTER_VOLUME':
-            return {
+            newState = {
                 ...state,
-                settings: {
-                    ...state.settings,
-                    master: {
-                        ...state.settings.master,
+                master: {
+                    ...state.master,
+                    settings: {
+                        ...state.master.settings,
                         volume: action.payload,
                     },
                 },
             };
+            break;
 
         case 'SET_MASTER_GAIN':
-            return {
+            newState = {
                 ...state,
-                gainNodes: {
-                    ...state.gainNodes,
-                    master: action.payload,
+                master: {
+                    ...state.master,
+                    gainNode: action.payload,
                 },
             };
+            break;
 
         case 'SET_MASTER_PAN_NODE':
-            return {
+            newState = {
                 ...state,
-                panNodes: {
-                    ...state.panNodes,
-                    master: action.payload,
+                master: {
+                    ...state.master,
+                    panNode: action.payload,
                 },
             };
+            break;
 
         case 'SET_MASTER_PAN_POSITION':
-            return {
+            newState = {
                 ...state,
-                settings: {
-                    ...state.settings,
-                    master: {
-                        ...state.settings.master,
+                master: {
+                    ...state.master,
+                    settings: {
+                        ...state.master.settings,
                         pan: action.payload,
                     },
+
                 },
             };
+            break;
 
         case 'SET_OSC_1_VOLUME':
-            return {
+            newState = {
                 ...state,
-                settings: {
-                    ...state.settings,
+                oscillators: {
+                    ...state.oscillators,
                     osc1: {
-                        ...state.settings.osc1,
-                        volume: action.payload,
+                        ...state.oscillators.osc1,
+                        settings: {
+                            ...state.oscillators.osc1.settings,
+                            volume: action.payload,
+                        },
                     },
                 },
             };
+            setOscillatorSettingsByOscillatorId(OscillatorIdEnum.OSC_1, newState.oscillators.osc1.settings);
+            break;
 
         case 'SET_OSC_2_VOLUME':
-            return {
+            newState = {
                 ...state,
-                settings: {
-                    ...state.settings,
+                oscillators: {
+                    ...state.oscillators,
                     osc2: {
-                        ...state.settings.osc2,
-                        volume: action.payload,
+                        ...state.oscillators.osc2,
+                        settings: {
+                            ...state.oscillators.osc2.settings,
+                            volume: action.payload,
+                        },
                     },
                 },
             };
+            setOscillatorSettingsByOscillatorId(OscillatorIdEnum.OSC_2, newState.oscillators.osc2.settings);
+            break;
 
         case 'SET_OSC_SUB_VOLUME':
-            return {
+            newState = {
                 ...state,
-                settings: {
-                    ...state.settings,
+                oscillators: {
+                    ...state.oscillators,
                     oscSub: {
-                        ...state.settings.oscSub,
-                        volume: action.payload,
+                        ...state.oscillators.oscSub,
+                        settings: {
+                            ...state.oscillators.oscSub.settings,
+                            volume: action.payload,
+                        },
                     },
                 },
             };
+            setOscillatorSettingsByOscillatorId(OscillatorIdEnum.OSC_SUB, newState.oscillators.oscSub.settings);
+            break;
 
         case 'SET_OSC_1_GAIN':
-            return {
+            newState = {
                 ...state,
-                gainNodes: {
-                    ...state.gainNodes,
-                    osc1: action.payload,
+                oscillators: {
+                    ...state.oscillators,
+                    osc1: {
+                        ...state.oscillators.osc1,
+                        gainNode: action.payload,
+                    },
                 },
             };
+            setOscillatorGainNodeByOscillatorId(OscillatorIdEnum.OSC_1, newState.oscillators.osc1.gainNode);
+            break;
 
         case 'SET_OSC_2_GAIN':
-            return {
+            newState = {
                 ...state,
-                gainNodes: {
-                    ...state.gainNodes,
-                    osc2: action.payload,
+                oscillators: {
+                    ...state.oscillators,
+                    osc2: {
+                        ...state.oscillators.osc2,
+                        gainNode: action.payload,
+                    },
                 },
             };
+            setOscillatorGainNodeByOscillatorId(OscillatorIdEnum.OSC_2, newState.oscillators.osc2.gainNode);
+            break;
 
         case 'SET_OSC_SUB_GAIN':
-            return {
+            newState = {
                 ...state,
-                gainNodes: {
-                    ...state.gainNodes,
-                    oscSub: action.payload,
+                oscillators: {
+                    ...state.oscillators,
+                    oscSub: {
+                        ...state.oscillators.oscSub,
+                        gainNode: action.payload,
+                    },
                 },
             };
+            setOscillatorGainNodeByOscillatorId(OscillatorIdEnum.OSC_SUB, newState.oscillators.oscSub.gainNode);
+            break;
 
         case 'SET_OSC_1_ENABLED':
-            return {
+            newState = {
                 ...state,
-                settings: {
-                    ...state.settings,
+                oscillators: {
+                    ...state.oscillators,
                     osc1: {
-                        ...state.settings.osc1,
-                        enabled: action.payload,
+                        ...state.oscillators.osc1,
+                        settings: {
+                            ...state.oscillators.osc1.settings,
+                            enabled: action.payload,
+                        },
                     },
                 },
             };
+            setOscillatorSettingsByOscillatorId(OscillatorIdEnum.OSC_1, newState.oscillators.osc1.settings);
+            break;
 
         case 'SET_OSC_2_ENABLED':
-            return {
+            newState = {
                 ...state,
-                settings: {
-                    ...state.settings,
+                oscillators: {
+                    ...state.oscillators,
                     osc2: {
-                        ...state.settings.osc2,
-                        enabled: action.payload,
+                        ...state.oscillators.osc2,
+                        settings: {
+                            ...state.oscillators.osc2.settings,
+                            enabled: action.payload,
+                        },
                     },
                 },
             };
+            setOscillatorSettingsByOscillatorId(OscillatorIdEnum.OSC_2, newState.oscillators.osc2.settings);
+            break;
 
         case 'SET_OSC_SUB_ENABLED':
-            return {
+            newState = {
                 ...state,
-                settings: {
-                    ...state.settings,
+                oscillators: {
+                    ...state.oscillators,
                     oscSub: {
-                        ...state.settings.oscSub,
-                        enabled: action.payload,
+                        ...state.oscillators.oscSub,
+                        settings: {
+                            ...state.oscillators.oscSub.settings,
+                            enabled: action.payload,
+                        },
                     },
                 },
             };
+            setOscillatorSettingsByOscillatorId(OscillatorIdEnum.OSC_SUB, newState.oscillators.oscSub.settings);
+            break;
 
         case 'SET_OSC_1_TYPE':
-            return {
+            newState = {
                 ...state,
-                settings: {
-                    ...state.settings,
+                oscillators: {
+                    ...state.oscillators,
                     osc1: {
-                        ...state.settings.osc1,
-                        type: action.payload,
+                        ...state.oscillators.osc1,
+                        settings: {
+                            ...state.oscillators.osc1.settings,
+                            type: action.payload,
+                        },
                     },
                 },
             };
+            setOscillatorSettingsByOscillatorId(OscillatorIdEnum.OSC_1, newState.oscillators.osc1.settings);
+            break;
 
         case 'SET_OSC_2_TYPE':
-            return {
+            newState = {
                 ...state,
-                settings: {
-                    ...state.settings,
+                oscillators: {
+                    ...state.oscillators,
                     osc2: {
-                        ...state.settings.osc2,
-                        type: action.payload,
+                        ...state.oscillators.osc2,
+                        settings: {
+                            ...state.oscillators.osc2.settings,
+                            type: action.payload,
+                        },
                     },
                 },
             };
+            setOscillatorSettingsByOscillatorId(OscillatorIdEnum.OSC_2, newState.oscillators.osc2.settings);
+            break;
 
         case 'SET_OSC_SUB_TYPE':
-            return {
+            newState = {
                 ...state,
-                settings: {
-                    ...state.settings,
+                oscillators: {
+                    ...state.oscillators,
                     oscSub: {
-                        ...state.settings.oscSub,
-                        type: action.payload,
+                        ...state.oscillators.oscSub,
+                        settings: {
+                            ...state.oscillators.oscSub.settings,
+                            type: action.payload,
+                        },
                     },
                 },
             };
+            setOscillatorSettingsByOscillatorId(OscillatorIdEnum.OSC_SUB, newState.oscillators.oscSub.settings);
+            break;
 
         case 'SET_OSC_1_DETUNE':
-            return {
+            newState = {
                 ...state,
-                settings: {
-                    ...state.settings,
+                oscillators: {
+                    ...state.oscillators,
                     osc1: {
-                        ...state.settings.osc1,
-                        detune: action.payload,
+                        ...state.oscillators.osc1,
+                        settings: {
+                            ...state.oscillators.osc1.settings,
+                            detune: action.payload,
+                        },
                     },
                 },
             };
+            setOscillatorSettingsByOscillatorId(OscillatorIdEnum.OSC_1, newState.oscillators.osc1.settings);
+            break;
 
         case 'SET_OSC_2_DETUNE':
-            return {
+            newState = {
                 ...state,
-                settings: {
-                    ...state.settings,
+                oscillators: {
+                    ...state.oscillators,
                     osc2: {
-                        ...state.settings.osc2,
-                        detune: action.payload,
+                        ...state.oscillators.osc2,
+                        settings: {
+                            ...state.oscillators.osc2.settings,
+                            detune: action.payload,
+                        },
                     },
                 },
             };
+            setOscillatorSettingsByOscillatorId(OscillatorIdEnum.OSC_2, newState.oscillators.osc2.settings);
+            break;
 
         case 'SET_OSC_1_PAN_NODE':
-            return {
+            newState = {
                 ...state,
-                panNodes: {
-                    ...state.panNodes,
-                    osc1: action.payload,
+                oscillators: {
+                    ...state.oscillators,
+                    osc1: {
+                        ...state.oscillators.osc1,
+                        panNode: action.payload,
+                    },
                 },
             };
+            setOscillatorPanNodeByOscillatorId(OscillatorIdEnum.OSC_1, newState.oscillators.osc1.panNode);
+            break;
 
         case 'SET_OSC_2_PAN_NODE':
-            return {
+            newState = {
                 ...state,
-                panNodes: {
-                    ...state.panNodes,
-                    osc2: action.payload,
+                oscillators: {
+                    ...state.oscillators,
+                    osc2: {
+                        ...state.oscillators.osc2,
+                        panNode: action.payload,
+                    },
                 },
             };
+            setOscillatorPanNodeByOscillatorId(OscillatorIdEnum.OSC_2, newState.oscillators.osc2.panNode);
+            break;
 
         case 'SET_OSC_SUB_PAN_NODE':
-            return {
+            newState = {
                 ...state,
-                panNodes: {
-                    ...state.panNodes,
-                    oscSub: action.payload,
+                oscillators: {
+                    ...state.oscillators,
+                    oscSub: {
+                        ...state.oscillators.oscSub,
+                        panNode: action.payload,
+                    },
                 },
             };
+            setOscillatorPanNodeByOscillatorId(OscillatorIdEnum.OSC_SUB, newState.oscillators.oscSub.panNode);
+            break;
 
         case 'SET_OSC_1_PAN_POSITION':
-            return {
+            newState = {
                 ...state,
-                settings: {
-                    ...state.settings,
+                oscillators: {
+                    ...state.oscillators,
                     osc1: {
-                        ...state.settings.osc1,
-                        pan: action.payload,
+                        ...state.oscillators.osc1,
+                        settings: {
+                            ...state.oscillators.osc1.settings,
+                            pan: action.payload,
+                        },
                     },
                 },
             };
+            setOscillatorSettingsByOscillatorId(OscillatorIdEnum.OSC_1, newState.oscillators.osc1.settings);
+
+            break;
 
         case 'SET_OSC_2_PAN_POSITION':
-            return {
+            newState = {
                 ...state,
-                settings: {
-                    ...state.settings,
+                oscillators: {
+                    ...state.oscillators,
                     osc2: {
-                        ...state.settings.osc2,
-                        pan: action.payload,
+                        ...state.oscillators.osc2,
+                        settings: {
+                            ...state.oscillators.osc2.settings,
+                            pan: action.payload,
+                        },
                     },
                 },
             };
+            setOscillatorSettingsByOscillatorId(OscillatorIdEnum.OSC_2, newState.oscillators.osc2.settings);
+            break;
 
         case 'SET_OSC_SUB_PAN_POSITION':
-            return {
+            newState = {
                 ...state,
-                settings: {
-                    ...state.settings,
+                oscillators: {
+                    ...state.oscillators,
                     oscSub: {
-                        ...state.settings.oscSub,
-                        pan: action.payload,
+                        ...state.oscillators.oscSub,
+                        settings: {
+                            ...state.oscillators.oscSub.settings,
+                            pan: action.payload,
+                        },
                     },
                 },
             };
+            setOscillatorSettingsByOscillatorId(OscillatorIdEnum.OSC_SUB, newState.oscillators.oscSub.settings);
+            break;
 
         case 'SET_OSC_1_OCTAVE':
-            return {
+            newState = {
                 ...state,
-                settings: {
-                    ...state.settings,
+                oscillators: {
+                    ...state.oscillators,
                     osc1: {
-                        ...state.settings.osc1,
-                        octave: action.payload,
+                        ...state.oscillators.osc1,
+                        settings: {
+                            ...state.oscillators.osc1.settings,
+                            octave: action.payload,
+                        },
                     },
                 },
             };
+            setOscillatorSettingsByOscillatorId(OscillatorIdEnum.OSC_1, newState.oscillators.osc1.settings);
+            break;
 
         case 'SET_OSC_2_OCTAVE':
-            return {
+            newState = {
                 ...state,
-                settings: {
-                    ...state.settings,
+                oscillators: {
+                    ...state.oscillators,
                     osc2: {
-                        ...state.settings.osc2,
-                        octave: action.payload,
+                        ...state.oscillators.osc2,
+                        settings: {
+                            ...state.oscillators.osc2.settings,
+                            octave: action.payload,
+                        },
                     },
                 },
             };
+            setOscillatorSettingsByOscillatorId(OscillatorIdEnum.OSC_2, newState.oscillators.osc2.settings);
+            break;
 
         case 'SET_OSC_SUB_OCTAVE':
-            return {
+            newState = {
                 ...state,
-                settings: {
-                    ...state.settings,
+                oscillators: {
+                    ...state.oscillators,
                     oscSub: {
-                        ...state.settings.oscSub,
-                        octave: action.payload,
+                        ...state.oscillators.oscSub,
+                        settings: {
+                            ...state.oscillators.oscSub.settings,
+                            octave: action.payload,
+                        },
                     },
                 },
             };
+            setOscillatorSettingsByOscillatorId(OscillatorIdEnum.OSC_SUB, newState.oscillators.oscSub.settings);
+            break;
 
         default:
-            return state;
+            newState = state;
+            break;
     }
+    return newState;
 };

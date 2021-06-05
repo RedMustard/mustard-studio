@@ -4,29 +4,26 @@ export type Octave = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
 export type OscillatorId = 'osc1' | 'osc2' | 'oscSub';
 export type ValueUnit = 'percent' | 'cent' | 'pan';
 
+export type Oscillator = {
+    gainNode: GainNode,
+    panNode: StereoPannerNode,
+    settings: OscillatorSettings | OscillatorSettings & OscillatorDetuneSetting,
+};
 
 export type StudioService = {
-    settings: {
-        master: {
+    master: {
+        gainNode: GainNode,
+        panNode: StereoPannerNode,
+        settings: {
             volume: number,
             pan: number,
-        },
-        osc1: OscillatorSettings & OscillatorDetune,
-        osc2: OscillatorSettings & OscillatorDetune,
-        oscSub: OscillatorSettings,
+        }
     },
-    gainNodes: {
-        master: GainNode,
-        osc1: GainNode,
-        osc2: GainNode,
-        oscSub: GainNode,
-    },
-    panNodes: {
-        master: StereoPannerNode,
-        osc1: StereoPannerNode,
-        osc2: StereoPannerNode,
-        oscSub: StereoPannerNode,
-    },
+    oscillators: {
+        osc1: Oscillator,
+        osc2: Oscillator,
+        oscSub: Oscillator,
+    }
 };
 
 export type OscillatorSettings = {
@@ -37,7 +34,7 @@ export type OscillatorSettings = {
     volume: number,
 };
 
-export type OscillatorDetune = {
+export type OscillatorDetuneSetting = {
     detune: number,
 };
 

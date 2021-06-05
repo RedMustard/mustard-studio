@@ -24,14 +24,16 @@ const mockGainNode = {
 };
 const initialState = {
     ...getInitialState(),
-    settings: {
-        osc1: {
-            volume: 0.25,
-        },
+    master: {
+        gainNode: mockGainNode,
     },
-    gainNodes: {
-        osc1: mockGainNode,
-        master: mockGainNode,
+    oscillators: {
+        osc1: {
+            gainNode: mockGainNode,
+            settings: {
+                volume: 0.25,
+            },
+        },
     },
 };
 
@@ -57,7 +59,7 @@ describe('<OscillatorVolume />', () => {
             </StudioServiceContext.Provider>,
         );
         expect(mockGainNode.connect).toBeCalled();
-        expect(mockGainNode.gain.value).toBe(initialState.settings.osc1.volume);
+        expect(mockGainNode.gain.value).toBe(initialState.oscillators.osc1.settings.volume);
     });
 
     it('calls setOscillatorGainNode when oscillatorGainNode undefined', () => {

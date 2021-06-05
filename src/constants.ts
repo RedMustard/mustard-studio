@@ -1,3 +1,5 @@
+import { OscillatorDetuneSetting, OscillatorSettings } from './types/types';
+
 // Volume Faders
 export const MAX_VOLUME = 1.0;
 export const MIN_VOLUME = 0.0;
@@ -17,3 +19,34 @@ export const PAN_STEPS = 0.01;
 export const MAX_OCTAVE = 8;
 export const MIN_OCTAVE = -8;
 export const OCTAVE_STEPS = 1;
+
+// MIDI
+export const MIDI_NOTE_OFFSET = 20;
+
+
+// OSCILLATORS
+export const OSC_1_INITIAL_SETTINGS: OscillatorSettings & OscillatorDetuneSetting = {
+    detune: 0,
+    enabled: true,
+    octave: 0,
+    pan: 0,
+    type: 'sine',
+    volume: 0.5,
+};
+
+export const OSC_2_INITIAL_SETTINGS: OscillatorSettings & OscillatorDetuneSetting = {
+    detune: 0,
+    enabled: true,
+    octave: 0,
+    pan: 0,
+    type: 'sine',
+    volume: 0.5,
+};
+
+export const OSC_SUB_INITIAL_SETTINGS: OscillatorSettings = {
+    enabled: true,
+    octave: -1,
+    pan: 0,
+    type: 'sine',
+    volume: 0.5,
+};

@@ -5,45 +5,49 @@ exports[`<StudioServiceStore /> renders with basic props 1`] = `
   value={
     Array [
       Object {
-        "gainNodes": Object {
-          "master": undefined,
-          "osc1": undefined,
-          "osc2": undefined,
-          "oscSub": undefined,
-        },
-        "panNodes": Object {
-          "master": undefined,
-          "osc1": undefined,
-          "osc2": undefined,
-          "oscSub": undefined,
-        },
-        "settings": Object {
-          "master": Object {
+        "master": Object {
+          "gainNode": undefined,
+          "panNode": undefined,
+          "settings": Object {
             "pan": 0,
             "volume": 0.1,
           },
+        },
+        "oscillators": Object {
           "osc1": Object {
-            "detune": 0,
-            "enabled": true,
-            "octave": 0,
-            "pan": 0,
-            "type": "sine",
-            "volume": 0.5,
+            "gainNode": undefined,
+            "panNode": undefined,
+            "settings": Object {
+              "detune": 0,
+              "enabled": true,
+              "octave": 0,
+              "pan": 0,
+              "type": "sine",
+              "volume": 0.5,
+            },
           },
           "osc2": Object {
-            "detune": 0,
-            "enabled": true,
-            "octave": 0,
-            "pan": 0,
-            "type": "sine",
-            "volume": 0.5,
+            "gainNode": undefined,
+            "panNode": undefined,
+            "settings": Object {
+              "detune": 0,
+              "enabled": true,
+              "octave": 0,
+              "pan": 0,
+              "type": "sine",
+              "volume": 0.5,
+            },
           },
           "oscSub": Object {
-            "enabled": true,
-            "octave": -1,
-            "pan": 0,
-            "type": "sine",
-            "volume": 0.5,
+            "gainNode": undefined,
+            "panNode": undefined,
+            "settings": Object {
+              "enabled": true,
+              "octave": -1,
+              "pan": 0,
+              "type": "sine",
+              "volume": 0.5,
+            },
           },
         },
       },

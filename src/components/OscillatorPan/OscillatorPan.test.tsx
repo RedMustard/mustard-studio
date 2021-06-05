@@ -30,16 +30,14 @@ const mockGainNode = {
 };
 const initialState = {
     ...getInitialState(),
-    settings: {
+    oscillators: {
         osc1: {
-            pan: 0.5,
+            panNode: mockPanNode,
+            gainNode: mockGainNode,
+            settings: {
+                pan: 0.5,
+            },
         },
-    },
-    panNodes: {
-        osc1: mockPanNode,
-    },
-    gainNodes: {
-        osc1: mockGainNode,
     },
 };
 
@@ -87,7 +85,7 @@ describe('<OscillatorPan />', () => {
         );
         expect(mockGainNode.connect).toBeCalled();
         expect(mockPanNode.connect).toBeCalled();
-        expect(mockPanNode.pan.value).toBe(initialState.settings.osc1.pan);
+        expect(mockPanNode.pan.value).toBe(initialState.oscillators.osc1.settings.pan);
     });
 
     it('calls resetOscillatorPanPosition when ctrl clicked', () => {

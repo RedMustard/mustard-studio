@@ -13,8 +13,8 @@ interface OscillatorOctaveProps {
 
 export const OscillatorOctave = ({ oscillatorId }: OscillatorOctaveProps) => {
     const [studioService, dispatch] = useContext(StudioServiceContext);
-    const { settings } = studioService;
-    const oscillatorOctave = settings[oscillatorId].octave;
+    const { oscillators } = studioService;
+    const oscillatorOctave = oscillators[oscillatorId].settings.octave;
 
     const handleOnMouseDown = (e: MouseEvent) => {
         if (e.buttons === 1 && (e.ctrlKey || e.metaKey)) {

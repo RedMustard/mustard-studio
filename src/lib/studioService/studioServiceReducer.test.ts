@@ -5,7 +5,7 @@ import { getInitialState } from './StudioServiceStore';
 
 // eslint-disable-next-line import/newline-after-import
 const wamock = require('web-audio-mock-api');
-const audioContext = new wamock.AudioContext();
+const mockAudioContext = new wamock.AudioContext();
 let initialState: StudioService;
 let modifiedState: StudioService;
 let action: StudioServiceAction;
@@ -18,14 +18,14 @@ describe('studioServiceReducer', () => {
     it('SET_MASTER_PAN_NODE', () => {
         modifiedState = {
             ...initialState,
-            panNodes: {
-                ...initialState.panNodes,
-                master: audioContext.createStereoPanner(),
+            master: {
+                ...initialState.master,
+                panNode: mockAudioContext.createStereoPanner(),
             },
         };
         action = {
             type: 'SET_MASTER_PAN_NODE',
-            payload: audioContext.createStereoPanner(),
+            payload: mockAudioContext.createStereoPanner(),
         };
         expect(studioServiceReducer(initialState, action)).toEqual(modifiedState);
     });
@@ -33,10 +33,10 @@ describe('studioServiceReducer', () => {
     it('SET_MASTER_PAN_POSITION', () => {
         modifiedState = {
             ...initialState,
-            settings: {
-                ...initialState.settings,
-                master: {
-                    ...initialState.settings.master,
+            master: {
+                ...initialState.master,
+                settings: {
+                    ...initialState.master.settings,
                     pan: 0.7,
                 },
             },
@@ -51,10 +51,10 @@ describe('studioServiceReducer', () => {
     it('SET_MASTER_VOLUME', () => {
         modifiedState = {
             ...initialState,
-            settings: {
-                ...initialState.settings,
-                master: {
-                    ...initialState.settings.master,
+            master: {
+                ...initialState.master,
+                settings: {
+                    ...initialState.master.settings,
                     volume: 1.0,
                 },
             },
@@ -69,11 +69,14 @@ describe('studioServiceReducer', () => {
     it('SET_OSC_1_VOLUME', () => {
         modifiedState = {
             ...initialState,
-            settings: {
-                ...initialState.settings,
+            oscillators: {
+                ...initialState.oscillators,
                 osc1: {
-                    ...initialState.settings.osc1,
-                    volume: 1.0,
+                    ...initialState.oscillators.osc1,
+                    settings: {
+                        ...initialState.oscillators.osc1.settings,
+                        volume: 1.0,
+                    },
                 },
             },
         };
@@ -87,11 +90,14 @@ describe('studioServiceReducer', () => {
     it('SET_OSC_2_VOLUME', () => {
         modifiedState = {
             ...initialState,
-            settings: {
-                ...initialState.settings,
+            oscillators: {
+                ...initialState.oscillators,
                 osc2: {
-                    ...initialState.settings.osc2,
-                    volume: 1.0,
+                    ...initialState.oscillators.osc2,
+                    settings: {
+                        ...initialState.oscillators.osc2.settings,
+                        volume: 1.0,
+                    },
                 },
             },
         };
@@ -105,11 +111,14 @@ describe('studioServiceReducer', () => {
     it('SET_OSC_SUB_VOLUME', () => {
         modifiedState = {
             ...initialState,
-            settings: {
-                ...initialState.settings,
+            oscillators: {
+                ...initialState.oscillators,
                 oscSub: {
-                    ...initialState.settings.oscSub,
-                    volume: 1.0,
+                    ...initialState.oscillators.oscSub,
+                    settings: {
+                        ...initialState.oscillators.oscSub.settings,
+                        volume: 1.0,
+                    },
                 },
             },
         };
@@ -123,14 +132,14 @@ describe('studioServiceReducer', () => {
     it('SET_MASTER_GAIN', () => {
         modifiedState = {
             ...initialState,
-            gainNodes: {
-                ...initialState.gainNodes,
-                master: audioContext.createGain(),
+            master: {
+                ...initialState.master,
+                gainNode: mockAudioContext.createGain(),
             },
         };
         action = {
             type: 'SET_MASTER_GAIN',
-            payload: audioContext.createGain(),
+            payload: mockAudioContext.createGain(),
         };
         expect(studioServiceReducer(initialState, action)).toEqual(modifiedState);
     });
@@ -138,14 +147,17 @@ describe('studioServiceReducer', () => {
     it('SET_OSC_1_GAIN', () => {
         modifiedState = {
             ...initialState,
-            gainNodes: {
-                ...initialState.gainNodes,
-                osc1: audioContext.createGain(),
+            oscillators: {
+                ...initialState.oscillators,
+                osc1: {
+                    ...initialState.oscillators.osc1,
+                    gainNode: mockAudioContext.createGain(),
+                },
             },
         };
         action = {
             type: 'SET_OSC_1_GAIN',
-            payload: audioContext.createGain(),
+            payload: mockAudioContext.createGain(),
         };
         expect(studioServiceReducer(initialState, action)).toEqual(modifiedState);
     });
@@ -153,14 +165,17 @@ describe('studioServiceReducer', () => {
     it('SET_OSC_2_GAIN', () => {
         modifiedState = {
             ...initialState,
-            gainNodes: {
-                ...initialState.gainNodes,
-                osc2: audioContext.createGain(),
+            oscillators: {
+                ...initialState.oscillators,
+                osc2: {
+                    ...initialState.oscillators.osc2,
+                    gainNode: mockAudioContext.createGain(),
+                },
             },
         };
         action = {
             type: 'SET_OSC_2_GAIN',
-            payload: audioContext.createGain(),
+            payload: mockAudioContext.createGain(),
         };
         expect(studioServiceReducer(initialState, action)).toEqual(modifiedState);
     });
@@ -168,14 +183,17 @@ describe('studioServiceReducer', () => {
     it('SET_OSC_SUB_GAIN', () => {
         modifiedState = {
             ...initialState,
-            gainNodes: {
-                ...initialState.gainNodes,
-                oscSub: audioContext.createGain(),
+            oscillators: {
+                ...initialState.oscillators,
+                oscSub: {
+                    ...initialState.oscillators.oscSub,
+                    gainNode: mockAudioContext.createGain(),
+                },
             },
         };
         action = {
             type: 'SET_OSC_SUB_GAIN',
-            payload: audioContext.createGain(),
+            payload: mockAudioContext.createGain(),
         };
         expect(studioServiceReducer(initialState, action)).toEqual(modifiedState);
     });
@@ -183,11 +201,14 @@ describe('studioServiceReducer', () => {
     it('SET_OSC_1_ENABLED', () => {
         modifiedState = {
             ...initialState,
-            settings: {
-                ...initialState.settings,
+            oscillators: {
+                ...initialState.oscillators,
                 osc1: {
-                    ...initialState.settings.osc1,
-                    enabled: true,
+                    ...initialState.oscillators.osc1,
+                    settings: {
+                        ...initialState.oscillators.osc1.settings,
+                        enabled: true,
+                    },
                 },
             },
         };
@@ -201,11 +222,14 @@ describe('studioServiceReducer', () => {
     it('SET_OSC_2_ENABLED', () => {
         modifiedState = {
             ...initialState,
-            settings: {
-                ...initialState.settings,
+            oscillators: {
+                ...initialState.oscillators,
                 osc2: {
-                    ...initialState.settings.osc2,
-                    enabled: true,
+                    ...initialState.oscillators.osc2,
+                    settings: {
+                        ...initialState.oscillators.osc2.settings,
+                        enabled: true,
+                    },
                 },
             },
         };
@@ -219,11 +243,14 @@ describe('studioServiceReducer', () => {
     it('SET_OSC_SUB_ENABLED', () => {
         modifiedState = {
             ...initialState,
-            settings: {
-                ...initialState.settings,
+            oscillators: {
+                ...initialState.oscillators,
                 oscSub: {
-                    ...initialState.settings.oscSub,
-                    enabled: true,
+                    ...initialState.oscillators.oscSub,
+                    settings: {
+                        ...initialState.oscillators.oscSub.settings,
+                        enabled: true,
+                    },
                 },
             },
         };
@@ -237,11 +264,14 @@ describe('studioServiceReducer', () => {
     it('SET_OSC_1_TYPE', () => {
         modifiedState = {
             ...initialState,
-            settings: {
-                ...initialState.settings,
+            oscillators: {
+                ...initialState.oscillators,
                 osc1: {
-                    ...initialState.settings.osc1,
-                    type: 'triangle',
+                    ...initialState.oscillators.osc1,
+                    settings: {
+                        ...initialState.oscillators.osc1.settings,
+                        type: 'triangle',
+                    },
                 },
             },
         };
@@ -255,11 +285,14 @@ describe('studioServiceReducer', () => {
     it('SET_OSC_2_TYPE', () => {
         modifiedState = {
             ...initialState,
-            settings: {
-                ...initialState.settings,
+            oscillators: {
+                ...initialState.oscillators,
                 osc2: {
-                    ...initialState.settings.osc2,
-                    type: 'square',
+                    ...initialState.oscillators.osc2,
+                    settings: {
+                        ...initialState.oscillators.osc2.settings,
+                        type: 'square',
+                    },
                 },
             },
         };
@@ -273,11 +306,14 @@ describe('studioServiceReducer', () => {
     it('SET_OSC_SUB_TYPE', () => {
         modifiedState = {
             ...initialState,
-            settings: {
-                ...initialState.settings,
+            oscillators: {
+                ...initialState.oscillators,
                 oscSub: {
-                    ...initialState.settings.oscSub,
-                    type: 'square',
+                    ...initialState.oscillators.oscSub,
+                    settings: {
+                        ...initialState.oscillators.oscSub.settings,
+                        type: 'square',
+                    },
                 },
             },
         };
@@ -291,11 +327,14 @@ describe('studioServiceReducer', () => {
     it('SET_OSC_1_DETUNE', () => {
         modifiedState = {
             ...initialState,
-            settings: {
-                ...initialState.settings,
+            oscillators: {
+                ...initialState.oscillators,
                 osc1: {
-                    ...initialState.settings.osc1,
-                    detune: 400,
+                    ...initialState.oscillators.osc1,
+                    settings: {
+                        ...initialState.oscillators.osc1.settings,
+                        detune: 400,
+                    },
                 },
             },
         };
@@ -309,11 +348,14 @@ describe('studioServiceReducer', () => {
     it('SET_OSC_2_DETUNE', () => {
         modifiedState = {
             ...initialState,
-            settings: {
-                ...initialState.settings,
+            oscillators: {
+                ...initialState.oscillators,
                 osc2: {
-                    ...initialState.settings.osc2,
-                    detune: 400,
+                    ...initialState.oscillators.osc2,
+                    settings: {
+                        ...initialState.oscillators.osc2.settings,
+                        detune: 400,
+                    },
                 },
             },
         };
@@ -327,14 +369,17 @@ describe('studioServiceReducer', () => {
     it('SET_OSC_1_PAN_NODE', () => {
         modifiedState = {
             ...initialState,
-            panNodes: {
-                ...initialState.panNodes,
-                osc1: audioContext.createStereoPanner(),
+            oscillators: {
+                ...initialState.oscillators,
+                osc1: {
+                    ...initialState.oscillators.osc1,
+                    panNode: mockAudioContext.createStereoPanner(),
+                },
             },
         };
         action = {
             type: 'SET_OSC_1_PAN_NODE',
-            payload: audioContext.createStereoPanner(),
+            payload: mockAudioContext.createStereoPanner(),
         };
         expect(studioServiceReducer(initialState, action)).toEqual(modifiedState);
     });
@@ -342,14 +387,17 @@ describe('studioServiceReducer', () => {
     it('SET_OSC_2_PAN_NODE', () => {
         modifiedState = {
             ...initialState,
-            panNodes: {
-                ...initialState.panNodes,
-                osc2: audioContext.createStereoPanner(),
+            oscillators: {
+                ...initialState.oscillators,
+                osc2: {
+                    ...initialState.oscillators.osc2,
+                    panNode: mockAudioContext.createStereoPanner(),
+                },
             },
         };
         action = {
             type: 'SET_OSC_2_PAN_NODE',
-            payload: audioContext.createStereoPanner(),
+            payload: mockAudioContext.createStereoPanner(),
         };
         expect(studioServiceReducer(initialState, action)).toEqual(modifiedState);
     });
@@ -357,14 +405,17 @@ describe('studioServiceReducer', () => {
     it('SET_OSC_SUB_PAN_NODE', () => {
         modifiedState = {
             ...initialState,
-            panNodes: {
-                ...initialState.panNodes,
-                oscSub: audioContext.createStereoPanner(),
+            oscillators: {
+                ...initialState.oscillators,
+                oscSub: {
+                    ...initialState.oscillators.oscSub,
+                    panNode: mockAudioContext.createStereoPanner(),
+                },
             },
         };
         action = {
             type: 'SET_OSC_SUB_PAN_NODE',
-            payload: audioContext.createStereoPanner(),
+            payload: mockAudioContext.createStereoPanner(),
         };
         expect(studioServiceReducer(initialState, action)).toEqual(modifiedState);
     });
@@ -372,11 +423,14 @@ describe('studioServiceReducer', () => {
     it('SET_OSC_1_PAN_POSITION', () => {
         modifiedState = {
             ...initialState,
-            settings: {
-                ...initialState.settings,
+            oscillators: {
+                ...initialState.oscillators,
                 osc1: {
-                    ...initialState.settings.osc1,
-                    pan: 1.0,
+                    ...initialState.oscillators.osc1,
+                    settings: {
+                        ...initialState.oscillators.osc1.settings,
+                        pan: 1.0,
+                    },
                 },
             },
         };
@@ -390,11 +444,14 @@ describe('studioServiceReducer', () => {
     it('SET_OSC_2_PAN_POSITION', () => {
         modifiedState = {
             ...initialState,
-            settings: {
-                ...initialState.settings,
+            oscillators: {
+                ...initialState.oscillators,
                 osc2: {
-                    ...initialState.settings.osc2,
-                    pan: 1.0,
+                    ...initialState.oscillators.osc2,
+                    settings: {
+                        ...initialState.oscillators.osc2.settings,
+                        pan: 1.0,
+                    },
                 },
             },
         };
@@ -408,11 +465,14 @@ describe('studioServiceReducer', () => {
     it('SET_OSC_SUB_PAN_POSITION', () => {
         modifiedState = {
             ...initialState,
-            settings: {
-                ...initialState.settings,
+            oscillators: {
+                ...initialState.oscillators,
                 oscSub: {
-                    ...initialState.settings.oscSub,
-                    pan: 1.0,
+                    ...initialState.oscillators.oscSub,
+                    settings: {
+                        ...initialState.oscillators.oscSub.settings,
+                        pan: 1.0,
+                    },
                 },
             },
         };
@@ -426,11 +486,14 @@ describe('studioServiceReducer', () => {
     it('SET_OSC_1_OCTAVE', () => {
         modifiedState = {
             ...initialState,
-            settings: {
-                ...initialState.settings,
+            oscillators: {
+                ...initialState.oscillators,
                 osc1: {
-                    ...initialState.settings.osc1,
-                    octave: 1,
+                    ...initialState.oscillators.osc1,
+                    settings: {
+                        ...initialState.oscillators.osc1.settings,
+                        octave: 1.0,
+                    },
                 },
             },
         };
@@ -444,11 +507,14 @@ describe('studioServiceReducer', () => {
     it('SET_OSC_2_OCTAVE', () => {
         modifiedState = {
             ...initialState,
-            settings: {
-                ...initialState.settings,
+            oscillators: {
+                ...initialState.oscillators,
                 osc2: {
-                    ...initialState.settings.osc2,
-                    octave: 1,
+                    ...initialState.oscillators.osc2,
+                    settings: {
+                        ...initialState.oscillators.osc2.settings,
+                        octave: 1.0,
+                    },
                 },
             },
         };
@@ -462,11 +528,14 @@ describe('studioServiceReducer', () => {
     it('SET_OSC_SUB_OCTAVE', () => {
         modifiedState = {
             ...initialState,
-            settings: {
-                ...initialState.settings,
+            oscillators: {
+                ...initialState.oscillators,
                 oscSub: {
-                    ...initialState.settings.oscSub,
-                    octave: 1,
+                    ...initialState.oscillators.oscSub,
+                    settings: {
+                        ...initialState.oscillators.oscSub.settings,
+                        octave: 1.0,
+                    },
                 },
             },
         };
