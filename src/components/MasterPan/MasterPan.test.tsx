@@ -28,16 +28,12 @@ const mockGainNode = {
 };
 const initialState = {
     ...getInitialState(),
-    settings: {
-        master: {
+    master: {
+        panNode: mockPanNode,
+        gainNode: mockGainNode,
+        settings: {
             pan: 0.5,
         },
-    },
-    panNodes: {
-        master: mockPanNode,
-    },
-    gainNodes: {
-        master: mockGainNode,
     },
 };
 
@@ -84,7 +80,7 @@ describe('<MasterPan />', () => {
         );
         expect(mockGainNode.connect).toBeCalled();
         expect(mockPanNode.connect).toBeCalled();
-        expect(mockPanNode.pan.value).toBe(initialState.settings.master.pan);
+        expect(mockPanNode.pan.value).toBe(initialState.master.settings.pan);
     });
 
     it('calls resetMasterPanPosition when ctrl clicked', () => {

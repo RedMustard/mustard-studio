@@ -21,13 +21,11 @@ const mockGainNode = {
 };
 const initialState = {
     ...getInitialState(),
-    settings: {
-        master: {
+    master: {
+        settings: {
             volume: 0.25,
         },
-    },
-    gainNodes: {
-        master: mockGainNode,
+        gainNode: mockGainNode,
     },
 };
 
@@ -68,7 +66,7 @@ describe('<MasterVolume />', () => {
                 />
             </StudioServiceContext.Provider>,
         );
-        expect(mockGainNode.gain.value).toBe(initialState.settings.master.volume);
+        expect(mockGainNode.gain.value).toBe(initialState.master.settings.volume);
     });
 
     it('calls resetMasterVolume when ctrl clicked', () => {

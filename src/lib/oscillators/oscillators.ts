@@ -55,9 +55,6 @@ const addOscillatorNode = (oscillatorNode: OscillatorNode, frequency: number, os
 };
 
 export const setOscillatorGainNodeByOscillatorId = (oscillatorId: OscillatorId, gainNode: GainNode) => {
-    // logger.info('Oscillator Gain Node set for id', oscillatorId);
-    // logger.info('Oscillators are now: ', oscillatorConfigs);
-
     switch (oscillatorId) {
         case 'osc1':
             oscillatorConfigs.osc1.gainNode = gainNode;
@@ -74,9 +71,6 @@ export const setOscillatorGainNodeByOscillatorId = (oscillatorId: OscillatorId, 
 };
 
 export const setOscillatorPanNodeByOscillatorId = (oscillatorId: OscillatorId, panNode: StereoPannerNode) => {
-    // logger.info('Oscillator Pan Node set for id', oscillatorId);
-    // logger.info('Oscillators are now: ', oscillatorConfigs);
-
     switch (oscillatorId) {
         case 'osc1':
             oscillatorConfigs.osc1.panNode = panNode;
@@ -96,8 +90,6 @@ export const setOscillatorSettingsByOscillatorId = (
     oscillatorId: OscillatorId,
     oscillatorSettings: OscillatorSettings | OscillatorSettings & OscillatorDetuneSetting,
 ) => {
-    // logger.info('Oscillator settings set for id', oscillatorId, 'with settings,', oscillatorSettings);
-    // logger.info('Oscillators are now: ', oscillatorConfigs);
     switch (oscillatorId) {
         case 'osc1':
             oscillatorConfigs.osc1.settings = oscillatorSettings;
@@ -151,8 +143,8 @@ export const startOscillators = (oscillatorFrequency: number) => {
     const audioContext = getAudioContext();
 
     (Object.keys(oscillatorConfigs) as OscillatorId[]).forEach((oscillatorId) => {
-        const oscSettings = oscillatorConfigs[oscillatorId].settings;
-        const oscGainNode = oscillatorConfigs[oscillatorId].gainNode;
+        const oscSettings = getOscillatorsConfigs()[oscillatorId].settings;
+        const oscGainNode = getOscillatorsConfigs()[oscillatorId].gainNode;
         const oscEnabled = oscSettings.enabled;
         const oscType = oscSettings.type;
         const oscOctave = oscSettings.octave;
