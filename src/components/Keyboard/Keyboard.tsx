@@ -1,17 +1,13 @@
 import { h } from 'preact';
-// import { useContext } from 'preact/hooks';
 import { getFrequencyByKeyNumber } from '../../lib/utils/audio/audio';
 import { BlackKey } from './BlackKey/BlackKey';
 import { WhiteKey } from './WhiteKey/WhiteKey';
 import { KeyboardKeyColor } from '../../types/types';
 import { logger } from '../../lib/utils/logger/logger';
-// import { StudioServiceContext } from '../../lib/studioService/StudioServiceStore';
 import { startOscillators, stopOscillators } from '../../lib/oscillators/oscillators';
 
 
 export const Keyboard = () => {
-    // const [studioService] = useContext(StudioServiceContext);
-
     const handleOnMouseDownAndOver = (keyNumber: number) => {
         const frequency = getFrequencyByKeyNumber(keyNumber);
         startOscillators(frequency);

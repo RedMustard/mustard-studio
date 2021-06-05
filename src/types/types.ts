@@ -25,29 +25,6 @@ export type StudioService = {
         oscSub: Oscillator,
     }
 };
-// export type StudioService = {
-//     settings: {
-//         master: {
-//             volume: number,
-//             pan: number,
-//         },
-//         osc1: OscillatorSettings & OscillatorDetuneSetting,
-//         osc2: OscillatorSettings & OscillatorDetuneSetting,
-//         oscSub: OscillatorSettings,
-//     },
-//     gainNodes: {
-//         master: GainNode,
-//         osc1: GainNode,
-//         osc2: GainNode,
-//         oscSub: GainNode,
-//     },
-//     panNodes: {
-//         master: StereoPannerNode,
-//         osc1: StereoPannerNode,
-//         osc2: StereoPannerNode,
-//         oscSub: StereoPannerNode,
-//     },
-// };
 
 export type OscillatorSettings = {
     enabled: boolean,
