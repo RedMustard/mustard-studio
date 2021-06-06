@@ -1,16 +1,35 @@
 {
   "private": true,
   "name": "mustard-studio",
+  "description": "Electron-based step sequencer and polysynth",
   "version": "0.0.0",
   "license": "MIT",
+  "main": "electron/main.ts",
+  "build": {
+    "appId": "com.electron.electron-with-create-react-app",
+    "win": {
+      "iconUrl": "https://cdn2.iconfinder.com/data/icons/designer-skills/128/react-256.png"
+    },
+    "mac": {
+        "iconUrl": "https://cdn2.iconfinder.com/data/icons/designer-skills/128/react-256.png"
+
+    },
+    "directories": {
+      "buildResources": "public"
+    }
+  },
   "scripts": {
     "build": "preact build",
-    "serve": "sirv build --port 8080 --cors --single",
-    "dev": "preact watch",
+    "build-storybook": "build-storybook",
+    "dev": "nf start",
+    "electron": "electron .",
+    "ebuild": "npm run build && node_modules/.bin/build",
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}'",
-    "test": "jest ./src/",
+    "pdev": "preact watch",
+    "serve": "sirv build --port 8080 --cors --single",
+    "start": "if-env NODE_ENV=production && npm run -s serve || npm run -s pdev",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "test": "jest ./src/"
   },
   "husky": {
     "hooks": {
@@ -26,6 +45,7 @@
   ],
   "dependencies": {
     "clone": "^2.1.2",
+    "if-env": "^1.0.4",
     "preact": "^10.3.1",
     "preact-jsx-chai": "^3.0.0",
     "preact-markup": "^2.0.0",
@@ -51,6 +71,8 @@
     "babel-loader": "^8.2.2",
     "core-js": "^3.8.2",
     "css-loader": "^3.5.3",
+    "electron": "^13.1.1",
+    "electron-builder": "^22.10.5",
     "enzyme": "^3.11.0",
     "enzyme-adapter-preact-pure": "^2.2.0",
     "enzyme-to-json": "^3.6.1",
