@@ -1,5 +1,7 @@
 node_modules
 /build
 /*.log
+/dist
 coverage
 size-plugin.json
+.DS_Store

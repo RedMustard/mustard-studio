@@ -1,10 +1,17 @@
-const {app, BrowserWindow} = require('electron');
+const { template } = require('./menu.ts');
+const { app, BrowserWindow, Menu } = require('electron');
 const path = require('path');
 const url = require('url');
+const fs = require('fs');
+const packageJson = require('../package.json');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win;
+
+function isDev() {
+    return process.argv[2] == '--dev';
+}
 
 /**
  * @name createWindow
@@ -29,8 +36,13 @@ function createWindow() {
     win = null;
   });
 
-  win.webContents.openDevTools()
+  if (isDev()) {
+      win.webContents.openDevTools()
+  }
 }
+
+const menu = Menu.buildFromTemplate(template)
+Menu.setApplicationMenu(menu)
 
 app.on('ready', createWindow);
 

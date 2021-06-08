@@ -1,5 +1,5 @@
 const net = require('net');
-const port = process.env.PORT ? (process.env.PORT - 100) : 5000;
+const port = process.env.PORT ? (parseInt(process.env.PORT) - 100) : 5000;
 
 process.env.ELECTRON_START_URL = `http://localhost:${port}`;
 

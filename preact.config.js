@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { resolve } from 'path';
 
 export default {
@@ -27,5 +28,13 @@ export default {
             'src',
             'index',
         );
+
+        if (env.production) {
+            config.target = 'electron-renderer';
+            config.output.publicPath = env.pkg.homepage;
+            const { plugin } = helpers.getPluginsByName(config, 'DefinePlugin')[0];
+            plugin.definitions.PUBLIC_PATH = env.pkg.homepage;
+        }
     },
 };
+
