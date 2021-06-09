@@ -1,0 +1,26 @@
+appId: "com.redmustard.mustard-studio"
+productName: "MustardStudio"
+copyright: "Copyright © 2021 ${author}"
+
+files:
+  - "build/**/*"
+  - "electron/*"
+
+mac:
+  icon: "build/assets/icons/android-chrome-512x512.png"
+  artifactName: "${productName}-${version}.${ext}"
+
+win:
+  icon: "build/assets/icons/android-chrome-512x512.png"
+  artifactName: "${productName}-${version} Setup.${ext}"
+  target:
+    - "zip"
+    - "nsis"
+
+# Config for the windows installer
+nsis:
+  perMachine: true
+
+directories:
+  buildResources: "resources"
+  output: "release"

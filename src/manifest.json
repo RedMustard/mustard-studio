@@ -1,6 +1,6 @@
 {
-  "name": "Mustard Studio - Electron Polysynth",
-  "short_name": "Mustard Studio",
+  "name": "MustardStudio - Electron Polysynth",
+  "short_name": "MustardStudio",
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait",

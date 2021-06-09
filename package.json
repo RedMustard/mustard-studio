@@ -2,7 +2,7 @@
   "private": true,
   "name": "mustard-studio",
   "author": {
-    "name": "RedMustard",
+    "name": "RedMustard.io",
     "email": "travis@redmustard.io",
     "url": "https://redmustard.io"
   },
@@ -11,23 +11,15 @@
   "license": "MIT",
   "main": "electron/main.ts",
   "homepage": "./",
-  "build": {
-    "appId": "com.redmustard.mustard-studio",
-    "productName": "Mustard Studio",
-    "copyright": "Copyright © 2021 ${author}",
-    "files": [
-      "build/**/*",
-      "electron/*"
-    ]
-  },
   "scripts": {
     "build": "preact build --no-prerender",
     "build-storybook": "build-storybook",
+    "clean": "rm -rf release && rm -rf build",
     "dev": "preact watch",
     "edev": "nf start",
     "electron": "if-env NODE_ENV=production electron . || electron . --dev",
-    "ebuild": "NODE_ENV=production npm run build && npm run fixup && NODE_ENV=production node_modules/.bin/electron-builder",
-    "fixup": "node electron/baseFixup.js",
+    "ebuild": "NODE_ENV=production npm run clean && npm run build && npm run fixup && NODE_ENV=production node_modules/.bin/electron-builder -mw",
+    "fixup": "node electron/buildFixup.js",
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}'",
     "serve": "npm run build && sirv build --port 8080 --cors --single",
     "start": "if-env NODE_ENV=production && npm run -s serve || npm run -s dev",
@@ -94,7 +86,6 @@
     "jest-preset-preact": "^4.0.2",
     "lint-staged": "^10.0.7",
     "node-sass": "^5.0.0",
-    "npm-run-all": "^4.1.5",
     "preact-cli": "^3.2.2",
     "prettier": "^1.19.1",
     "sass-loader": "^10.1.1",

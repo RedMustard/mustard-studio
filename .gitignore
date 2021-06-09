@@ -2,6 +2,7 @@ node_modules
 /build
 /*.log
 /dist
+/release
 coverage
 size-plugin.json
 .DS_Store
