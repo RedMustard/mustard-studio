@@ -1,4 +1,3 @@
-import * as wmMock from 'web-midi-test';
 import { logger } from '../utils/logger/logger';
 import { setMidiAccess } from './midi';
 

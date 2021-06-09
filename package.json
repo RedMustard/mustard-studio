@@ -1,16 +1,30 @@
 {
   "private": true,
   "name": "mustard-studio",
+  "author": {
+    "name": "RedMustard.io",
+    "email": "travis@redmustard.io",
+    "url": "https://redmustard.io"
+  },
+  "description": "Electron-based polysynth and step sequencer",
   "version": "0.0.0",
   "license": "MIT",
+  "main": "electron/main.ts",
+  "homepage": "./",
   "scripts": {
-    "build": "preact build",
-    "serve": "sirv build --port 8080 --cors --single",
+    "build": "NODE_ENV=production preact build --no-prerender",
+    "build-storybook": "build-storybook",
+    "clean": "rm -rf release && rm -rf build",
     "dev": "preact watch",
+    "edev": "nf start",
+    "electron": "if-env NODE_ENV=production electron . || electron . --dev",
+    "ebuild": "npm run clean && npm run build && npm run fixup && NODE_ENV=production node_modules/.bin/electron-builder -mw",
+    "fixup": "node electron/buildFixup.js",
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}'",
-    "test": "jest ./src/",
+    "serve": "npm run build && sirv build --port 8080 --cors --single",
+    "start": "if-env NODE_ENV=production && npm run -s serve || npm run -s dev",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "test": "jest ./src/"
   },
   "husky": {
     "hooks": {
@@ -51,6 +65,8 @@
     "babel-loader": "^8.2.2",
     "core-js": "^3.8.2",
     "css-loader": "^3.5.3",
+    "electron": "^13.1.1",
+    "electron-builder": "^22.10.5",
     "enzyme": "^3.11.0",
     "enzyme-adapter-preact-pure": "^2.2.0",
     "enzyme-to-json": "^3.6.1",
@@ -63,7 +79,9 @@
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-react-hooks": "^3.0.0",
+    "foreman": "^3.0.1",
     "husky": "^4.2.1",
+    "if-env": "^1.0.4",
     "jest": "^26.2.2",
     "jest-preset-preact": "^4.0.2",
     "lint-staged": "^10.0.7",
