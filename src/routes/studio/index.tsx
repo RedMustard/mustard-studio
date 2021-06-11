@@ -7,6 +7,7 @@ import { MasterPan } from '../../components/MasterPan/MasterPan';
 import { Oscillator } from '../../components/Oscillator/Oscillator';
 import { getAudioContext, setAudioContext } from '../../lib/audioContext/audioContext';
 import { setMidiAccess } from '../../lib/midi/midi';
+import { setKeyboardAccess } from '../../lib/keyboard/keyboard';
 
 const Studio: FunctionalComponent = () => {
     let audioContext = getAudioContext();
@@ -19,6 +20,7 @@ const Studio: FunctionalComponent = () => {
 
     useEffect(() => {
         setMidiAccess();
+        setKeyboardAccess();
     }, []);
 
     return (
