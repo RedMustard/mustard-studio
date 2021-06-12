@@ -1,13 +1,10 @@
 import { startOscillators, stopOscillatorByFrequency } from '../oscillators/oscillators';
 import { getFrequencyByKeyNumber } from '../utils/audio/audio';
 import { logger } from '../utils/logger/logger';
-// import { getFrequencyByKeyNumber } from '../utils/audio/audio';
-// import { MIDI_NOTE_OFFSET } from '../../constants';
 
-// let midi: WebMidi.MIDIAccess;
 
-type KeyboardKey = { [T: string]: number }; // TODO change name
-const keyboardKeys: KeyboardKey[] = [
+type KeyboardKey = { [keyboardLetter: string]: number }; // TODO change name
+const defaultKeys: KeyboardKey[] = [
     { A: 4 },
     { W: 5 },
     { S: 6 },
@@ -25,31 +22,41 @@ const keyboardKeys: KeyboardKey[] = [
     { L: 18 },
     { P: 19 },
     { ';': 20 },
+    { ':': 20 },
 ];
-let keyboardOctave = 0;
+let keyboardOctave = 4;
+const pressedKeys: KeyboardKey[] = [
+    { A: undefined },
+    { W: undefined },
+    { S: undefined },
+    { E: undefined },
+    { D: undefined },
+    { F: undefined },
+    { T: undefined },
+    { G: undefined },
+    { Y: undefined },
+    { H: undefined },
+    { U: undefined },
+    { J: undefined },
+    { K: undefined },
+    { O: undefined },
+    { L: undefined },
+    { P: undefined },
+    { ';': undefined },
+    { ':': undefined },
+];
 
 const handleOnKeyDownEvent = (e: KeyboardEvent) => {
-    // const midiMessageData = e.data;
-    // const midiNote = midiMessageData[1];
-    // const midiVelocity = midiMessageData[2];
-    // const midiNoteFrequency = getFrequencyByKeyNumber(midiNote - MIDI_NOTE_OFFSET);
-    // if (midiVelocity > 0) {
-    //     // Set MIDI on
-    //     logger.info('MIDI on', midiVelocity);
-    //     startOscillators(midiNoteFrequency);
-    // } else {
-    //     // Set MIDI off
-    //     logger.info('MIDI off', midiVelocity);
-    //     stopOscillatorByFrequency(midiNoteFrequency);
-    // }
+    defaultKeys.forEach((keyboardKey: KeyboardKey, index) => {
+        const keyOffset = keyboardOctave * 12;
+        const keyLetter = Object.keys(keyboardKey)[0];
+        const keyNumber = keyboardKey[keyLetter] + keyOffset;
 
-    keyboardKeys.forEach((keyboardKey: KeyboardKey) => {
-        const key = Object.keys(keyboardKey)[0];
-        if ((e.key === key || e.key === key.toLowerCase()) && !e.repeat) {
-            logger.info('keyboard event', key, e);
-            const frequency = getFrequencyByKeyNumber(keyboardKey[key] + (keyboardOctave * 12));
-            logger.info('keyboard event frequency', frequency);
+        if ((e.key === keyLetter || e.key === keyLetter.toLowerCase()) && !e.repeat) {
+            const frequency = getFrequencyByKeyNumber(keyNumber);
             startOscillators(frequency);
+            logger.info('keyboard pressed', keyNumber);
+            pressedKeys[index][keyLetter] = keyNumber;
         }
     });
 
@@ -64,13 +71,14 @@ const handleOnKeyDownEvent = (e: KeyboardEvent) => {
 };
 
 const handleOnKeyUpEvent = (e: KeyboardEvent) => {
-    keyboardKeys.forEach((keyboardKey: KeyboardKey) => {
-        const key = Object.keys(keyboardKey)[0];
-        if ((e.key === key || e.key === key.toLowerCase()) && !e.repeat) {
-            logger.info('keyboard pressed', keyboardKey[key]);
-            const frequency = getFrequencyByKeyNumber(keyboardKey[key] + (keyboardOctave * 12));
-            logger.info('keyboard event frequency', frequency);
+    pressedKeys.forEach((keyboardKey: KeyboardKey, index) => {
+        const keyLetter = Object.keys(keyboardKey)[0];
+        const keyNumber = keyboardKey[keyLetter];
+
+        if ((e.key === keyLetter || e.key === keyLetter.toLowerCase()) && !e.repeat) {
+            const frequency = getFrequencyByKeyNumber(keyNumber);
             stopOscillatorByFrequency(frequency);
+            pressedKeys[index][keyLetter] = undefined;
         }
     });
 };
