@@ -1,12 +1,12 @@
 @import '../../../style/variables.scss';
 
-.keyboard-key--white {
+.piano-key--white {
     background-color: #f9f9f9;
     border: 1px solid #111;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
     display: table-cell;
-    height: $keyboardHeight;
+    height: $pianoHeight;
     outline: none;
     width: $whiteKeyWidth;
 

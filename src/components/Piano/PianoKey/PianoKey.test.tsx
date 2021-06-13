@@ -1,7 +1,7 @@
 import { h } from 'preact';
 import { shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
-import { KeyboardKey } from './KeyboardKey';
+import { PianoKey } from './PianoKey';
 
 
 const baseProps = {
@@ -11,10 +11,10 @@ const baseProps = {
     onMouseLeave: jest.fn(),
 };
 
-describe('<KeyboardKey />', () => {
+describe('<PianoKey />', () => {
     it('renders with basic props', () => {
         const wrapper = shallow(
-            <KeyboardKey
+            <PianoKey
                 {...baseProps}
             />,
         );
@@ -23,7 +23,7 @@ describe('<KeyboardKey />', () => {
 
     it('renders with custom class', () => {
         const wrapper = shallow(
-            <KeyboardKey
+            <PianoKey
                 className="custom-class"
                 {...baseProps}
             />,
@@ -33,7 +33,7 @@ describe('<KeyboardKey />', () => {
 
     it('renders active after onMouseOver', () => {
         const wrapper = shallow(
-            <KeyboardKey
+            <PianoKey
                 {...baseProps}
             />,
         );
@@ -44,7 +44,7 @@ describe('<KeyboardKey />', () => {
 
     it('renders active after onMouseDown', () => {
         const wrapper = shallow(
-            <KeyboardKey
+            <PianoKey
                 {...baseProps}
             />,
         );
@@ -56,7 +56,7 @@ describe('<KeyboardKey />', () => {
 
     it('renders inactive after onMouseOver and onMouseLeave', () => {
         const wrapper = shallow(
-            <KeyboardKey
+            <PianoKey
                 {...baseProps}
             />,
         );
@@ -69,7 +69,7 @@ describe('<KeyboardKey />', () => {
 
     it('renders inactive after onMouseDown and onMouseUp', () => {
         const wrapper = shallow(
-            <KeyboardKey
+            <PianoKey
                 {...baseProps}
             />,
         );

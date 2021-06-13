@@ -1,6 +1,6 @@
 import { h } from 'preact';
 import { useContext } from 'preact/hooks';
-import { MAX_OCTAVE, MIN_OCTAVE, OCTAVE_STEPS } from '../../constants';
+import { MAX_OSC_OCTAVE, MIN_OSC_OCTAVE, OCTAVE_STEPS } from '../../constants';
 import { resetOscillatorOctave, setOscillatorOctave } from '../../lib/studioService/studioServiceActions';
 import { StudioServiceContext } from '../../lib/studioService/StudioServiceStore';
 import { ValueUnitEnum } from '../../types/runtimeTypes';
@@ -30,8 +30,8 @@ export const OscillatorOctave = ({ oscillatorId }: OscillatorOctaveProps) => {
                 value={oscillatorOctave}
                 onInput={(value) => setOscillatorOctave(value, oscillatorId, dispatch)}
                 onMouseDown={(e: MouseEvent) => handleOnMouseDown(e)}
-                maxValue={MAX_OCTAVE}
-                minValue={MIN_OCTAVE}
+                maxValue={MAX_OSC_OCTAVE}
+                minValue={MIN_OSC_OCTAVE}
                 stepResolution={OCTAVE_STEPS}
                 valueUnit={ValueUnitEnum.CENT}
             />

@@ -1,8 +1,8 @@
 
-import { startOscillators, stopOscillatorByFrequency } from '../oscillators/oscillators';
-import { logger } from '../utils/logger/logger';
-import { getFrequencyByKeyNumber } from '../utils/audio/audio';
-import { MIDI_NOTE_OFFSET } from '../../constants';
+import { startOscillators, stopOscillatorByFrequency } from '../../oscillators/oscillators';
+import { logger } from '../../utils/logger/logger';
+import { getFrequencyByKeyNumber } from '../../utils/audio/audio';
+import { MIDI_NOTE_OFFSET } from '../../../constants';
 
 let midi: WebMidi.MIDIAccess;
 

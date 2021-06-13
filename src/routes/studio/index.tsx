@@ -1,12 +1,13 @@
 import { FunctionalComponent, h } from 'preact';
 import { useEffect } from 'preact/hooks';
 
-import { Keyboard } from '../../components/Keyboard/Keyboard';
+import { Piano } from '../../components/Piano/Piano';
 import { MasterVolume } from '../../components/MasterVolume/MasterVolume';
 import { MasterPan } from '../../components/MasterPan/MasterPan';
 import { Oscillator } from '../../components/Oscillator/Oscillator';
 import { getAudioContext, setAudioContext } from '../../lib/audioContext/audioContext';
-import { setMidiAccess } from '../../lib/midi/midi';
+import { setMidiAccess } from '../../lib/inputDevices/midi/midi';
+import { setKeyboardAccess } from '../../lib/inputDevices/keyboard/keyboard';
 
 const Studio: FunctionalComponent = () => {
     let audioContext = getAudioContext();
@@ -19,6 +20,7 @@ const Studio: FunctionalComponent = () => {
 
     useEffect(() => {
         setMidiAccess();
+        setKeyboardAccess();
     }, []);
 
     return (
@@ -28,7 +30,7 @@ const Studio: FunctionalComponent = () => {
             <Oscillator oscillatorId="oscSub" audioContext={audioContext} />
             <MasterVolume audioContext={audioContext} />
             <MasterPan audioContext={audioContext} />
-            <Keyboard />
+            <Piano />
         </div>
     );
 };

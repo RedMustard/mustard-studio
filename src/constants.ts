@@ -15,10 +15,15 @@ export const MAX_PAN = 1;
 export const MIN_PAN = -1;
 export const PAN_STEPS = 0.01;
 
-// Octave Number
-export const MAX_OCTAVE = 8;
-export const MIN_OCTAVE = -8;
+// Oscillator Octave Fader
+export const MAX_OSC_OCTAVE = 8;
+export const MIN_OSC_OCTAVE = -8;
 export const OCTAVE_STEPS = 1;
+
+// Piano
+export const MAX_PIANO_OCTAVE = 7;
+export const MIN_PIANO_OCTAVE = 0;
+export const PIANO_OCTAVE_KEY_COUNT = 12;
 
 // MIDI
 export const MIDI_NOTE_OFFSET = 20;

@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<WhiteKey /> renders with basic props 1`] = `
-<KeyboardKey
-  className="keyboard-key--white"
+exports[`<BlackKey /> renders with basic props 1`] = `
+<PianoKey
+  className="piano-key--black"
   onMouseDown={[Function]}
   onMouseLeave={[Function]}
   onMouseOver={[Function]}

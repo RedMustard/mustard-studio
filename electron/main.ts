@@ -5,24 +5,15 @@ const url = require('url');
 const fs = require('fs');
 const packageJson = require('../package.json');
 
-// Keep a global reference of the window object, if you don't, the window will
-// be closed automatically when the JavaScript object is garbage collected.
+
 let win;
 
 function isDev() {
     return process.argv[2] == '--dev';
 }
 
-/**
- * @name createWindow
- * @return {undefined}
- */
 function createWindow() {
-  // Create the browser window.
-  win = new BrowserWindow({
-    width: 1920,
-    height: 1080,
-  });
+  win = new BrowserWindow({ width: 1920, height: 1080 });
 
   const startUrl = process.env.ELECTRON_START_URL || url.format({
     pathname: path.join(__dirname, '/../build/index.html'),
@@ -31,7 +22,6 @@ function createWindow() {
   });
   win.loadURL(startUrl);
 
-  // Emitted when the window is closed.
   win.on('closed', () => {
     win = null;
   });
@@ -42,20 +32,17 @@ function createWindow() {
 }
 
 app.setName("MustardStudio");
-const menu = Menu.buildFromTemplate(template)
-Menu.setApplicationMenu(menu)
-
-app.on('ready', createWindow);
-
-// Quit when all windows are closed.
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit();
-  }
+    if (process.platform !== 'darwin') {
+        app.quit();
+    }
 });
-
+app.on('ready', createWindow);
 app.on('activate', () => {
   if (win === null) {
     createWindow();
   }
 });
+
+const menu = Menu.buildFromTemplate(template)
+Menu.setApplicationMenu(menu)

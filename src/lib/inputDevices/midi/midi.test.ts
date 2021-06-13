@@ -1,7 +1,7 @@
-import { logger } from '../utils/logger/logger';
+import { logger } from '../../utils/logger/logger';
 import { setMidiAccess } from './midi';
 
-jest.mock('../utils/logger/logger');
+jest.mock('../../utils/logger/logger');
 
 
 // eslint-disable-next-line import/newline-after-import
