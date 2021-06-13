@@ -3,7 +3,7 @@ import * as audio from '../../utils/audio/audio';
 import { startOscillators, stopOscillatorByFrequency } from '../../oscillators/oscillators';
 import { getFrequencyByKeyNumber } from '../../utils/audio/audio';
 import { logger } from '../../utils/logger/logger';
-import { removeKeyboardAccess, setKeyboardAccess } from './keyboard';
+import { setKeyboardAccess } from './keyboard';
 import { PIANO_OCTAVE_KEY_COUNT } from '../../../constants';
 
 jest.mock('../../utils/logger/logger');
