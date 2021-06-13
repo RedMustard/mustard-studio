@@ -1,5 +1,7 @@
-export type KeyboardKeyCount = 88 | 61 | 49 | 37 | 25;
-export type KeyboardKeyColor = 'white' | 'black';
+export type PianoKeyCount = 88 | 61 | 49 | 37 | 25;
+export type PianoKeyColor = 'white' | 'black';
+export type KeyNumber = number;
+export type KeyboardKey = { [keyboardCharacter: string]: KeyNumber };
 export type Octave = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
 export type OscillatorId = 'osc1' | 'osc2' | 'oscSub';
 export type ValueUnit = 'percent' | 'cent' | 'pan';

@@ -2,12 +2,13 @@ import { h } from 'preact';
 import { getFrequencyByKeyNumber } from '../../lib/utils/audio/audio';
 import { BlackKey } from './BlackKey/BlackKey';
 import { WhiteKey } from './WhiteKey/WhiteKey';
-import { KeyboardKeyColor } from '../../types/types';
+import { PianoKeyColor } from '../../types/types';
 import { logger } from '../../lib/utils/logger/logger';
 import { startOscillators, stopOscillators } from '../../lib/oscillators/oscillators';
+import { PIANO_OCTAVE_KEY_COUNT } from '../../constants';
 
 
-export const Keyboard = () => {
+export const Piano = () => {
     const handleOnMouseDownAndOver = (keyNumber: number) => {
         const frequency = getFrequencyByKeyNumber(keyNumber);
         startOscillators(frequency);
@@ -22,13 +23,13 @@ export const Keyboard = () => {
             onMouseDown={(e: MouseEvent) => {
                 if (e.buttons === 1) {
                     handleOnMouseDownAndOver(keyNumber);
-                    logger.info('Key pressed', keyNumber);
+                    logger.info('Piano key pressed', keyNumber);
                 }
             }}
             onMouseOver={(e: MouseEvent) => {
                 if (e.buttons === 1) {
                     handleOnMouseDownAndOver(keyNumber);
-                    logger.info('Key pressed', keyNumber);
+                    logger.info('Piano key pressed', keyNumber);
                 }
             }}
             onMouseUp={() => {
@@ -47,13 +48,13 @@ export const Keyboard = () => {
             onMouseDown={(e: MouseEvent) => {
                 if (e.buttons === 1) {
                     handleOnMouseDownAndOver(keyNumber);
-                    logger.info('Key pressed', keyNumber);
+                    logger.info('Piano key pressed', keyNumber);
                 }
             }}
             onMouseOver={(e: MouseEvent) => {
                 if (e.buttons === 1) {
                     handleOnMouseDownAndOver(keyNumber);
-                    logger.info('Key pressed', keyNumber);
+                    logger.info('Piano key pressed', keyNumber);
                 }
             }}
             onMouseUp={() => {
@@ -68,13 +69,12 @@ export const Keyboard = () => {
     );
 
     const getKeysByOctaveCount = (octaveCount: number, startingKey: number) => {
-        const octaveKeyPattern: KeyboardKeyColor[] = ['white', 'black', 'white', 'black', 'white', 'white', 'black', 'white', 'black', 'white', 'black', 'white'];
+        const octaveKeyPattern: PianoKeyColor[] = ['white', 'black', 'white', 'black', 'white', 'white', 'black', 'white', 'black', 'white', 'black', 'white'];
         const keys: h.JSX.Element[] = [];
 
         for (let i = 0; i < octaveCount; i++) {
-            octaveKeyPattern.forEach((key: KeyboardKeyColor, index: number) => {
-                const octaveSteps = 12;
-                const keyNumber = index + (i * octaveSteps) + startingKey;
+            octaveKeyPattern.forEach((key: PianoKeyColor, index: number) => {
+                const keyNumber = index + (i * PIANO_OCTAVE_KEY_COUNT) + startingKey;
                 if (key === 'white') {
                     keys.push(whiteKey(keyNumber));
                 } else if (key === 'black') {
@@ -86,7 +86,7 @@ export const Keyboard = () => {
     };
 
     return (
-        <div class="keyboard">
+        <div class="piano">
             {whiteKey(1)}
             {blackKey(2)}
             {whiteKey(3)}

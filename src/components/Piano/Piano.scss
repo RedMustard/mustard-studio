@@ -2,9 +2,9 @@
 @import './BlackKey/BlackKey.scss';
 @import './WhiteKey/WhiteKey.scss';
 
-.keyboard {
+.piano {
     display: table-row;
-    height: $keyboardHeight;
+    height: $pianoHeight;
     position: relative;
 
     & > * {

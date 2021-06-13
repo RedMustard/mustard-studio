@@ -1,9 +1,10 @@
-import { startOscillators, stopOscillatorByFrequency } from '../oscillators/oscillators';
-import { getFrequencyByKeyNumber } from '../utils/audio/audio';
-import { logger } from '../utils/logger/logger';
+import { MAX_PIANO_OCTAVE, MIN_PIANO_OCTAVE, PIANO_OCTAVE_KEY_COUNT } from '../../../constants';
+import { KeyboardKey, Octave } from '../../../types/types';
+import { startOscillators, stopOscillatorByFrequency } from '../../oscillators/oscillators';
+import { getFrequencyByKeyNumber } from '../../utils/audio/audio';
+import { logger } from '../../utils/logger/logger';
 
 
-type KeyboardKey = { [keyboardLetter: string]: number }; // TODO change name
 const defaultKeys: KeyboardKey[] = [
     { A: 4 },
     { W: 5 },
@@ -24,7 +25,6 @@ const defaultKeys: KeyboardKey[] = [
     { ';': 20 },
     { ':': 20 },
 ];
-let keyboardOctave = 4;
 const pressedKeys: KeyboardKey[] = [
     { A: undefined },
     { W: undefined },
@@ -45,28 +45,30 @@ const pressedKeys: KeyboardKey[] = [
     { ';': undefined },
     { ':': undefined },
 ];
+let keyboardOctave: Octave = 4;
+
 
 const handleOnKeyDownEvent = (e: KeyboardEvent) => {
     defaultKeys.forEach((keyboardKey: KeyboardKey, index) => {
-        const keyOffset = keyboardOctave * 12;
+        const keyOffset = keyboardOctave * PIANO_OCTAVE_KEY_COUNT;
         const keyLetter = Object.keys(keyboardKey)[0];
         const keyNumber = keyboardKey[keyLetter] + keyOffset;
 
         if ((e.key === keyLetter || e.key === keyLetter.toLowerCase()) && !e.repeat) {
             const frequency = getFrequencyByKeyNumber(keyNumber);
             startOscillators(frequency);
-            logger.info('keyboard pressed', keyNumber);
+            logger.info('Keyboard pressed', keyNumber);
             pressedKeys[index][keyLetter] = keyNumber;
         }
     });
 
-    if (e.key === 'z' || e.key === 'Z') {
+    if ((e.key === 'z' || e.key === 'Z') && keyboardOctave > MIN_PIANO_OCTAVE) {
         keyboardOctave -= 1;
-        logger.info('keyboard octave decreased to', keyboardOctave);
+        logger.info('Keyboard octave decreased to', keyboardOctave);
     }
-    if (e.key === 'x' || e.key === 'X') {
+    if ((e.key === 'x' || e.key === 'X') && keyboardOctave < MAX_PIANO_OCTAVE) {
         keyboardOctave += 1;
-        logger.info('keyboard octave increased to', keyboardOctave);
+        logger.info('Keyboard octave increased to', keyboardOctave);
     }
 };
 
@@ -91,4 +93,5 @@ export const setKeyboardAccess = () => {
     window.addEventListener('keyup', (e: KeyboardEvent) => {
         handleOnKeyUpEvent(e);
     });
+    logger.info('Keyboard access enabled');
 };

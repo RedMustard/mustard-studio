@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<KeyboardKey /> renders active after onMouseDown 1`] = `
+exports[`<PianoKey /> renders active after onMouseDown 1`] = `
 <div
-  className="keyboard-key  keyboard-key--active"
-  label="keyboard-key"
+  className="piano-key  piano-key--active"
+  label="piano-key"
   onFocus={[Function]}
   onKeyDown={[Function]}
   onMouseDown={[Function]}
@@ -16,10 +16,10 @@ exports[`<KeyboardKey /> renders active after onMouseDown 1`] = `
 />
 `;
 
-exports[`<KeyboardKey /> renders active after onMouseOver 1`] = `
+exports[`<PianoKey /> renders active after onMouseOver 1`] = `
 <div
-  className="keyboard-key  keyboard-key--active"
-  label="keyboard-key"
+  className="piano-key  piano-key--active"
+  label="piano-key"
   onFocus={[Function]}
   onKeyDown={[Function]}
   onMouseDown={[Function]}
@@ -32,10 +32,10 @@ exports[`<KeyboardKey /> renders active after onMouseOver 1`] = `
 />
 `;
 
-exports[`<KeyboardKey /> renders inactive after onMouseDown and onMouseUp 1`] = `
+exports[`<PianoKey /> renders inactive after onMouseDown and onMouseUp 1`] = `
 <div
-  className="keyboard-key  "
-  label="keyboard-key"
+  className="piano-key  "
+  label="piano-key"
   onFocus={[Function]}
   onKeyDown={[Function]}
   onMouseDown={[Function]}
@@ -48,10 +48,10 @@ exports[`<KeyboardKey /> renders inactive after onMouseDown and onMouseUp 1`] = 
 />
 `;
 
-exports[`<KeyboardKey /> renders inactive after onMouseOver and onMouseLeave 1`] = `
+exports[`<PianoKey /> renders inactive after onMouseOver and onMouseLeave 1`] = `
 <div
-  className="keyboard-key  "
-  label="keyboard-key"
+  className="piano-key  "
+  label="piano-key"
   onFocus={[Function]}
   onKeyDown={[Function]}
   onMouseDown={[Function]}
@@ -64,10 +64,10 @@ exports[`<KeyboardKey /> renders inactive after onMouseOver and onMouseLeave 1`]
 />
 `;
 
-exports[`<KeyboardKey /> renders with basic props 1`] = `
+exports[`<PianoKey /> renders with basic props 1`] = `
 <div
-  className="keyboard-key  "
-  label="keyboard-key"
+  className="piano-key  "
+  label="piano-key"
   onFocus={[Function]}
   onKeyDown={[Function]}
   onMouseDown={[Function]}
@@ -80,10 +80,10 @@ exports[`<KeyboardKey /> renders with basic props 1`] = `
 />
 `;
 
-exports[`<KeyboardKey /> renders with custom class 1`] = `
+exports[`<PianoKey /> renders with custom class 1`] = `
 <div
-  className="keyboard-key custom-class "
-  label="keyboard-key"
+  className="piano-key custom-class "
+  label="piano-key"
   onFocus={[Function]}
   onKeyDown={[Function]}
   onMouseDown={[Function]}

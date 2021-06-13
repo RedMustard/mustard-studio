@@ -1,13 +1,13 @@
 @import '../../../style/variables.scss';
 
-.keyboard-key--black {
+.piano-key--black {
     background-color: #151515;
     border: none;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
     box-shadow: 0 1px 3px #222;
     display: table-cell;
-    height: $keyboardHeight * 2 / 3;
+    height: $pianoHeight * 2 / 3;
     outline: none;
     position: absolute;
     transform: translateX(-12px);
