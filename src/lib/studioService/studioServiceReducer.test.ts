@@ -144,6 +144,60 @@ describe('studioServiceReducer', () => {
         expect(studioServiceReducer(initialState, action)).toEqual(modifiedState);
     });
 
+    it('SET_OSC_1_ANALYSER', () => {
+        modifiedState = {
+            ...initialState,
+            oscillators: {
+                ...initialState.oscillators,
+                osc1: {
+                    ...initialState.oscillators.osc1,
+                    analyserNode: mockAudioContext.createAnalyser(),
+                },
+            },
+        };
+        action = {
+            type: 'SET_OSC_1_ANALYSER',
+            payload: mockAudioContext.createAnalyser(),
+        };
+        expect(studioServiceReducer(initialState, action)).toEqual(modifiedState);
+    });
+
+    it('SET_OSC_2_ANALYSER', () => {
+        modifiedState = {
+            ...initialState,
+            oscillators: {
+                ...initialState.oscillators,
+                osc2: {
+                    ...initialState.oscillators.osc2,
+                    analyserNode: mockAudioContext.createAnalyser(),
+                },
+            },
+        };
+        action = {
+            type: 'SET_OSC_2_ANALYSER',
+            payload: mockAudioContext.createAnalyser(),
+        };
+        expect(studioServiceReducer(initialState, action)).toEqual(modifiedState);
+    });
+
+    it('SET_OSC_SUB_ANALYSER', () => {
+        modifiedState = {
+            ...initialState,
+            oscillators: {
+                ...initialState.oscillators,
+                oscSub: {
+                    ...initialState.oscillators.oscSub,
+                    analyserNode: mockAudioContext.createAnalyser(),
+                },
+            },
+        };
+        action = {
+            type: 'SET_OSC_SUB_ANALYSER',
+            payload: mockAudioContext.createAnalyser(),
+        };
+        expect(studioServiceReducer(initialState, action)).toEqual(modifiedState);
+    });
+
     it('SET_OSC_1_GAIN', () => {
         modifiedState = {
             ...initialState,

@@ -7,6 +7,7 @@ export type OscillatorId = 'osc1' | 'osc2' | 'oscSub';
 export type ValueUnit = 'percent' | 'cent' | 'pan';
 
 export type Oscillator = {
+    analyserNode: AnalyserNode,
     gainNode: GainNode,
     panNode: StereoPannerNode,
     settings: OscillatorSettings | OscillatorSettings & OscillatorDetuneSetting,
@@ -48,6 +49,9 @@ export type StudioServiceActionType =
     'SET_OSC_1_VOLUME' |
     'SET_OSC_2_VOLUME' |
     'SET_OSC_SUB_VOLUME' |
+    'SET_OSC_1_ANALYSER' |
+    'SET_OSC_2_ANALYSER' |
+    'SET_OSC_SUB_ANALYSER' |
     'SET_OSC_1_GAIN' |
     'SET_OSC_2_GAIN' |
     'SET_OSC_SUB_GAIN' |

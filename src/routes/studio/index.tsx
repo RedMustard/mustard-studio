@@ -24,10 +24,12 @@ const Studio: FunctionalComponent = () => {
     }, []);
 
     return (
-        <div class="studio">
-            <Oscillator oscillatorId="osc1" audioContext={audioContext} />
-            <Oscillator oscillatorId="osc2" audioContext={audioContext} />
-            <Oscillator oscillatorId="oscSub" audioContext={audioContext} />
+        <div className="studio">
+            <div className="oscillators">
+                <Oscillator oscillatorId="osc1" audioContext={audioContext} />
+                <Oscillator oscillatorId="osc2" audioContext={audioContext} />
+                <Oscillator oscillatorId="oscSub" audioContext={audioContext} />
+            </div>
             <MasterVolume audioContext={audioContext} />
             <MasterPan audioContext={audioContext} />
             <Piano />

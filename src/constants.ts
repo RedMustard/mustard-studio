@@ -20,6 +20,11 @@ export const MAX_OSC_OCTAVE = 8;
 export const MIN_OSC_OCTAVE = -8;
 export const OCTAVE_STEPS = 1;
 
+// Waveform
+export const WAVEFORM_BACKGROUND_COLOR = '#111';
+export const WAVEFORM_LINE_COLOR = '#75cf00';
+export const WAVEFORM_LINE_WIDTH = 3.5;
+
 // Piano
 export const MAX_PIANO_OCTAVE = 7;
 export const MIN_PIANO_OCTAVE = 0;

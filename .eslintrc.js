@@ -24,6 +24,7 @@ module.exports = {
         'react/jsx-indent': [0],
         'react/jsx-indent-props': [0],
         'react/jsx-quotes': [0],
+        'react/jsx-curly-newline': [0],
         'react/forbid-prop-types': [0],
         'react/prop-types': [0],
         'react/jsx-props-no-spreading': [0],

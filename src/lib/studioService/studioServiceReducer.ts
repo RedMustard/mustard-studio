@@ -4,6 +4,7 @@ import {
     setOscillatorGainNodeByOscillatorId,
     setOscillatorSettingsByOscillatorId,
     setOscillatorPanNodeByOscillatorId,
+    setOscillatorAnalyserNodeByOscillatorId,
 } from '../oscillators/oscillators';
 
 export const studioServiceReducer = (state: StudioService, action: StudioServiceAction): StudioService => {
@@ -106,6 +107,48 @@ export const studioServiceReducer = (state: StudioService, action: StudioService
                 },
             };
             setOscillatorSettingsByOscillatorId(OscillatorIdEnum.OSC_SUB, newState.oscillators.oscSub.settings);
+            break;
+
+        case 'SET_OSC_1_ANALYSER':
+            newState = {
+                ...state,
+                oscillators: {
+                    ...state.oscillators,
+                    osc1: {
+                        ...state.oscillators.osc1,
+                        analyserNode: action.payload,
+                    },
+                },
+            };
+            setOscillatorAnalyserNodeByOscillatorId(OscillatorIdEnum.OSC_1, newState.oscillators.osc1.analyserNode);
+            break;
+
+        case 'SET_OSC_2_ANALYSER':
+            newState = {
+                ...state,
+                oscillators: {
+                    ...state.oscillators,
+                    osc2: {
+                        ...state.oscillators.osc2,
+                        analyserNode: action.payload,
+                    },
+                },
+            };
+            setOscillatorAnalyserNodeByOscillatorId(OscillatorIdEnum.OSC_2, newState.oscillators.osc2.analyserNode);
+            break;
+
+        case 'SET_OSC_SUB_ANALYSER':
+            newState = {
+                ...state,
+                oscillators: {
+                    ...state.oscillators,
+                    oscSub: {
+                        ...state.oscillators.oscSub,
+                        analyserNode: action.payload,
+                    },
+                },
+            };
+            setOscillatorAnalyserNodeByOscillatorId(OscillatorIdEnum.OSC_SUB, newState.oscillators.oscSub.analyserNode);
             break;
 
         case 'SET_OSC_1_GAIN':
