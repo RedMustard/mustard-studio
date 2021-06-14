@@ -19,6 +19,7 @@ let oscillatorConfigs: {
     [key in OscillatorId]: Oscillator
 } = {
     osc1: {
+        analyserNode: undefined,
         panNode: undefined,
         gainNode: undefined,
         settings: {
@@ -26,6 +27,7 @@ let oscillatorConfigs: {
         },
     },
     osc2: {
+        analyserNode: undefined,
         panNode: undefined,
         gainNode: undefined,
         settings: {
@@ -33,6 +35,7 @@ let oscillatorConfigs: {
         },
     },
     oscSub: {
+        analyserNode: undefined,
         panNode: undefined,
         gainNode: undefined,
         settings: {
@@ -52,6 +55,22 @@ const addOscillatorNode = (oscillatorNode: OscillatorNode, frequency: number, os
         oscillatorNodes[frequency][oscillatorId].push(oscillatorNode);
     }
     logger.info('Added oscillator nodes for frequency', frequency);
+};
+
+export const setOscillatorAnalyserNodeByOscillatorId = (oscillatorId: OscillatorId, analyserNode: AnalyserNode) => {
+    switch (oscillatorId) {
+        case 'osc1':
+            oscillatorConfigs.osc1.analyserNode = analyserNode;
+            break;
+        case 'osc2':
+            oscillatorConfigs.osc2.analyserNode = analyserNode;
+            break;
+        case 'oscSub':
+            oscillatorConfigs.oscSub.analyserNode = analyserNode;
+            break;
+        default:
+            break;
+    }
 };
 
 export const setOscillatorGainNodeByOscillatorId = (oscillatorId: OscillatorId, gainNode: GainNode) => {
@@ -116,6 +135,7 @@ export const resetOscillatorNodes = () => {
 export const resetOscillatorConfigs = () => {
     oscillatorConfigs = {
         osc1: {
+            analyserNode: undefined,
             panNode: undefined,
             gainNode: undefined,
             settings: {
@@ -123,6 +143,7 @@ export const resetOscillatorConfigs = () => {
             },
         },
         osc2: {
+            analyserNode: undefined,
             panNode: undefined,
             gainNode: undefined,
             settings: {
@@ -130,6 +151,7 @@ export const resetOscillatorConfigs = () => {
             },
         },
         oscSub: {
+            analyserNode: undefined,
             panNode: undefined,
             gainNode: undefined,
             settings: {
@@ -145,6 +167,7 @@ export const startOscillators = (oscillatorFrequency: number) => {
     (Object.keys(oscillatorConfigs) as OscillatorId[]).forEach((oscillatorId) => {
         const oscSettings = getOscillatorsConfigs()[oscillatorId].settings;
         const oscGainNode = getOscillatorsConfigs()[oscillatorId].gainNode;
+        const oscAnalyserNode = getOscillatorsConfigs()[oscillatorId].analyserNode;
         const oscEnabled = oscSettings.enabled;
         const oscType = oscSettings.type;
         const oscOctave = oscSettings.octave;
@@ -152,6 +175,7 @@ export const startOscillators = (oscillatorFrequency: number) => {
 
         if (oscEnabled) {
             const oscillator = audioContext.createOscillator();
+            oscillator.connect(oscAnalyserNode);
             addOscillatorNode(oscillator, oscillatorFrequency, oscillatorId);
             oscillator.type = oscType;
             oscillator.frequency.value = calculatedFrequency;

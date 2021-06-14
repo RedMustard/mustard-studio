@@ -4,6 +4,7 @@ module.exports = {
     setupFiles: [
         '<rootDir>/src/tests/__mocks__/setupTests.js',
         '<rootDir>/src/tests/__mocks__/browserMocks.js',
+        'jest-canvas-mock',
     ],
     testURL: 'http://localhost:8080',
     moduleNameMapper: {

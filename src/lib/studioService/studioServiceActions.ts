@@ -63,6 +63,26 @@ export const setOscillatorVolume = (value: number, oscillatorId: OscillatorId, d
     }
 };
 
+export const setOscillatorAnalyserNode = (analyserNode: AnalyserNode, oscillatorId: OscillatorId, dispatch: DispatchFunction) => {
+    switch (oscillatorId) {
+        case 'osc1':
+            dispatch({ type: 'SET_OSC_1_ANALYSER', payload: analyserNode });
+            logger.info('Oscillator 1 analyser node added', analyserNode);
+            break;
+        case 'osc2':
+            dispatch({ type: 'SET_OSC_2_ANALYSER', payload: analyserNode });
+            logger.info('Oscillator 2 analyser node added', analyserNode);
+            break;
+        case 'oscSub':
+            dispatch({ type: 'SET_OSC_SUB_ANALYSER', payload: analyserNode });
+            logger.info('Oscillator Sub analyser node added', analyserNode);
+            break;
+        default:
+            logger.info('setOscillatorGainNode unknown oscillatorId provided, no oscillator analyser node set. Received: ', oscillatorId);
+            break;
+    }
+};
+
 export const setOscillatorGainNode = (gainNode: GainNode, oscillatorId: OscillatorId, dispatch: DispatchFunction) => {
     switch (oscillatorId) {
         case 'osc1':

@@ -19,6 +19,7 @@ import {
     resetOscillatorConfigs,
     setOscillatorPanNodeByOscillatorId,
     setOscillatorSettingsByOscillatorId,
+    setOscillatorAnalyserNodeByOscillatorId,
 } from './oscillators';
 import { OSC_1_INITIAL_SETTINGS, OSC_2_INITIAL_SETTINGS, OSC_SUB_INITIAL_SETTINGS } from '../../constants';
 
@@ -74,7 +75,7 @@ describe('startOscillators', () => {
         startOscillators(oscillatorFrequency);
         expect(audio.getFrequencyByOctaveOffset).toBeCalledTimes(numberOfOscillators);
         expect(mockAudioContext.createOscillator).toBeCalledTimes(numberOfOscillators);
-        expect(mockOscillator.connect).toBeCalledTimes(numberOfOscillators);
+        expect(mockOscillator.connect).toBeCalledTimes(numberOfOscillators * 2); // each osc connects to audioContext and analyser
         expect(mockOscillator.start).toBeCalledTimes(numberOfOscillators);
     });
 
@@ -84,7 +85,7 @@ describe('startOscillators', () => {
         setOscillatorSettingsByOscillatorId(oscSub, updatedOscillatorSettings);
         startOscillators(oscillatorFrequency);
         expect(mockAudioContext.createOscillator).toBeCalledTimes(numberOfOscillators);
-        expect(mockOscillator.connect).toBeCalledTimes(numberOfOscillators);
+        expect(mockOscillator.connect).toBeCalledTimes(numberOfOscillators * 2); // each osc connects to audioContext and analyser
         expect(mockOscillator.start).toBeCalledTimes(numberOfOscillators);
     });
 
@@ -94,7 +95,7 @@ describe('startOscillators', () => {
         setOscillatorSettingsByOscillatorId(oscSub, updatedOscillatorSettings);
         startOscillators(oscillatorFrequency);
         expect(mockAudioContext.createOscillator).toBeCalledTimes(numberOfOscillators);
-        expect(mockOscillator.connect).toBeCalledTimes(numberOfOscillators);
+        expect(mockOscillator.connect).toBeCalledTimes(numberOfOscillators * 2); // each osc connects to audioContext and analyser
         expect(mockOscillator.start).toBeCalledTimes(numberOfOscillators);
     });
 
@@ -104,7 +105,7 @@ describe('startOscillators', () => {
         setOscillatorSettingsByOscillatorId(osc2, updatedOscillatorSettings);
         startOscillators(oscillatorFrequency);
         expect(mockAudioContext.createOscillator).toBeCalledTimes(numberOfOscillators);
-        expect(mockOscillator.connect).toBeCalledTimes(numberOfOscillators);
+        expect(mockOscillator.connect).toBeCalledTimes(numberOfOscillators * 2); // each osc connects to audioContext and analyser
         expect(mockOscillator.start).toBeCalledTimes(numberOfOscillators);
     });
 });
@@ -357,6 +358,54 @@ describe('setOscillatorPanNodeByOscillatorId', () => {
     });
 });
 
+describe('setOscillatorAnalyserNodeByOscillatorId', () => {
+    let oscillatorId: OscillatorId;
+    let oscillatorSettings: {
+        [key in OscillatorId]: Oscillator
+    };
+    const analyserNode = mockAudioContext.createAnalyser();
+
+    beforeEach(() => {
+        resetOscillatorConfigs();
+    });
+
+    it('sets analyser node for osc1', () => {
+        oscillatorId = 'osc1';
+        setOscillatorAnalyserNodeByOscillatorId(oscillatorId, analyserNode);
+        oscillatorSettings = getOscillatorsConfigs();
+        expect(oscillatorSettings.osc1.analyserNode).toMatchObject(analyserNode);
+        expect(oscillatorSettings.osc2.analyserNode).toBe(undefined);
+        expect(oscillatorSettings.oscSub.analyserNode).toBe(undefined);
+    });
+
+    it('sets analyser node for osc2', () => {
+        oscillatorId = 'osc2';
+        setOscillatorAnalyserNodeByOscillatorId(oscillatorId, analyserNode);
+        oscillatorSettings = getOscillatorsConfigs();
+        expect(oscillatorSettings.osc1.analyserNode).toBe(undefined);
+        expect(oscillatorSettings.osc2.analyserNode).toMatchObject(analyserNode);
+        expect(oscillatorSettings.oscSub.analyserNode).toBe(undefined);
+    });
+
+    it('sets analyser node for oscSub', () => {
+        oscillatorId = 'oscSub';
+        setOscillatorAnalyserNodeByOscillatorId(oscillatorId, analyserNode);
+        oscillatorSettings = getOscillatorsConfigs();
+        expect(oscillatorSettings.osc1.analyserNode).toBe(undefined);
+        expect(oscillatorSettings.osc2.analyserNode).toBe(undefined);
+        expect(oscillatorSettings.oscSub.analyserNode).toMatchObject(analyserNode);
+    });
+
+    it('does not set analyser node for invalid oscillatorId', () => {
+        oscillatorId = 'invalidOscillatorId' as OscillatorId;
+        setOscillatorAnalyserNodeByOscillatorId(oscillatorId, analyserNode);
+        oscillatorSettings = getOscillatorsConfigs();
+        expect(oscillatorSettings.osc1.analyserNode).toBe(undefined);
+        expect(oscillatorSettings.osc2.analyserNode).toBe(undefined);
+        expect(oscillatorSettings.oscSub.analyserNode).toBe(undefined);
+    });
+});
+
 
 describe('setOscillatorSettingsByOscillatorId', () => {
     let oscillatorId: OscillatorId;
@@ -422,6 +471,7 @@ describe('getOscillatorsConfigs', () => {
         [key in OscillatorId]: Oscillator
     } = {
         osc1: {
+            analyserNode: undefined,
             panNode: undefined,
             gainNode: undefined,
             settings: {
@@ -429,6 +479,7 @@ describe('getOscillatorsConfigs', () => {
             },
         },
         osc2: {
+            analyserNode: undefined,
             panNode: undefined,
             gainNode: undefined,
             settings: {
@@ -436,6 +487,7 @@ describe('getOscillatorsConfigs', () => {
             },
         },
         oscSub: {
+            analyserNode: undefined,
             panNode: undefined,
             gainNode: undefined,
             settings: {
@@ -448,6 +500,7 @@ describe('getOscillatorsConfigs', () => {
         [key in OscillatorId]: Oscillator
     } = {
         osc1: {
+            analyserNode: undefined,
             panNode,
             gainNode,
             settings: {
@@ -455,6 +508,7 @@ describe('getOscillatorsConfigs', () => {
             },
         },
         osc2: {
+            analyserNode: undefined,
             panNode,
             gainNode,
             settings: {
@@ -462,6 +516,7 @@ describe('getOscillatorsConfigs', () => {
             },
         },
         oscSub: {
+            analyserNode: undefined,
             panNode,
             gainNode,
             settings: {
@@ -497,6 +552,7 @@ describe('resetOscillatorConfigs', () => {
         [key in OscillatorId]: Oscillator
     } = {
         osc1: {
+            analyserNode: undefined,
             panNode: undefined,
             gainNode: undefined,
             settings: {
@@ -504,6 +560,7 @@ describe('resetOscillatorConfigs', () => {
             },
         },
         osc2: {
+            analyserNode: undefined,
             panNode: undefined,
             gainNode: undefined,
             settings: {
@@ -511,6 +568,7 @@ describe('resetOscillatorConfigs', () => {
             },
         },
         oscSub: {
+            analyserNode: undefined,
             panNode: undefined,
             gainNode: undefined,
             settings: {

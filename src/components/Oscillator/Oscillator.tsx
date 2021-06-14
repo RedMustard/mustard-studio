@@ -9,6 +9,7 @@ import { OscillatorDetune } from '../OscillatorDetune/OscillatorDetune';
 import { OscillatorPan } from '../OscillatorPan/OscillatorPan';
 import { OscillatorVolume } from '../OscillatorVolume/OscillatorVolume';
 import { OscillatorOctave } from '../OscillatorOctave/OscillatorOctave';
+import { OscillatorWaveform } from '../OscillatorWaveform/OscillatorWaveform';
 
 
 interface OscillatorProps {
@@ -37,7 +38,12 @@ export const Oscillator = ({ audioContext, oscillatorId }: OscillatorProps) => {
                     isChecked={oscillatorEnabled}
                 />
             </div>
+
             <div className="oscillator__modifiers">
+                <OscillatorWaveform
+                    oscillatorId={oscillatorId}
+                    audioContext={audioContext}
+                />
                 {/* Todo: Replace with styled dropdown component */}
                 <select
                     className="oscillator__wave-type"

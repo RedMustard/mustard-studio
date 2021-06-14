@@ -19,6 +19,7 @@ import {
     resetOscillatorOctave,
     resetMasterVolume,
     resetMasterPanPosition,
+    setOscillatorAnalyserNode,
 } from './studioServiceActions';
 
 
@@ -119,6 +120,40 @@ describe('setOscillatorVolume', () => {
     });
 });
 
+
+describe('setOscillatorAnalyserNode', () => {
+    it('calls dispatch for oscillator 1', () => {
+        const dispatch = jest.fn();
+        const analyserNode: AnalyserNode = audioContext.createAnalyser();
+        const oscillatorId: OscillatorId = 'osc1';
+        setOscillatorAnalyserNode(analyserNode, oscillatorId, dispatch);
+        expect(dispatch).toBeCalled();
+    });
+
+    it('calls dispatch for oscillator 2', () => {
+        const dispatch = jest.fn();
+        const analyserNode: AnalyserNode = audioContext.createAnalyser();
+        const oscillatorId: OscillatorId = 'osc2';
+        setOscillatorAnalyserNode(analyserNode, oscillatorId, dispatch);
+        expect(dispatch).toBeCalled();
+    });
+
+    it('calls dispatch for oscillator sub', () => {
+        const dispatch = jest.fn();
+        const analyserNode: AnalyserNode = audioContext.createAnalyser();
+        const oscillatorId: OscillatorId = 'oscSub';
+        setOscillatorAnalyserNode(analyserNode, oscillatorId, dispatch);
+        expect(dispatch).toBeCalled();
+    });
+
+    it('does not call dispatch for unknown oscillatorId', () => {
+        const dispatch = jest.fn();
+        const analyserNode: AnalyserNode = audioContext.createAnalyser();
+        const oscillatorId = 'foo' as OscillatorId;
+        setOscillatorAnalyserNode(analyserNode, oscillatorId, dispatch);
+        expect(dispatch).not.toBeCalled();
+    });
+});
 
 describe('setOscillatorGainNode', () => {
     it('calls dispatch for oscillator 1', () => {

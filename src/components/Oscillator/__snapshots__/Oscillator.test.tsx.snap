@@ -20,6 +20,27 @@ exports[`<Oscillator /> renders with basic props 1`] = `
   <div
     className="oscillator__modifiers"
   >
+    <OscillatorWaveform
+      audioContext={
+        AudioContext {
+          "currentTime": 0,
+          "destination": AudioDestinationNode {
+            "channelCount": 2,
+            "channelCountMode": "explicit",
+            "channelInterpretation": "speakers",
+            "context": [Circular],
+            "maxChannelCount": 2,
+            "numberOfInputs": 1,
+            "numberOfOutputs": 0,
+          },
+          "listener": AudioListener {},
+          "onstatechange": null,
+          "sampleRate": 44100,
+          "state": "running",
+        }
+      }
+      oscillatorId="osc1"
+    />
     <select
       className="oscillator__wave-type"
       onInput={[Function]}
@@ -123,6 +144,27 @@ exports[`<Oscillator /> renders without detune 1`] = `
   <div
     className="oscillator__modifiers"
   >
+    <OscillatorWaveform
+      audioContext={
+        AudioContext {
+          "currentTime": 0,
+          "destination": AudioDestinationNode {
+            "channelCount": 2,
+            "channelCountMode": "explicit",
+            "channelInterpretation": "speakers",
+            "context": [Circular],
+            "maxChannelCount": 2,
+            "numberOfInputs": 1,
+            "numberOfOutputs": 0,
+          },
+          "listener": AudioListener {},
+          "onstatechange": null,
+          "sampleRate": 44100,
+          "state": "running",
+        }
+      }
+      oscillatorId="oscSub"
+    />
     <select
       className="oscillator__wave-type"
       onInput={[Function]}

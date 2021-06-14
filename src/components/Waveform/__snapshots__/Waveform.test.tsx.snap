@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Waveform /> renders with basic props 1`] = `
+<div
+  className="waveform"
+>
+  <canvas
+    className="waveform__canvas"
+  />
+</div>
+`;

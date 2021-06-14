@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<OscillatorWaveform /> renders when oscillatorAnalyserNode does not exist 1`] = `
+<div
+  className="oscillator-waveform"
+/>
+`;
+
+exports[`<OscillatorWaveform /> renders when oscillatorAnalyserNode exists 1`] = `
+<OscillatorWaveform
+  audioContext={
+    AudioContext {
+      "createAnalyser": [MockFunction],
+      "currentTime": 0,
+      "destination": AudioDestinationNode {
+        "channelCount": 2,
+        "channelCountMode": "explicit",
+        "channelInterpretation": "speakers",
+        "context": [Circular],
+        "maxChannelCount": 2,
+        "numberOfInputs": 1,
+        "numberOfOutputs": 0,
+      },
+      "listener": AudioListener {},
+      "onstatechange": null,
+      "sampleRate": 44100,
+      "state": "running",
+    }
+  }
+  oscillatorId="osc1"
+/>
+`;
+
+exports[`<OscillatorWaveform /> renders with basic props 1`] = `
+<div
+  className="oscillator-waveform"
+/>
+`;

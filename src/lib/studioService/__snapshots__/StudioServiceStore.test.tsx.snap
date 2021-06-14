@@ -15,6 +15,7 @@ exports[`<StudioServiceStore /> renders with basic props 1`] = `
         },
         "oscillators": Object {
           "osc1": Object {
+            "analyserNode": undefined,
             "gainNode": undefined,
             "panNode": undefined,
             "settings": Object {
@@ -27,6 +28,7 @@ exports[`<StudioServiceStore /> renders with basic props 1`] = `
             },
           },
           "osc2": Object {
+            "analyserNode": undefined,
             "gainNode": undefined,
             "panNode": undefined,
             "settings": Object {
@@ -39,6 +41,7 @@ exports[`<StudioServiceStore /> renders with basic props 1`] = `
             },
           },
           "oscSub": Object {
+            "analyserNode": undefined,
             "gainNode": undefined,
             "panNode": undefined,
             "settings": Object {

@@ -17,6 +17,7 @@ const initialState: StudioService = Object.freeze({
     },
     oscillators: {
         osc1: {
+            analyserNode: undefined,
             gainNode: undefined,
             panNode: undefined,
             settings: {
@@ -24,6 +25,7 @@ const initialState: StudioService = Object.freeze({
             },
         },
         osc2: {
+            analyserNode: undefined,
             gainNode: undefined,
             panNode: undefined,
             settings: {
@@ -31,6 +33,7 @@ const initialState: StudioService = Object.freeze({
             },
         },
         oscSub: {
+            analyserNode: undefined,
             gainNode: undefined,
             panNode: undefined,
             settings: {
