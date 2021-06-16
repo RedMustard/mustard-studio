@@ -8,6 +8,7 @@ import { Oscillator } from '../../components/Oscillator/Oscillator';
 import { getAudioContext, setAudioContext } from '../../lib/audioContext/audioContext';
 import { setMidiAccess } from '../../lib/inputDevices/midi/midi';
 import { setKeyboardAccess } from '../../lib/inputDevices/keyboard/keyboard';
+import { Envelope } from '../../components/Envelope/Envelope';
 
 const Studio: FunctionalComponent = () => {
     let audioContext = getAudioContext();
@@ -30,6 +31,7 @@ const Studio: FunctionalComponent = () => {
                 <Oscillator oscillatorId="osc2" audioContext={audioContext} />
                 <Oscillator oscillatorId="oscSub" audioContext={audioContext} />
             </div>
+            <Envelope />
             <MasterVolume audioContext={audioContext} />
             <MasterPan audioContext={audioContext} />
             <Piano />

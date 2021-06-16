@@ -5,11 +5,11 @@ import { StudioServiceContext } from '../../lib/studioService/StudioServiceStore
 import { OscillatorTypes } from '../../types/runtimeTypes';
 import { OscillatorId } from '../../types/types';
 import { Checkbox } from '../Checkbox/Checkbox';
-import { OscillatorDetune } from '../OscillatorDetune/OscillatorDetune';
-import { OscillatorPan } from '../OscillatorPan/OscillatorPan';
-import { OscillatorVolume } from '../OscillatorVolume/OscillatorVolume';
-import { OscillatorOctave } from '../OscillatorOctave/OscillatorOctave';
-import { OscillatorWaveform } from '../OscillatorWaveform/OscillatorWaveform';
+import { OscillatorDetune } from './OscillatorDetune/OscillatorDetune';
+import { OscillatorPan } from './OscillatorPan/OscillatorPan';
+import { OscillatorVolume } from './OscillatorVolume/OscillatorVolume';
+import { OscillatorOctave } from './OscillatorOctave/OscillatorOctave';
+import { OscillatorWaveform } from './OscillatorWaveform/OscillatorWaveform';
 
 
 interface OscillatorProps {

@@ -43,6 +43,54 @@ export const resetMasterPanPosition = (dispatch: DispatchFunction) => {
     logger.info('Master pan position reset to value', initialPanPosition);
 };
 
+export const setEnvelopeAttack = (value: number, dispatch: DispatchFunction) => {
+    dispatch({ type: 'SET_ENVELOPE_ATTACK', payload: value });
+    logger.info('Envelope attack value set with value ', value);
+};
+
+export const setEnvelopeSustain = (value: number, dispatch: DispatchFunction) => {
+    dispatch({ type: 'SET_ENVELOPE_SUSTAIN', payload: value });
+    logger.info('Envelope attack value set with value ', value);
+};
+
+export const setEnvelopeDecay = (value: number, dispatch: DispatchFunction) => {
+    dispatch({ type: 'SET_ENVELOPE_DECAY', payload: value });
+    logger.info('Envelope attack value set with value ', value);
+};
+
+export const setEnvelopeRelease = (value: number, dispatch: DispatchFunction) => {
+    dispatch({ type: 'SET_ENVELOPE_RELEASE', payload: value });
+    logger.info('Envelope attack value set with value ', value);
+};
+
+export const resetEnvelopeAttack = (dispatch: DispatchFunction) => {
+    const initialState: StudioService = getInitialState();
+    const initialEnvelopeAttack = initialState.envelope.attack;
+    dispatch({ type: 'SET_ENVELOPE_ATTACK', payload: initialEnvelopeAttack });
+    logger.info('Envelope attack reset to value ', initialEnvelopeAttack);
+};
+
+export const resetEnvelopeSustain = (dispatch: DispatchFunction) => {
+    const initialState: StudioService = getInitialState();
+    const initialEnvelopeSustain = initialState.envelope.sustain;
+    dispatch({ type: 'SET_ENVELOPE_SUSTAIN', payload: initialEnvelopeSustain });
+    logger.info('Envelope sustain reset to value ', initialEnvelopeSustain);
+};
+
+export const resetEnvelopeDecay = (dispatch: DispatchFunction) => {
+    const initialState: StudioService = getInitialState();
+    const initialEnvelopeDecay = initialState.envelope.decay;
+    dispatch({ type: 'SET_ENVELOPE_DECAY', payload: initialEnvelopeDecay });
+    logger.info('Envelope decay reset to value ', initialEnvelopeDecay);
+};
+
+export const resetEnvelopeRelease = (dispatch: DispatchFunction) => {
+    const initialState: StudioService = getInitialState();
+    const initialEnvelopeRelease = initialState.envelope.release;
+    dispatch({ type: 'SET_ENVELOPE_RELEASE', payload: initialEnvelopeRelease });
+    logger.info('Envelope release reset to value ', initialEnvelopeRelease);
+};
+
 export const setOscillatorVolume = (value: number, oscillatorId: OscillatorId, dispatch: DispatchFunction) => {
     switch (oscillatorId) {
         case 'osc1':

@@ -1,13 +1,13 @@
 import { h } from 'preact';
-import { mount, shallow } from 'enzyme';
+import { shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import { OscillatorWaveform } from './OscillatorWaveform';
-import { OscillatorId } from '../../types/types';
-import { getInitialState, StudioServiceContext } from '../../lib/studioService/StudioServiceStore';
-import { setOscillatorAnalyserNode } from '../../lib/studioService/studioServiceActions';
+import { OscillatorId } from '../../../types/types';
+import { getInitialState, StudioServiceContext } from '../../../lib/studioService/StudioServiceStore';
+import { setOscillatorAnalyserNode } from '../../../lib/studioService/studioServiceActions';
 
 
-jest.mock('../../lib/studioService/studioServiceActions');
+jest.mock('../../../lib/studioService/studioServiceActions');
 
 // eslint-disable-next-line import/newline-after-import
 const wamock = require('web-audio-mock-api');

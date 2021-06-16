@@ -1,11 +1,11 @@
 import { h } from 'preact';
 import { useContext } from 'preact/hooks';
-import { MAX_OSC_OCTAVE, MIN_OSC_OCTAVE, OCTAVE_STEPS } from '../../constants';
-import { resetOscillatorOctave, setOscillatorOctave } from '../../lib/studioService/studioServiceActions';
-import { StudioServiceContext } from '../../lib/studioService/StudioServiceStore';
-import { ValueUnitEnum } from '../../types/runtimeTypes';
-import { OscillatorId } from '../../types/types';
-import { Fader } from '../Fader/Fader';
+import { MAX_OSC_OCTAVE, MIN_OSC_OCTAVE, OCTAVE_STEPS } from '../../../constants';
+import { resetOscillatorOctave, setOscillatorOctave } from '../../../lib/studioService/studioServiceActions';
+import { StudioServiceContext } from '../../../lib/studioService/StudioServiceStore';
+import { ValueUnitEnum } from '../../../types/runtimeTypes';
+import { OscillatorId } from '../../../types/types';
+import { Fader } from '../../Fader/Fader';
 
 interface OscillatorOctaveProps {
     oscillatorId: OscillatorId;

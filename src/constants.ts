@@ -15,6 +15,11 @@ export const MAX_PAN = 1;
 export const MIN_PAN = -1;
 export const PAN_STEPS = 0.01;
 
+// Enveloper Faders
+export const MAX_ENVELOPE = 1;
+export const MIN_ENVELOPE = 0;
+export const ENVELOPE_STEPS = 0.01;
+
 // Oscillator Octave Fader
 export const MAX_OSC_OCTAVE = 8;
 export const MIN_OSC_OCTAVE = -8;

@@ -5,6 +5,12 @@ exports[`<StudioServiceStore /> renders with basic props 1`] = `
   value={
     Array [
       Object {
+        "envelope": Object {
+          "attack": 0,
+          "decay": 0,
+          "release": 0,
+          "sustain": 0,
+        },
         "master": Object {
           "gainNode": undefined,
           "panNode": undefined,

@@ -1,10 +1,10 @@
 import { h } from 'preact';
 import { useContext } from 'preact/hooks';
-import { resetOscillatorDetune, setOscillatorDetune } from '../../lib/studioService/studioServiceActions';
-import { StudioServiceContext } from '../../lib/studioService/StudioServiceStore';
-import { OscillatorIdEnum } from '../../types/runtimeTypes';
-import { OscillatorDetuneSetting, OscillatorId } from '../../types/types';
-import { DetuneFader } from '../DetuneFader/DetuneFader';
+import { resetOscillatorDetune, setOscillatorDetune } from '../../../lib/studioService/studioServiceActions';
+import { StudioServiceContext } from '../../../lib/studioService/StudioServiceStore';
+import { OscillatorIdEnum } from '../../../types/runtimeTypes';
+import { OscillatorDetuneSetting, OscillatorId } from '../../../types/types';
+import { DetuneFader } from '../../DetuneFader/DetuneFader';
 
 interface OscillatorDetuneProps {
     oscillatorId: OscillatorId;

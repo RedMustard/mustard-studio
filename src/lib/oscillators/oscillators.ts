@@ -57,6 +57,37 @@ const addOscillatorNode = (oscillatorNode: OscillatorNode, frequency: number, os
     logger.info('Added oscillator nodes for frequency', frequency);
 };
 
+// TODO: Rename
+const enableEnvelope = (
+    audioContext: AudioContext,
+    gainNode: GainNode,
+    attack: number,
+    decay: number,
+    sustain: number,
+) => {
+    const now = audioContext.currentTime;
+    // attack *= egMode;
+    // decay *= egMode;
+    gainNode.gain.cancelScheduledValues(0);
+    gainNode.gain.setValueAtTime(0, now);
+    gainNode.gain.linearRampToValueAtTime(1, now + attack);
+    gainNode.gain.linearRampToValueAtTime(sustain, now + attack + decay);
+};
+
+const disableEnvelope = (
+    audioContext: AudioContext,
+    gainNode: GainNode,
+    release: number,
+    oscillator: OscillatorNode,
+) => {
+    const now = audioContext.currentTime;
+    // r *= egMode;
+    gainNode.gain.cancelScheduledValues(0);
+    gainNode.gain.setValueAtTime(gainNode.gain.value, now);
+    gainNode.gain.linearRampToValueAtTime(0, now + release);
+    oscillator.stop(now + release);
+};
+
 export const setOscillatorAnalyserNodeByOscillatorId = (oscillatorId: OscillatorId, analyserNode: AnalyserNode) => {
     switch (oscillatorId) {
         case 'osc1':
@@ -175,7 +206,7 @@ export const startOscillators = (oscillatorFrequency: number) => {
 
         if (oscEnabled) {
             const oscillator = audioContext.createOscillator();
-            oscillator.connect(oscAnalyserNode);
+
             addOscillatorNode(oscillator, oscillatorFrequency, oscillatorId);
             oscillator.type = oscType;
             oscillator.frequency.value = calculatedFrequency;
@@ -183,6 +214,9 @@ export const startOscillators = (oscillatorFrequency: number) => {
             if (oscSettings.hasOwnProperty('detune')) {
                 oscillator.detune.value = (oscSettings as OscillatorDetuneSetting).detune;
             }
+            // TODO: Check if osc linked to envelope, if not don't call enableEnv and connect osc to analyser
+            enableEnvelope(audioContext, oscGainNode, 1, 1, 1);
+            oscGainNode.connect(oscAnalyserNode);
             oscillator.connect(oscGainNode);
             oscillator.start();
             logger.info(`Starting oscillator ${oscillatorId} with frequency`, calculatedFrequency);
@@ -191,33 +225,47 @@ export const startOscillators = (oscillatorFrequency: number) => {
 };
 
 export const stopOscillatorByFrequency = (frequency: number) => {
+    const audioContext = getAudioContext();
     logger.info('Stopping all oscillators for frequency', frequency);
     if (oscillatorNodes[frequency]) {
         (Object.keys(oscillatorNodes[frequency]) as OscillatorId[]).forEach((oscillatorId: OscillatorId) => {
             oscillatorNodes[frequency][oscillatorId].forEach((oscillator) => {
-                oscillator.stop();
+                const oscGainNode = getOscillatorsConfigs()[oscillatorId].gainNode;
+                disableEnvelope(audioContext, oscGainNode, 1, oscillator);
+                // TODO: Check if osc linked to envelope, if not call stop directly
+                // oscillator.stop();
             });
         });
     }
 };
 
 export const stopOscillatorById = (oscillatorId: OscillatorId) => {
+    const audioContext = getAudioContext();
+
     logger.info('Stopping all oscillators for frequency', oscillatorId);
     (Object.keys(oscillatorNodes)).forEach((frequency) => {
         if (oscillatorNodes[frequency][oscillatorId]) {
             oscillatorNodes[frequency][oscillatorId].forEach((oscillator) => {
-                oscillator.stop();
+                const oscGainNode = getOscillatorsConfigs()[oscillatorId].gainNode;
+                disableEnvelope(audioContext, oscGainNode, 1, oscillator);
+                // TODO: Check if osc linked to envelope, if not call stop directly
+                // oscillator.stop();
             });
         }
     });
 };
 
 export const stopOscillators = () => {
+    const audioContext = getAudioContext();
+
     logger.info('Stopping all oscillators');
     (Object.keys(oscillatorNodes)).forEach((frequency) => {
         (Object.keys(oscillatorNodes[frequency]) as OscillatorId[]).forEach((oscillatorId: OscillatorId) => {
             oscillatorNodes[frequency][oscillatorId].forEach((oscillator) => {
-                oscillator.stop();
+                const oscGainNode = getOscillatorsConfigs()[oscillatorId].gainNode;
+                disableEnvelope(audioContext, oscGainNode, 1, oscillator);
+                // TODO: Check if osc linked to envelope, if not call stop directly
+                // oscillator.stop();
             });
         });
     });

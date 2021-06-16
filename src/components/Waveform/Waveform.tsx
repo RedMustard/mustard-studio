@@ -1,7 +1,6 @@
 import { h } from 'preact';
 import { useRef, useEffect } from 'preact/hooks';
 import { WAVEFORM_BACKGROUND_COLOR, WAVEFORM_LINE_COLOR, WAVEFORM_LINE_WIDTH } from '../../constants';
-import { logger } from '../../lib/utils/logger/logger';
 
 
 interface WaveformProps {

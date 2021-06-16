@@ -58,6 +58,46 @@ export const studioServiceReducer = (state: StudioService, action: StudioService
             };
             break;
 
+        case 'SET_ENVELOPE_ATTACK':
+            newState = {
+                ...state,
+                envelope: {
+                    ...state.envelope,
+                    attack: action.payload,
+                },
+            };
+            break;
+
+        case 'SET_ENVELOPE_DECAY':
+            newState = {
+                ...state,
+                envelope: {
+                    ...state.envelope,
+                    decay: action.payload,
+                },
+            };
+            break;
+
+        case 'SET_ENVELOPE_SUSTAIN':
+            newState = {
+                ...state,
+                envelope: {
+                    ...state.envelope,
+                    sustain: action.payload,
+                },
+            };
+            break;
+
+        case 'SET_ENVELOPE_RELEASE':
+            newState = {
+                ...state,
+                envelope: {
+                    ...state.envelope,
+                    release: action.payload,
+                },
+            };
+            break;
+
         case 'SET_OSC_1_VOLUME':
             newState = {
                 ...state,

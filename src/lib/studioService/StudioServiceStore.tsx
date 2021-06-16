@@ -15,6 +15,12 @@ const initialState: StudioService = Object.freeze({
             pan: 0,
         },
     },
+    envelope: {
+        attack: 0.0,
+        decay: 0.0,
+        sustain: 0.0,
+        release: 0.0,
+    },
     oscillators: {
         osc1: {
             analyserNode: undefined,

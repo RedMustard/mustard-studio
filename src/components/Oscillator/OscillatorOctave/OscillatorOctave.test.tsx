@@ -2,11 +2,11 @@ import { h } from 'preact';
 import { mount, shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import { OscillatorOctave } from './OscillatorOctave';
-import { resetOscillatorOctave, setOscillatorOctave } from '../../lib/studioService/studioServiceActions';
-import { OscillatorId } from '../../types/types';
+import { resetOscillatorOctave, setOscillatorOctave } from '../../../lib/studioService/studioServiceActions';
+import { OscillatorId } from '../../../types/types';
 
 
-jest.mock('../../lib/studioService/studioServiceActions');
+jest.mock('../../../lib/studioService/studioServiceActions');
 
 // eslint-disable-next-line import/newline-after-import
 const wamock = require('web-audio-mock-api');
