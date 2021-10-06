@@ -1,6 +1,9 @@
 import { h } from 'preact';
 import { useContext } from 'preact/hooks';
-import { setOscillatorEnabled, setOscillatorType } from '../../lib/studioService/studioServiceActions';
+import {
+    setOscillatorEnabled,
+    setOscillatorType,
+} from '../../lib/studioService/studioServiceActions';
 import { StudioServiceContext } from '../../lib/studioService/StudioServiceStore';
 import { OscillatorTypes } from '../../types/runtimeTypes';
 import { OscillatorId } from '../../types/types';
@@ -33,7 +36,7 @@ export const Oscillator = ({ audioContext, oscillatorId }: OscillatorProps) => {
                 {/* Todo: Replace with LED Button component */}
                 <Checkbox
                     onInput={(isChecked) => {
-                        setOscillatorEnabled(isChecked, oscillatorId, dispatch);
+                        setOscillatorEnabled(isChecked, oscillatorId, dispatch, studioService);
                     }}
                     isChecked={oscillatorEnabled}
                 />

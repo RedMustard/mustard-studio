@@ -1,6 +1,6 @@
 import { MAX_PIANO_OCTAVE, MIN_PIANO_OCTAVE, PIANO_OCTAVE_KEY_COUNT } from '../../../constants';
-import { KeyboardKey, Octave } from '../../../types/types';
-import { startOscillators, stopOscillatorByFrequency } from '../../oscillators/oscillators';
+import { KeyboardKey, Octave, StudioService } from '../../../types/types';
+import { startOscillatorsByFrequency, stopOscillatorByFrequency } from '../../oscillators/oscillators';
 import { getFrequencyByKeyNumber } from '../../utils/audio/audio';
 import { logger } from '../../utils/logger/logger';
 
@@ -46,6 +46,7 @@ const pressedKeys: KeyboardKey[] = [
     { ':': undefined },
 ];
 let keyboardOctave: Octave = 4;
+let currentStudioService: StudioService;
 
 
 const handleOnKeyDownEvent = (e: KeyboardEvent) => {
@@ -56,7 +57,7 @@ const handleOnKeyDownEvent = (e: KeyboardEvent) => {
 
         if ((e.key === keyLetter || e.key === keyLetter.toLowerCase()) && !e.repeat) {
             const frequency = getFrequencyByKeyNumber(keyNumber);
-            startOscillators(frequency);
+            startOscillatorsByFrequency(frequency, currentStudioService);
             logger.info('Keyboard pressed', keyNumber);
             pressedKeys[index][keyLetter] = keyNumber;
         }
@@ -79,19 +80,24 @@ const handleOnKeyUpEvent = (e: KeyboardEvent) => {
 
         if ((e.key === keyLetter || e.key === keyLetter.toLowerCase()) && !e.repeat) {
             const frequency = getFrequencyByKeyNumber(keyNumber);
-            stopOscillatorByFrequency(frequency);
+            stopOscillatorByFrequency(frequency, currentStudioService);
+            logger.info('handleOnKeyUpEvent: oscillators stopped');
             pressedKeys[index][keyLetter] = undefined;
         }
     });
 };
 
-export const setKeyboardAccess = () => {
-    window.addEventListener('keydown', (e: KeyboardEvent) => {
-        handleOnKeyDownEvent(e);
-    });
+export const removeKeyboardAccess = () => {
+    window.removeEventListener('keydown', handleOnKeyDownEvent);
+    window.removeEventListener('keyup', handleOnKeyUpEvent);
+};
 
-    window.addEventListener('keyup', (e: KeyboardEvent) => {
-        handleOnKeyUpEvent(e);
-    });
+export const setKeyboardAccess = () => {
+    window.addEventListener('keydown', handleOnKeyDownEvent);
+    window.addEventListener('keyup', handleOnKeyUpEvent);
     logger.info('Keyboard access enabled');
+};
+
+export const setKeyboardStudioService = (studioService: StudioService) => {
+    currentStudioService = studioService;
 };

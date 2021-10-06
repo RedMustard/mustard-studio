@@ -1,6 +1,8 @@
+@import './variables.scss';
+
 html,
 body {
-    background: #fafafa;
+    background: $darkGrey;
     color: #444;
     font-family: 'Helvetica Neue', arial, sans-serif;
     -webkit-font-smoothing: antialiased;

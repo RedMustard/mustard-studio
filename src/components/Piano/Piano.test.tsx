@@ -2,7 +2,7 @@ import { h } from 'preact';
 import { shallow, mount } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import { Piano } from './Piano';
-import { startOscillators, stopOscillators } from '../../lib/oscillators/oscillators';
+import { startOscillatorsByFrequency, stopOscillators } from '../../lib/oscillators/oscillators';
 import { getFrequencyByKeyNumber } from '../../lib/utils/audio/audio';
 
 jest.mock('../../lib/studioService/studioServiceActions');
@@ -26,7 +26,7 @@ describe('<Piano />', () => {
             <Piano />,
         );
         wrapper.find('.piano-key.piano-key--white').first().simulate('mousedown', { buttons: 1 });
-        expect(startOscillators).toBeCalledTimes(1);
+        expect(startOscillatorsByFrequency).toBeCalledTimes(1);
         expect(getFrequencyByKeyNumber).toBeCalledTimes(1);
     });
 
@@ -36,7 +36,7 @@ describe('<Piano />', () => {
         );
         wrapper.find('.piano-key.piano-key--white').first().simulate('mousedown', { buttons: 1 });
         wrapper.find('.piano-key.piano-key--white').last().simulate('mouseover', { buttons: 1 });
-        expect(startOscillators).toBeCalledTimes(2);
+        expect(startOscillatorsByFrequency).toBeCalledTimes(2);
         expect(getFrequencyByKeyNumber).toBeCalledTimes(2);
     });
 
@@ -72,7 +72,7 @@ describe('<Piano />', () => {
             <Piano />,
         );
         wrapper.find('.piano-key.piano-key--white').first().simulate('mousedown', { buttons: 2 });
-        expect(startOscillators).not.toBeCalled();
+        expect(startOscillatorsByFrequency).not.toBeCalled();
         expect(getFrequencyByKeyNumber).not.toBeCalled();
     });
 
@@ -82,7 +82,7 @@ describe('<Piano />', () => {
         );
         wrapper.find('.piano-key.piano-key--white').first().simulate('mousedown', { buttons: 2 });
         wrapper.find('.piano-key.piano-key--white').last().simulate('mouseover', { buttons: 2 });
-        expect(startOscillators).not.toBeCalled();
+        expect(startOscillatorsByFrequency).not.toBeCalled();
         expect(getFrequencyByKeyNumber).not.toBeCalled();
     });
 
@@ -100,7 +100,7 @@ describe('<Piano />', () => {
             <Piano />,
         );
         wrapper.find('.piano-key.piano-key--black').first().simulate('mousedown', { buttons: 1 });
-        expect(startOscillators).toBeCalledTimes(1);
+        expect(startOscillatorsByFrequency).toBeCalledTimes(1);
         expect(getFrequencyByKeyNumber).toBeCalledTimes(1);
     });
 
@@ -110,7 +110,7 @@ describe('<Piano />', () => {
         );
         wrapper.find('.piano-key.piano-key--black').first().simulate('mousedown', { buttons: 1 });
         wrapper.find('.piano-key.piano-key--black').last().simulate('mouseover', { buttons: 1 });
-        expect(startOscillators).toBeCalledTimes(1 * 2);
+        expect(startOscillatorsByFrequency).toBeCalledTimes(1 * 2);
         expect(getFrequencyByKeyNumber).toBeCalledTimes(2);
     });
 
@@ -146,7 +146,7 @@ describe('<Piano />', () => {
             <Piano />,
         );
         wrapper.find('.piano-key.piano-key--black').first().simulate('mousedown', { buttons: 2 });
-        expect(startOscillators).not.toBeCalled();
+        expect(startOscillatorsByFrequency).not.toBeCalled();
         expect(getFrequencyByKeyNumber).not.toBeCalled();
     });
 
@@ -156,7 +156,7 @@ describe('<Piano />', () => {
         );
         wrapper.find('.piano-key.piano-key--black').first().simulate('mousedown', { buttons: 2 });
         wrapper.find('.piano-key.piano-key--black').last().simulate('mouseover', { buttons: 2 });
-        expect(startOscillators).not.toBeCalled();
+        expect(startOscillatorsByFrequency).not.toBeCalled();
         expect(getFrequencyByKeyNumber).not.toBeCalled();
     });
 

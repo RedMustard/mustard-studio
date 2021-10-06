@@ -29,7 +29,7 @@ export const Attack = () => {
                 maxValue={MAX_ENVELOPE}
                 minValue={MIN_ENVELOPE}
                 stepResolution={ENVELOPE_STEPS}
-                valueUnit={ValueUnitEnum.CENT}
+                valueUnit={ValueUnitEnum.SECONDS}
             />
         </div>
     );

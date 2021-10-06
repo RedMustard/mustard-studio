@@ -1,6 +1,12 @@
 import { createContext, h } from 'preact';
 import { useReducer } from 'preact/hooks';
-import { OSC_1_INITIAL_SETTINGS, OSC_2_INITIAL_SETTINGS, OSC_SUB_INITIAL_SETTINGS } from '../../constants';
+import {
+    MASTER_INITIAL_SETTINGS,
+    ENVELOPE_INITIAL_SETTINGS,
+    OSC_1_INITIAL_SETTINGS,
+    OSC_2_INITIAL_SETTINGS,
+    OSC_SUB_INITIAL_SETTINGS,
+} from '../../constants';
 import { DispatchFunction, StudioService } from '../../types/types';
 import { deepClone } from '../utils/objects/objects';
 import { studioServiceReducer } from './studioServiceReducer';
@@ -11,15 +17,11 @@ const initialState: StudioService = Object.freeze({
         gainNode: undefined,
         panNode: undefined,
         settings: {
-            volume: 0.1,
-            pan: 0,
+            ...MASTER_INITIAL_SETTINGS,
         },
     },
     envelope: {
-        attack: 0.0,
-        decay: 0.0,
-        sustain: 0.0,
-        release: 0.0,
+        ...ENVELOPE_INITIAL_SETTINGS,
     },
     oscillators: {
         osc1: {

@@ -1,39 +1,76 @@
 import * as audioContext from '../audioContext/audioContext';
 import * as audio from '../utils/audio/audio';
-import * as oscillators from './oscillators';
 import {
     OscillatorId,
-    OscillatorSettings,
-    Oscillator,
-    OscillatorDetuneSetting,
+    StudioService,
 } from '../../types/types';
 import {
-    getOscillatorsNodes,
+    getOscillatorNodes,
     resetOscillatorNodes,
     stopOscillatorById,
-    startOscillators,
+    startOscillatorsByFrequency,
     stopOscillators,
     stopOscillatorByFrequency,
-    setOscillatorGainNodeByOscillatorId,
-    getOscillatorsConfigs,
-    resetOscillatorConfigs,
-    setOscillatorPanNodeByOscillatorId,
-    setOscillatorSettingsByOscillatorId,
-    setOscillatorAnalyserNodeByOscillatorId,
+    resetOscillatorGainNodes,
+    addOscillatorGainNode,
+    addOscillatorNode,
+    getOscillatorGainNodes,
+    getOscillatorGainNodesByFrequency,
 } from './oscillators';
-import { OSC_1_INITIAL_SETTINGS, OSC_2_INITIAL_SETTINGS, OSC_SUB_INITIAL_SETTINGS } from '../../constants';
+import {
+    ENVELOPE_INITIAL_SETTINGS,
+    MASTER_INITIAL_SETTINGS,
+    OSC_1_INITIAL_SETTINGS,
+    OSC_2_INITIAL_SETTINGS,
+    OSC_SUB_INITIAL_SETTINGS,
+} from '../../constants';
 
 
 // eslint-disable-next-line import/newline-after-import
 const wamock = require('web-audio-mock-api');
 const mockAudioContext = new wamock.AudioContext();
+const mockStudioService: StudioService = {
+    master: {
+        settings: {
+            ...MASTER_INITIAL_SETTINGS,
+        },
+        gainNode: mockAudioContext.createGain(),
+        panNode: mockAudioContext.createStereoPanner(),
+    },
+    envelope: {
+        ...ENVELOPE_INITIAL_SETTINGS,
+    },
+    oscillators: {
+        osc1: {
+            analyserNode: mockAudioContext.createAnalyser(),
+            gainNode: mockAudioContext.createGain(),
+            panNode: mockAudioContext.createStereoPanner(),
+            settings: {
+                ...OSC_1_INITIAL_SETTINGS,
+            },
+        },
+        osc2: {
+            analyserNode: mockAudioContext.createAnalyser(),
+            gainNode: mockAudioContext.createGain(),
+            panNode: mockAudioContext.createStereoPanner(),
+            settings: {
+                ...OSC_2_INITIAL_SETTINGS,
+            },
+        },
+        oscSub: {
+            analyserNode: mockAudioContext.createAnalyser(),
+            gainNode: mockAudioContext.createGain(),
+            panNode: mockAudioContext.createStereoPanner(),
+            settings: {
+                ...OSC_SUB_INITIAL_SETTINGS,
+            },
+        },
+    },
+};
 
 
-describe('startOscillators', () => {
+describe('startOscillatorsByFrequency', () => {
     const oscillatorFrequency = 440;
-    const osc1 = 'osc1';
-    const osc2 = 'osc2';
-    const oscSub = 'oscSub';
     const mockOscillator = {
         start: jest.fn().mockReturnThis(),
         stop: jest.fn().mockReturnThis(),
@@ -46,13 +83,6 @@ describe('startOscillators', () => {
             value: 0,
         },
     };
-    const updatedOscillatorSettings: OscillatorSettings = {
-        enabled: false,
-        octave: 1,
-        pan: 0,
-        type: 'sine',
-        volume: 1,
-    };
 
     beforeEach(() => {
         jest.spyOn(mockAudioContext, 'createOscillator').mockImplementation(() => mockOscillator);
@@ -63,50 +93,315 @@ describe('startOscillators', () => {
     afterEach(() => {
         jest.restoreAllMocks();
         jest.resetAllMocks();
-        resetOscillatorConfigs();
     });
 
     afterAll(() => {
         jest.clearAllMocks();
+        resetOscillatorNodes();
+        resetOscillatorGainNodes();
     });
 
     it('starts all oscillators', () => {
         const numberOfOscillators = 3;
-        startOscillators(oscillatorFrequency);
+        startOscillatorsByFrequency(oscillatorFrequency, mockStudioService);
         expect(audio.getFrequencyByOctaveOffset).toBeCalledTimes(numberOfOscillators);
         expect(mockAudioContext.createOscillator).toBeCalledTimes(numberOfOscillators);
-        expect(mockOscillator.connect).toBeCalledTimes(numberOfOscillators * 2); // each osc connects to audioContext and analyser
+        expect(mockOscillator.connect).toBeCalledTimes(numberOfOscillators);
         expect(mockOscillator.start).toBeCalledTimes(numberOfOscillators);
     });
 
     it('only starts osc1 when osc2 and oscSub are disabled', () => {
         const numberOfOscillators = 1;
-        setOscillatorSettingsByOscillatorId(osc2, updatedOscillatorSettings);
-        setOscillatorSettingsByOscillatorId(oscSub, updatedOscillatorSettings);
-        startOscillators(oscillatorFrequency);
+        const modifiedStudioService = {
+            ...mockStudioService,
+            oscillators: {
+                ...mockStudioService.oscillators,
+                osc2: {
+                    ...mockStudioService.oscillators.osc2,
+                    settings: {
+                        ...mockStudioService.oscillators.osc2.settings,
+                        enabled: false,
+                    },
+                },
+                oscSub: {
+                    ...mockStudioService.oscillators.oscSub,
+                    settings: {
+                        ...mockStudioService.oscillators.oscSub.settings,
+                        enabled: false,
+                    },
+                },
+            },
+        };
+        startOscillatorsByFrequency(oscillatorFrequency, modifiedStudioService);
         expect(mockAudioContext.createOscillator).toBeCalledTimes(numberOfOscillators);
-        expect(mockOscillator.connect).toBeCalledTimes(numberOfOscillators * 2); // each osc connects to audioContext and analyser
+        expect(mockOscillator.connect).toBeCalledTimes(numberOfOscillators);
         expect(mockOscillator.start).toBeCalledTimes(numberOfOscillators);
     });
 
     it('only starts osc2 when osc1 and oscSub are disabled', () => {
         const numberOfOscillators = 1;
-        setOscillatorSettingsByOscillatorId(osc1, updatedOscillatorSettings);
-        setOscillatorSettingsByOscillatorId(oscSub, updatedOscillatorSettings);
-        startOscillators(oscillatorFrequency);
+        const modifiedStudioService = {
+            ...mockStudioService,
+            oscillators: {
+                ...mockStudioService.oscillators,
+                osc1: {
+                    ...mockStudioService.oscillators.osc1,
+                    settings: {
+                        ...mockStudioService.oscillators.osc1.settings,
+                        enabled: false,
+                    },
+                },
+                oscSub: {
+                    ...mockStudioService.oscillators.oscSub,
+                    settings: {
+                        ...mockStudioService.oscillators.oscSub.settings,
+                        enabled: false,
+                    },
+                },
+            },
+        };
+        startOscillatorsByFrequency(oscillatorFrequency, modifiedStudioService);
         expect(mockAudioContext.createOscillator).toBeCalledTimes(numberOfOscillators);
-        expect(mockOscillator.connect).toBeCalledTimes(numberOfOscillators * 2); // each osc connects to audioContext and analyser
+        expect(mockOscillator.connect).toBeCalledTimes(numberOfOscillators);
         expect(mockOscillator.start).toBeCalledTimes(numberOfOscillators);
     });
 
     it('only starts oscSub when osc1 and osc2 are disabled', () => {
         const numberOfOscillators = 1;
-        setOscillatorSettingsByOscillatorId(osc1, updatedOscillatorSettings);
-        setOscillatorSettingsByOscillatorId(osc2, updatedOscillatorSettings);
-        startOscillators(oscillatorFrequency);
+        const modifiedStudioService = {
+            ...mockStudioService,
+            oscillators: {
+                ...mockStudioService.oscillators,
+                osc1: {
+                    ...mockStudioService.oscillators.osc1,
+                    settings: {
+                        ...mockStudioService.oscillators.osc1.settings,
+                        enabled: false,
+                    },
+                },
+                osc2: {
+                    ...mockStudioService.oscillators.osc2,
+                    settings: {
+                        ...mockStudioService.oscillators.osc2.settings,
+                        enabled: false,
+                    },
+                },
+            },
+        };
+        startOscillatorsByFrequency(oscillatorFrequency, modifiedStudioService);
         expect(mockAudioContext.createOscillator).toBeCalledTimes(numberOfOscillators);
-        expect(mockOscillator.connect).toBeCalledTimes(numberOfOscillators * 2); // each osc connects to audioContext and analyser
+        expect(mockOscillator.connect).toBeCalledTimes(numberOfOscillators);
         expect(mockOscillator.start).toBeCalledTimes(numberOfOscillators);
+    });
+});
+
+
+describe('addOscillatorNode', () => {
+    const mockOscillatorNode = mockAudioContext.createOscillator();
+
+    afterEach(() => {
+        resetOscillatorNodes();
+    });
+
+    it('adds oscillator node for new frequency', () => {
+        const activeOscillatorNodes: {
+            [frequency: string]: {
+                [oscillatorId: string]: OscillatorNode[];
+            }
+        } = {
+            440: {
+                osc1: [mockOscillatorNode],
+            },
+        };
+        addOscillatorNode(mockOscillatorNode, 440, 'osc1');
+        expect(getOscillatorNodes()).toMatchObject(activeOscillatorNodes);
+    });
+
+    it('adds oscillator node for existing frequency, but new oscillatorId', () => {
+        const activeOscillatorNodes: {
+            [frequency: string]: {
+                [oscillatorId: string]: OscillatorNode[];
+            }
+        } = {
+            440: {
+                osc1: [mockOscillatorNode],
+                osc2: [mockOscillatorNode],
+            },
+        };
+        addOscillatorNode(mockOscillatorNode, 440, 'osc1');
+        addOscillatorNode(mockOscillatorNode, 440, 'osc2');
+        expect(getOscillatorNodes()).toMatchObject(activeOscillatorNodes);
+    });
+
+    it('adds oscillator node for existing frequency and existing oscillatorId', () => {
+        const activeOscillatorNodes: {
+            [frequency: string]: {
+                [oscillatorId: string]: OscillatorNode[];
+            }
+        } = {
+            440: {
+                osc1: [mockOscillatorNode, mockOscillatorNode],
+            },
+        };
+        addOscillatorNode(mockOscillatorNode, 440, 'osc1');
+        addOscillatorNode(mockOscillatorNode, 440, 'osc1');
+        expect(getOscillatorNodes()).toMatchObject(activeOscillatorNodes);
+    });
+});
+
+
+describe('addOscillatorGainNode', () => {
+    const mockGainNode = mockAudioContext.createGain();
+
+    afterEach(() => {
+        resetOscillatorNodes();
+    });
+
+    it('adds oscillator node for new frequency', () => {
+        const activeOscillatorGainNodes: {
+            [frequency: string]: {
+                [oscillatorId: string]: GainNode;
+            }
+        } = {
+            440: {
+                osc1: mockGainNode,
+            },
+        };
+        addOscillatorGainNode(mockGainNode, 440, 'osc1');
+        expect(getOscillatorGainNodes()).toMatchObject(activeOscillatorGainNodes);
+    });
+});
+
+
+describe('getOscillatorNodes', () => {
+    const mockOscillatorNode = mockAudioContext.createOscillator();
+
+    const defaultOscillatorNodes: {
+        [frequency: string]: {
+            [oscillatorId: string]: OscillatorNode[];
+        }
+    } = {};
+
+    const activeOscillatorNodes: {
+        [frequency: string]: {
+            [oscillatorId: string]: OscillatorNode[];
+        }
+    } = {
+        440: {
+            osc1: [mockOscillatorNode],
+        },
+    };
+
+    beforeEach(() => {
+        jest.resetAllMocks();
+    });
+
+    afterAll(() => {
+        jest.clearAllMocks();
+        resetOscillatorNodes();
+        resetOscillatorGainNodes();
+    });
+
+    it('returns default oscillator nodes', () => {
+        expect(getOscillatorNodes()).toMatchObject(defaultOscillatorNodes);
+    });
+
+    it('returns oscillator nodes when oscillator nodes exist', () => {
+        addOscillatorNode(mockOscillatorNode, 440, 'osc1');
+        expect(getOscillatorNodes()).toMatchObject(activeOscillatorNodes);
+    });
+});
+
+
+describe('getOscillatorGainNodes', () => {
+    const mockGainNode = mockAudioContext.createGain();
+
+    const defaultOscillatorGainNodes: {
+        [frequency: string]: {
+            [oscillatorId: string]: GainNode;
+        }
+    } = {};
+
+    const activeOscillatorNodes: {
+        [frequency: string]: {
+            [oscillatorId: string]: OscillatorNode[];
+        }
+    } = {
+        440: {
+            osc1: mockGainNode,
+        },
+    };
+
+    afterAll(() => {
+        jest.clearAllMocks();
+        resetOscillatorNodes();
+        resetOscillatorGainNodes();
+    });
+
+    it('returns default oscillator gain nodes', () => {
+        expect(getOscillatorGainNodes()).toMatchObject(defaultOscillatorGainNodes);
+    });
+
+    it('returns oscillator gain nodes when gain nodes exist', () => {
+        addOscillatorGainNode(mockGainNode, 440, 'osc1');
+        expect(getOscillatorGainNodes()).toMatchObject(activeOscillatorNodes);
+    });
+});
+
+
+describe('getOscillatorGainNodesByFrequency', () => {
+    const mockGainNode = mockAudioContext.createGain();
+    let activeOscillatorNodes: {
+        [oscillatorId: string]: OscillatorNode[];
+    };
+
+    afterAll(() => {
+        jest.clearAllMocks();
+        resetOscillatorNodes();
+        resetOscillatorGainNodes();
+    });
+
+    it('returns undefined when frequency doesn\'t exist', () => {
+        expect(getOscillatorGainNodesByFrequency(440)).toBe(undefined);
+    });
+
+    it('returns oscillator gain nodes when frequency exists', () => {
+        activeOscillatorNodes = {
+            osc1: mockGainNode,
+        };
+        addOscillatorGainNode(mockGainNode, 440, 'osc1');
+        expect(getOscillatorGainNodesByFrequency(440)).toMatchObject(activeOscillatorNodes);
+    });
+
+    it('returns multiple oscillator gain nodes when multiple exist for a frequency', () => {
+        activeOscillatorNodes = {
+            osc1: mockGainNode,
+            osc2: mockGainNode,
+        };
+        addOscillatorGainNode(mockGainNode, 440, 'osc1');
+        addOscillatorGainNode(mockGainNode, 440, 'osc2');
+        expect(getOscillatorGainNodesByFrequency(440)).toMatchObject(activeOscillatorNodes);
+    });
+});
+
+
+describe('resetOscillatorNodes', () => {
+    const mockOscillatorNode = mockAudioContext.createOscillator();
+
+    it('adds an oscillator node and then resets oscillator nodes', () => {
+        addOscillatorNode(mockOscillatorNode, 440, 'osc1');
+        resetOscillatorNodes();
+        expect(getOscillatorNodes()).toMatchObject({});
+    });
+});
+
+
+describe('resetOscillatorGainNodes', () => {
+    const mockGainNode = mockAudioContext.createGain();
+    it('adds an oscillator gain node and then resets oscillator gain nodes', () => {
+        addOscillatorGainNode(mockGainNode, 440, 'osc1');
+        resetOscillatorGainNodes();
+        expect(getOscillatorGainNodes()).toMatchObject({});
     });
 });
 
@@ -136,51 +431,53 @@ describe('stopOscillatorById', () => {
 
     afterAll(() => {
         jest.clearAllMocks();
+        resetOscillatorNodes();
+        resetOscillatorGainNodes();
     });
 
     it('stops osc1', () => {
         oscillatorId = 'osc1';
-        startOscillators(oscillatorFrequency);
-        stopOscillatorById(oscillatorId);
+        startOscillatorsByFrequency(oscillatorFrequency, mockStudioService);
+        stopOscillatorById(oscillatorId, mockStudioService);
         expect(mockOscillator.stop).toBeCalledTimes(1);
     });
 
     it('stops osc2', () => {
         oscillatorId = 'osc2';
-        startOscillators(oscillatorFrequency);
-        stopOscillatorById(oscillatorId);
+        startOscillatorsByFrequency(oscillatorFrequency, mockStudioService);
+        stopOscillatorById(oscillatorId, mockStudioService);
         expect(mockOscillator.stop).toBeCalledTimes(1);
     });
 
     it('stops oscSub', () => {
         oscillatorId = 'oscSub';
-        startOscillators(oscillatorFrequency);
-        stopOscillatorById(oscillatorId);
+        startOscillatorsByFrequency(oscillatorFrequency, mockStudioService);
+        stopOscillatorById(oscillatorId, mockStudioService);
         expect(mockOscillator.stop).toBeCalledTimes(1);
     });
 
     it('does not stop oscillator with invalid oscillatorId', () => {
         oscillatorId = 'invalidOscillatorId' as OscillatorId;
-        startOscillators(oscillatorFrequency);
-        stopOscillatorById(oscillatorId);
+        startOscillatorsByFrequency(oscillatorFrequency, mockStudioService);
+        stopOscillatorById(oscillatorId, mockStudioService);
         expect(mockOscillator.stop).not.toBeCalled();
     });
 
     it('does not stop osc1 if osc1 does not exist', () => {
         oscillatorId = 'osc1' as OscillatorId;
-        stopOscillatorById(oscillatorId);
+        stopOscillatorById(oscillatorId, mockStudioService);
         expect(mockOscillator.stop).not.toBeCalled();
     });
 
     it('does not stop osc2 if osc2 does not exist', () => {
         oscillatorId = 'osc2' as OscillatorId;
-        stopOscillatorById(oscillatorId);
+        stopOscillatorById(oscillatorId, mockStudioService);
         expect(mockOscillator.stop).not.toBeCalled();
     });
 
     it('does not stop oscSub if oscSub does not exist', () => {
         oscillatorId = 'oscSub' as OscillatorId;
-        stopOscillatorById(oscillatorId);
+        stopOscillatorById(oscillatorId, mockStudioService);
         expect(mockOscillator.stop).not.toBeCalled();
     });
 });
@@ -209,11 +506,13 @@ describe('stopOscillators', () => {
 
     afterAll(() => {
         jest.clearAllMocks();
+        resetOscillatorNodes();
+        resetOscillatorGainNodes();
     });
 
     it('stops all oscillators', () => {
-        startOscillators(oscillatorFrequency);
-        stopOscillators();
+        startOscillatorsByFrequency(oscillatorFrequency, mockStudioService);
+        stopOscillators(mockStudioService);
         expect(mockOscillator.stop).toBeCalledTimes(3);
     });
 });
@@ -244,449 +543,20 @@ describe('stopOscillatorByFrequency', () => {
 
     afterAll(() => {
         jest.clearAllMocks();
+        resetOscillatorNodes();
+        resetOscillatorGainNodes();
     });
 
     it('stops oscillators with frequency 220', () => {
-        startOscillators(oscillatorFrequency440);
-        startOscillators(oscillatorFrequency220);
-        stopOscillatorByFrequency(oscillatorFrequency220);
+        startOscillatorsByFrequency(oscillatorFrequency440, mockStudioService);
+        startOscillatorsByFrequency(oscillatorFrequency220, mockStudioService);
+        stopOscillatorByFrequency(oscillatorFrequency220, mockStudioService);
         expect(mockOscillator.stop).toBeCalledTimes(3); // 6 oscillators running, 3 should be stopped
     });
 
     it('does not stop oscillators when frequency does not exist', () => {
-        startOscillators(oscillatorFrequency440);
-        stopOscillatorByFrequency(100);
+        startOscillatorsByFrequency(oscillatorFrequency440, mockStudioService);
+        stopOscillatorByFrequency(100, mockStudioService);
         expect(mockOscillator.stop).not.toBeCalled();
-    });
-});
-
-
-describe('setOscillatorGainNodeByOscillatorId', () => {
-    let oscillatorId: OscillatorId;
-    let oscillatorSettings: {
-        [key in OscillatorId]: Oscillator
-    };
-    const gainNode = mockAudioContext.createGain();
-
-    beforeEach(() => {
-        resetOscillatorConfigs();
-    });
-
-    it('sets gain node for osc1', () => {
-        oscillatorId = 'osc1';
-        setOscillatorGainNodeByOscillatorId(oscillatorId, gainNode);
-        oscillatorSettings = getOscillatorsConfigs();
-        expect(oscillatorSettings.osc1.gainNode).toMatchObject(gainNode);
-        expect(oscillatorSettings.osc2.gainNode).toBe(undefined);
-        expect(oscillatorSettings.oscSub.gainNode).toBe(undefined);
-    });
-
-    it('sets gain node for osc2', () => {
-        oscillatorId = 'osc2';
-        setOscillatorGainNodeByOscillatorId(oscillatorId, gainNode);
-        oscillatorSettings = getOscillatorsConfigs();
-        expect(oscillatorSettings.osc1.gainNode).toBe(undefined);
-        expect(oscillatorSettings.osc2.gainNode).toMatchObject(gainNode);
-        expect(oscillatorSettings.oscSub.gainNode).toBe(undefined);
-    });
-
-    it('sets gain node for oscSub', () => {
-        oscillatorId = 'oscSub';
-        setOscillatorGainNodeByOscillatorId(oscillatorId, gainNode);
-        oscillatorSettings = getOscillatorsConfigs();
-        expect(oscillatorSettings.osc1.gainNode).toBe(undefined);
-        expect(oscillatorSettings.osc2.gainNode).toBe(undefined);
-        expect(oscillatorSettings.oscSub.gainNode).toMatchObject(gainNode);
-    });
-
-    it('does not set gain node for invalid oscillatorId', () => {
-        oscillatorId = 'invalidOscillatorId' as OscillatorId;
-        setOscillatorGainNodeByOscillatorId(oscillatorId, gainNode);
-        oscillatorSettings = getOscillatorsConfigs();
-        expect(oscillatorSettings.osc1.gainNode).toBe(undefined);
-        expect(oscillatorSettings.osc2.gainNode).toBe(undefined);
-        expect(oscillatorSettings.oscSub.gainNode).toBe(undefined);
-    });
-});
-
-
-describe('setOscillatorPanNodeByOscillatorId', () => {
-    let oscillatorId: OscillatorId;
-    let oscillatorSettings: {
-        [key in OscillatorId]: Oscillator
-    };
-    const panNode = mockAudioContext.createStereoPanner();
-
-    beforeEach(() => {
-        resetOscillatorConfigs();
-    });
-
-    it('sets pan node for osc1', () => {
-        oscillatorId = 'osc1';
-        setOscillatorPanNodeByOscillatorId(oscillatorId, panNode);
-        oscillatorSettings = getOscillatorsConfigs();
-        expect(oscillatorSettings.osc1.panNode).toMatchObject(panNode);
-        expect(oscillatorSettings.osc2.panNode).toBe(undefined);
-        expect(oscillatorSettings.oscSub.panNode).toBe(undefined);
-    });
-
-    it('sets pan node for osc2', () => {
-        oscillatorId = 'osc2';
-        setOscillatorPanNodeByOscillatorId(oscillatorId, panNode);
-        oscillatorSettings = getOscillatorsConfigs();
-        expect(oscillatorSettings.osc1.panNode).toBe(undefined);
-        expect(oscillatorSettings.osc2.panNode).toMatchObject(panNode);
-        expect(oscillatorSettings.oscSub.panNode).toBe(undefined);
-    });
-
-    it('sets pan node for oscSub', () => {
-        oscillatorId = 'oscSub';
-        setOscillatorPanNodeByOscillatorId(oscillatorId, panNode);
-        oscillatorSettings = getOscillatorsConfigs();
-        expect(oscillatorSettings.osc1.panNode).toBe(undefined);
-        expect(oscillatorSettings.osc2.panNode).toBe(undefined);
-        expect(oscillatorSettings.oscSub.panNode).toMatchObject(panNode);
-    });
-
-    it('does not set pan node for invalid oscillatorId', () => {
-        oscillatorId = 'invalidOscillatorId' as OscillatorId;
-        setOscillatorPanNodeByOscillatorId(oscillatorId, panNode);
-        oscillatorSettings = getOscillatorsConfigs();
-        expect(oscillatorSettings.osc1.panNode).toBe(undefined);
-        expect(oscillatorSettings.osc2.panNode).toBe(undefined);
-        expect(oscillatorSettings.oscSub.panNode).toBe(undefined);
-    });
-});
-
-describe('setOscillatorAnalyserNodeByOscillatorId', () => {
-    let oscillatorId: OscillatorId;
-    let oscillatorSettings: {
-        [key in OscillatorId]: Oscillator
-    };
-    const analyserNode = mockAudioContext.createAnalyser();
-
-    beforeEach(() => {
-        resetOscillatorConfigs();
-    });
-
-    it('sets analyser node for osc1', () => {
-        oscillatorId = 'osc1';
-        setOscillatorAnalyserNodeByOscillatorId(oscillatorId, analyserNode);
-        oscillatorSettings = getOscillatorsConfigs();
-        expect(oscillatorSettings.osc1.analyserNode).toMatchObject(analyserNode);
-        expect(oscillatorSettings.osc2.analyserNode).toBe(undefined);
-        expect(oscillatorSettings.oscSub.analyserNode).toBe(undefined);
-    });
-
-    it('sets analyser node for osc2', () => {
-        oscillatorId = 'osc2';
-        setOscillatorAnalyserNodeByOscillatorId(oscillatorId, analyserNode);
-        oscillatorSettings = getOscillatorsConfigs();
-        expect(oscillatorSettings.osc1.analyserNode).toBe(undefined);
-        expect(oscillatorSettings.osc2.analyserNode).toMatchObject(analyserNode);
-        expect(oscillatorSettings.oscSub.analyserNode).toBe(undefined);
-    });
-
-    it('sets analyser node for oscSub', () => {
-        oscillatorId = 'oscSub';
-        setOscillatorAnalyserNodeByOscillatorId(oscillatorId, analyserNode);
-        oscillatorSettings = getOscillatorsConfigs();
-        expect(oscillatorSettings.osc1.analyserNode).toBe(undefined);
-        expect(oscillatorSettings.osc2.analyserNode).toBe(undefined);
-        expect(oscillatorSettings.oscSub.analyserNode).toMatchObject(analyserNode);
-    });
-
-    it('does not set analyser node for invalid oscillatorId', () => {
-        oscillatorId = 'invalidOscillatorId' as OscillatorId;
-        setOscillatorAnalyserNodeByOscillatorId(oscillatorId, analyserNode);
-        oscillatorSettings = getOscillatorsConfigs();
-        expect(oscillatorSettings.osc1.analyserNode).toBe(undefined);
-        expect(oscillatorSettings.osc2.analyserNode).toBe(undefined);
-        expect(oscillatorSettings.oscSub.analyserNode).toBe(undefined);
-    });
-});
-
-
-describe('setOscillatorSettingsByOscillatorId', () => {
-    let oscillatorId: OscillatorId;
-    let defaultOscillatorSettings: OscillatorSettings | OscillatorSettings & OscillatorDetuneSetting;
-    let newOscillatorSettings: OscillatorSettings | OscillatorSettings & OscillatorDetuneSetting;
-    const updatedOscillatorSettings: OscillatorSettings = {
-        enabled: true,
-        octave: 1,
-        pan: 0,
-        type: 'sine',
-        volume: 1,
-    };
-
-    beforeEach(() => {
-        resetOscillatorConfigs();
-    });
-
-    it('sets settings for osc1', () => {
-        oscillatorId = 'osc1';
-        defaultOscillatorSettings = getOscillatorsConfigs().osc1.settings;
-        setOscillatorSettingsByOscillatorId(oscillatorId, updatedOscillatorSettings);
-        newOscillatorSettings = getOscillatorsConfigs().osc1.settings;
-        expect(newOscillatorSettings).not.toMatchObject(defaultOscillatorSettings);
-        expect(newOscillatorSettings).toMatchObject(updatedOscillatorSettings);
-    });
-
-    it('sets settings for osc2', () => {
-        oscillatorId = 'osc2';
-        defaultOscillatorSettings = getOscillatorsConfigs().osc2.settings;
-        setOscillatorSettingsByOscillatorId(oscillatorId, updatedOscillatorSettings);
-        newOscillatorSettings = getOscillatorsConfigs().osc2.settings;
-        expect(newOscillatorSettings).not.toMatchObject(defaultOscillatorSettings);
-        expect(newOscillatorSettings).toMatchObject(updatedOscillatorSettings);
-    });
-
-    it('sets settings for oscSub', () => {
-        oscillatorId = 'oscSub';
-        defaultOscillatorSettings = getOscillatorsConfigs().oscSub.settings;
-        setOscillatorSettingsByOscillatorId(oscillatorId, updatedOscillatorSettings);
-        newOscillatorSettings = getOscillatorsConfigs().oscSub.settings;
-        expect(newOscillatorSettings).not.toMatchObject(defaultOscillatorSettings);
-        expect(newOscillatorSettings).toMatchObject(updatedOscillatorSettings);
-    });
-
-    it('does not set settings for invalid oscillatorId', () => {
-        oscillatorId = 'invalidOscillatorId' as OscillatorId;
-        const defaultOsc1Settings = getOscillatorsConfigs().osc1.settings;
-        const defaultOsc2Settings = getOscillatorsConfigs().osc2.settings;
-        const defaultOscSubSettings = getOscillatorsConfigs().oscSub.settings;
-        setOscillatorSettingsByOscillatorId(oscillatorId, updatedOscillatorSettings);
-
-        expect(getOscillatorsConfigs().osc1.settings).toMatchObject(defaultOsc1Settings);
-        expect(getOscillatorsConfigs().osc2.settings).toMatchObject(defaultOsc2Settings);
-        expect(getOscillatorsConfigs().oscSub.settings).toMatchObject(defaultOscSubSettings);
-    });
-});
-
-
-describe('getOscillatorsConfigs', () => {
-    const gainNode = mockAudioContext.createGain();
-    const panNode = mockAudioContext.createStereoPanner();
-    const defaultOscillatorConfigs: {
-        [key in OscillatorId]: Oscillator
-    } = {
-        osc1: {
-            analyserNode: undefined,
-            panNode: undefined,
-            gainNode: undefined,
-            settings: {
-                ...OSC_1_INITIAL_SETTINGS,
-            },
-        },
-        osc2: {
-            analyserNode: undefined,
-            panNode: undefined,
-            gainNode: undefined,
-            settings: {
-                ...OSC_2_INITIAL_SETTINGS,
-            },
-        },
-        oscSub: {
-            analyserNode: undefined,
-            panNode: undefined,
-            gainNode: undefined,
-            settings: {
-                ...OSC_SUB_INITIAL_SETTINGS,
-            },
-        },
-    };
-
-    const updatedOscillatorConfigs: {
-        [key in OscillatorId]: Oscillator
-    } = {
-        osc1: {
-            analyserNode: undefined,
-            panNode,
-            gainNode,
-            settings: {
-                ...OSC_1_INITIAL_SETTINGS,
-            },
-        },
-        osc2: {
-            analyserNode: undefined,
-            panNode,
-            gainNode,
-            settings: {
-                ...OSC_2_INITIAL_SETTINGS,
-            },
-        },
-        oscSub: {
-            analyserNode: undefined,
-            panNode,
-            gainNode,
-            settings: {
-                ...OSC_SUB_INITIAL_SETTINGS,
-            },
-        },
-    };
-
-    beforeEach(() => {
-        resetOscillatorConfigs();
-    });
-
-    it('returns default oscillator configs', () => {
-        expect(getOscillatorsConfigs()).toMatchObject(defaultOscillatorConfigs);
-    });
-
-    it('returns updated oscillator configs', () => {
-        setOscillatorGainNodeByOscillatorId('osc1', gainNode);
-        setOscillatorGainNodeByOscillatorId('osc2', gainNode);
-        setOscillatorGainNodeByOscillatorId('oscSub', gainNode);
-        setOscillatorPanNodeByOscillatorId('osc1', panNode);
-        setOscillatorPanNodeByOscillatorId('osc2', panNode);
-        setOscillatorPanNodeByOscillatorId('oscSub', panNode);
-        expect(getOscillatorsConfigs()).toMatchObject(updatedOscillatorConfigs);
-    });
-});
-
-
-describe('resetOscillatorConfigs', () => {
-    const gainNode = mockAudioContext.createGain();
-    const panNode = mockAudioContext.createStereoPanner();
-    const defaultOscillatorConfigs: {
-        [key in OscillatorId]: Oscillator
-    } = {
-        osc1: {
-            analyserNode: undefined,
-            panNode: undefined,
-            gainNode: undefined,
-            settings: {
-                ...OSC_1_INITIAL_SETTINGS,
-            },
-        },
-        osc2: {
-            analyserNode: undefined,
-            panNode: undefined,
-            gainNode: undefined,
-            settings: {
-                ...OSC_2_INITIAL_SETTINGS,
-            },
-        },
-        oscSub: {
-            analyserNode: undefined,
-            panNode: undefined,
-            gainNode: undefined,
-            settings: {
-                ...OSC_SUB_INITIAL_SETTINGS,
-            },
-        },
-    };
-
-    it('resets default oscillators configs to default', () => {
-        resetOscillatorConfigs();
-        expect(getOscillatorsConfigs()).toMatchObject(defaultOscillatorConfigs);
-    });
-
-    it('resets updated oscillator configs', () => {
-        setOscillatorGainNodeByOscillatorId('osc1', gainNode);
-        setOscillatorGainNodeByOscillatorId('osc2', gainNode);
-        setOscillatorGainNodeByOscillatorId('oscSub', gainNode);
-        setOscillatorPanNodeByOscillatorId('osc1', panNode);
-        setOscillatorPanNodeByOscillatorId('osc2', panNode);
-        setOscillatorPanNodeByOscillatorId('oscSub', panNode);
-        resetOscillatorConfigs();
-        expect(getOscillatorsConfigs()).toMatchObject(defaultOscillatorConfigs);
-    });
-});
-
-
-describe('getOscillatorsNodes', () => {
-    const mockOscillatorNode = {
-        start: jest.fn().mockReturnThis(),
-        stop: jest.fn().mockReturnThis(),
-        connect: jest.fn().mockReturnThis(),
-        disconnect: jest.fn().mockReturnThis(),
-        detune: {
-            value: 0,
-        },
-        frequency: {
-            value: 220,
-        },
-        type: 'sine',
-    };
-
-    const defaultOscillatorNodes: {
-        [frequency: string]: {
-            [T: string]: OscillatorNode[];
-        }
-    } = {};
-
-    const activeOscillatorNodes: {
-        [frequency: string]: {
-            [T: string]: OscillatorNode[];
-        }
-    } = {
-        440: {
-            osc1: [mockOscillatorNode as unknown as OscillatorNode],
-            osc2: [mockOscillatorNode as unknown as OscillatorNode],
-            oscSub: [mockOscillatorNode as unknown as OscillatorNode],
-        },
-    };
-
-    beforeEach(() => {
-        jest.resetAllMocks();
-        jest.spyOn(oscillators, 'startOscillators').mockImplementation(() => {});
-    });
-
-    afterAll(() => {
-        jest.clearAllMocks();
-    });
-
-    it('returns default oscillator nodes', () => {
-        expect(getOscillatorsNodes()).toMatchObject(defaultOscillatorNodes);
-    });
-
-    it('returns active oscillator nodes', () => {
-        const oscillatorFrequency = 440;
-        startOscillators(oscillatorFrequency);
-        expect(JSON.stringify(getOscillatorsNodes())).toBe(JSON.stringify(activeOscillatorNodes));
-    });
-});
-
-
-describe('resetOscillatorNodes', () => {
-    const mockOscillatorNode = {
-        start: jest.fn().mockReturnThis(),
-        stop: jest.fn().mockReturnThis(),
-        connect: jest.fn().mockReturnThis(),
-        disconnect: jest.fn().mockReturnThis(),
-        detune: {
-            value: 0,
-        },
-        frequency: {
-            value: 220,
-        },
-        type: 'sine',
-    };
-
-    const defaultOscillatorNodes: {
-        [frequency: string]: {
-            [T: string]: OscillatorNode[];
-        }
-    } = {};
-
-    const activeOscillatorNodes: {
-        [frequency: string]: {
-            [T: string]: OscillatorNode[];
-        }
-    } = {
-        440: {
-            osc1: [mockOscillatorNode as unknown as OscillatorNode],
-            osc2: [mockOscillatorNode as unknown as OscillatorNode],
-            oscSub: [mockOscillatorNode as unknown as OscillatorNode],
-        },
-    };
-
-    it('starts oscillators, resets oscillators, and returns default oscillator nodes', () => {
-        const oscillatorFrequency = 440;
-        startOscillators(oscillatorFrequency);
-        expect(JSON.stringify(getOscillatorsNodes())).toBe(JSON.stringify(activeOscillatorNodes));
-        resetOscillatorNodes();
-        expect(getOscillatorsNodes()).toMatchObject(defaultOscillatorNodes);
     });
 });

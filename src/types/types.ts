@@ -4,7 +4,7 @@ export type KeyNumber = number;
 export type KeyboardKey = { [keyboardCharacter: string]: KeyNumber };
 export type Octave = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
 export type OscillatorId = 'osc1' | 'osc2' | 'oscSub';
-export type ValueUnit = 'percent' | 'cent' | 'pan';
+export type ValueUnit = 'percent' | 'cent' | 'pan' | 'seconds';
 
 export type Oscillator = {
     analyserNode: AnalyserNode,
@@ -13,26 +13,30 @@ export type Oscillator = {
     settings: OscillatorSettings | OscillatorSettings & OscillatorDetuneSetting,
 };
 
+export type Envelope = {
+    attack: number,
+    decay: number,
+    sustain: number,
+    release: number,
+};
+
 export type StudioService = {
     master: {
         gainNode: GainNode,
         panNode: StereoPannerNode,
-        settings: {
-            volume: number,
-            pan: number,
-        }
+        settings: MasterSettings,
     },
     oscillators: {
         osc1: Oscillator,
         osc2: Oscillator,
         oscSub: Oscillator,
     }
-    envelope: {
-        attack: number,
-        decay: number,
-        sustain: number,
-        release: number,
-    }
+    envelope: Envelope,
+};
+
+export type MasterSettings = {
+    volume: number,
+    pan: number,
 };
 
 export type OscillatorSettings = {

@@ -8,11 +8,11 @@ import { Sustain } from './Sustain/Sustain';
 export const Envelope = () => (
     <div className="envelope">
         <div className="envelope__header">
-            <div className="envelope__label">
-                Envelope
-            </div>
+            <div className="envelope__label">Envelope</div>
         </div>
-
+        <div className="envelope__graph">
+            {/* TODO: Envelope Graph */}
+        </div>
         <div className="envelope__modifiers">
             <Attack />
             <Decay />

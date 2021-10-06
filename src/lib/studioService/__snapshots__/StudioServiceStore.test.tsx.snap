@@ -6,10 +6,10 @@ exports[`<StudioServiceStore /> renders with basic props 1`] = `
     Array [
       Object {
         "envelope": Object {
-          "attack": 0,
-          "decay": 0,
-          "release": 0,
-          "sustain": 0,
+          "attack": 0.1,
+          "decay": 0.5,
+          "release": 0.1,
+          "sustain": 1,
         },
         "master": Object {
           "gainNode": undefined,

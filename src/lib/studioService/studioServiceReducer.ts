@@ -1,11 +1,4 @@
-import { OscillatorIdEnum } from '../../types/runtimeTypes';
 import { StudioServiceAction, StudioService } from '../../types/types';
-import {
-    setOscillatorGainNodeByOscillatorId,
-    setOscillatorSettingsByOscillatorId,
-    setOscillatorPanNodeByOscillatorId,
-    setOscillatorAnalyserNodeByOscillatorId,
-} from '../oscillators/oscillators';
 
 export const studioServiceReducer = (state: StudioService, action: StudioServiceAction): StudioService => {
     let newState: StudioService;
@@ -112,7 +105,6 @@ export const studioServiceReducer = (state: StudioService, action: StudioService
                     },
                 },
             };
-            setOscillatorSettingsByOscillatorId(OscillatorIdEnum.OSC_1, newState.oscillators.osc1.settings);
             break;
 
         case 'SET_OSC_2_VOLUME':
@@ -129,7 +121,6 @@ export const studioServiceReducer = (state: StudioService, action: StudioService
                     },
                 },
             };
-            setOscillatorSettingsByOscillatorId(OscillatorIdEnum.OSC_2, newState.oscillators.osc2.settings);
             break;
 
         case 'SET_OSC_SUB_VOLUME':
@@ -146,7 +137,6 @@ export const studioServiceReducer = (state: StudioService, action: StudioService
                     },
                 },
             };
-            setOscillatorSettingsByOscillatorId(OscillatorIdEnum.OSC_SUB, newState.oscillators.oscSub.settings);
             break;
 
         case 'SET_OSC_1_ANALYSER':
@@ -160,7 +150,6 @@ export const studioServiceReducer = (state: StudioService, action: StudioService
                     },
                 },
             };
-            setOscillatorAnalyserNodeByOscillatorId(OscillatorIdEnum.OSC_1, newState.oscillators.osc1.analyserNode);
             break;
 
         case 'SET_OSC_2_ANALYSER':
@@ -174,7 +163,6 @@ export const studioServiceReducer = (state: StudioService, action: StudioService
                     },
                 },
             };
-            setOscillatorAnalyserNodeByOscillatorId(OscillatorIdEnum.OSC_2, newState.oscillators.osc2.analyserNode);
             break;
 
         case 'SET_OSC_SUB_ANALYSER':
@@ -188,7 +176,6 @@ export const studioServiceReducer = (state: StudioService, action: StudioService
                     },
                 },
             };
-            setOscillatorAnalyserNodeByOscillatorId(OscillatorIdEnum.OSC_SUB, newState.oscillators.oscSub.analyserNode);
             break;
 
         case 'SET_OSC_1_GAIN':
@@ -202,7 +189,6 @@ export const studioServiceReducer = (state: StudioService, action: StudioService
                     },
                 },
             };
-            setOscillatorGainNodeByOscillatorId(OscillatorIdEnum.OSC_1, newState.oscillators.osc1.gainNode);
             break;
 
         case 'SET_OSC_2_GAIN':
@@ -216,7 +202,6 @@ export const studioServiceReducer = (state: StudioService, action: StudioService
                     },
                 },
             };
-            setOscillatorGainNodeByOscillatorId(OscillatorIdEnum.OSC_2, newState.oscillators.osc2.gainNode);
             break;
 
         case 'SET_OSC_SUB_GAIN':
@@ -230,7 +215,6 @@ export const studioServiceReducer = (state: StudioService, action: StudioService
                     },
                 },
             };
-            setOscillatorGainNodeByOscillatorId(OscillatorIdEnum.OSC_SUB, newState.oscillators.oscSub.gainNode);
             break;
 
         case 'SET_OSC_1_ENABLED':
@@ -247,7 +231,6 @@ export const studioServiceReducer = (state: StudioService, action: StudioService
                     },
                 },
             };
-            setOscillatorSettingsByOscillatorId(OscillatorIdEnum.OSC_1, newState.oscillators.osc1.settings);
             break;
 
         case 'SET_OSC_2_ENABLED':
@@ -264,7 +247,6 @@ export const studioServiceReducer = (state: StudioService, action: StudioService
                     },
                 },
             };
-            setOscillatorSettingsByOscillatorId(OscillatorIdEnum.OSC_2, newState.oscillators.osc2.settings);
             break;
 
         case 'SET_OSC_SUB_ENABLED':
@@ -281,7 +263,6 @@ export const studioServiceReducer = (state: StudioService, action: StudioService
                     },
                 },
             };
-            setOscillatorSettingsByOscillatorId(OscillatorIdEnum.OSC_SUB, newState.oscillators.oscSub.settings);
             break;
 
         case 'SET_OSC_1_TYPE':
@@ -298,7 +279,6 @@ export const studioServiceReducer = (state: StudioService, action: StudioService
                     },
                 },
             };
-            setOscillatorSettingsByOscillatorId(OscillatorIdEnum.OSC_1, newState.oscillators.osc1.settings);
             break;
 
         case 'SET_OSC_2_TYPE':
@@ -315,7 +295,6 @@ export const studioServiceReducer = (state: StudioService, action: StudioService
                     },
                 },
             };
-            setOscillatorSettingsByOscillatorId(OscillatorIdEnum.OSC_2, newState.oscillators.osc2.settings);
             break;
 
         case 'SET_OSC_SUB_TYPE':
@@ -332,7 +311,6 @@ export const studioServiceReducer = (state: StudioService, action: StudioService
                     },
                 },
             };
-            setOscillatorSettingsByOscillatorId(OscillatorIdEnum.OSC_SUB, newState.oscillators.oscSub.settings);
             break;
 
         case 'SET_OSC_1_DETUNE':
@@ -349,7 +327,6 @@ export const studioServiceReducer = (state: StudioService, action: StudioService
                     },
                 },
             };
-            setOscillatorSettingsByOscillatorId(OscillatorIdEnum.OSC_1, newState.oscillators.osc1.settings);
             break;
 
         case 'SET_OSC_2_DETUNE':
@@ -366,7 +343,6 @@ export const studioServiceReducer = (state: StudioService, action: StudioService
                     },
                 },
             };
-            setOscillatorSettingsByOscillatorId(OscillatorIdEnum.OSC_2, newState.oscillators.osc2.settings);
             break;
 
         case 'SET_OSC_1_PAN_NODE':
@@ -380,7 +356,6 @@ export const studioServiceReducer = (state: StudioService, action: StudioService
                     },
                 },
             };
-            setOscillatorPanNodeByOscillatorId(OscillatorIdEnum.OSC_1, newState.oscillators.osc1.panNode);
             break;
 
         case 'SET_OSC_2_PAN_NODE':
@@ -394,7 +369,6 @@ export const studioServiceReducer = (state: StudioService, action: StudioService
                     },
                 },
             };
-            setOscillatorPanNodeByOscillatorId(OscillatorIdEnum.OSC_2, newState.oscillators.osc2.panNode);
             break;
 
         case 'SET_OSC_SUB_PAN_NODE':
@@ -408,7 +382,6 @@ export const studioServiceReducer = (state: StudioService, action: StudioService
                     },
                 },
             };
-            setOscillatorPanNodeByOscillatorId(OscillatorIdEnum.OSC_SUB, newState.oscillators.oscSub.panNode);
             break;
 
         case 'SET_OSC_1_PAN_POSITION':
@@ -425,7 +398,6 @@ export const studioServiceReducer = (state: StudioService, action: StudioService
                     },
                 },
             };
-            setOscillatorSettingsByOscillatorId(OscillatorIdEnum.OSC_1, newState.oscillators.osc1.settings);
 
             break;
 
@@ -443,7 +415,6 @@ export const studioServiceReducer = (state: StudioService, action: StudioService
                     },
                 },
             };
-            setOscillatorSettingsByOscillatorId(OscillatorIdEnum.OSC_2, newState.oscillators.osc2.settings);
             break;
 
         case 'SET_OSC_SUB_PAN_POSITION':
@@ -460,7 +431,6 @@ export const studioServiceReducer = (state: StudioService, action: StudioService
                     },
                 },
             };
-            setOscillatorSettingsByOscillatorId(OscillatorIdEnum.OSC_SUB, newState.oscillators.oscSub.settings);
             break;
 
         case 'SET_OSC_1_OCTAVE':
@@ -477,7 +447,6 @@ export const studioServiceReducer = (state: StudioService, action: StudioService
                     },
                 },
             };
-            setOscillatorSettingsByOscillatorId(OscillatorIdEnum.OSC_1, newState.oscillators.osc1.settings);
             break;
 
         case 'SET_OSC_2_OCTAVE':
@@ -494,7 +463,6 @@ export const studioServiceReducer = (state: StudioService, action: StudioService
                     },
                 },
             };
-            setOscillatorSettingsByOscillatorId(OscillatorIdEnum.OSC_2, newState.oscillators.osc2.settings);
             break;
 
         case 'SET_OSC_SUB_OCTAVE':
@@ -511,7 +479,6 @@ export const studioServiceReducer = (state: StudioService, action: StudioService
                     },
                 },
             };
-            setOscillatorSettingsByOscillatorId(OscillatorIdEnum.OSC_SUB, newState.oscillators.oscSub.settings);
             break;
 
         default:

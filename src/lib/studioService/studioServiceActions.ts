@@ -151,21 +151,26 @@ export const setOscillatorGainNode = (gainNode: GainNode, oscillatorId: Oscillat
     }
 };
 
-export const setOscillatorEnabled = (isEnabled: boolean, oscillatorId: OscillatorId, dispatch: DispatchFunction) => {
+export const setOscillatorEnabled = (
+    isEnabled: boolean,
+    oscillatorId: OscillatorId,
+    dispatch: DispatchFunction,
+    studioService: StudioService,
+) => {
     switch (oscillatorId) {
         case 'osc1':
             dispatch({ type: 'SET_OSC_1_ENABLED', payload: isEnabled });
-            stopOscillatorById('osc1');
+            stopOscillatorById('osc1', studioService);
             logger.info('Oscillator 1 isEnabled: ', isEnabled);
             break;
         case 'osc2':
             dispatch({ type: 'SET_OSC_2_ENABLED', payload: isEnabled });
-            stopOscillatorById('osc2');
+            stopOscillatorById('osc2', studioService);
             logger.info('Oscillator 2 isEnabled: ', isEnabled);
             break;
         case 'oscSub':
             dispatch({ type: 'SET_OSC_SUB_ENABLED', payload: isEnabled });
-            stopOscillatorById('oscSub');
+            stopOscillatorById('oscSub', studioService);
             logger.info('Oscillator Sub isEnabled: ', isEnabled);
             break;
         default:
