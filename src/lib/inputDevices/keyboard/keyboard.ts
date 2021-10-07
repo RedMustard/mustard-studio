@@ -87,11 +87,6 @@ const handleOnKeyUpEvent = (e: KeyboardEvent) => {
     });
 };
 
-export const removeKeyboardAccess = () => {
-    window.removeEventListener('keydown', handleOnKeyDownEvent);
-    window.removeEventListener('keyup', handleOnKeyUpEvent);
-};
-
 export const setKeyboardAccess = () => {
     window.addEventListener('keydown', handleOnKeyDownEvent);
     window.addEventListener('keyup', handleOnKeyUpEvent);

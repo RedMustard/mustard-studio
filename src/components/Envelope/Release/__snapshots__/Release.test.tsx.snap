@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Release /> renders with basic props 1`] = `
+<div
+  className="envelope-release"
+>
+  Release:  
+  <Fader
+    classSuffix="envelope-release"
+    maxValue={2}
+    minValue={0}
+    onInput={[Function]}
+    onMouseDown={[Function]}
+    stepResolution={0.1}
+    value={0.1}
+    valueUnit="seconds"
+  />
+</div>
+`;

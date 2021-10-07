@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Decay /> renders with basic props 1`] = `
+<div
+  className="envelope-decay"
+>
+  Decay:  
+  <Fader
+    classSuffix="envelope-decay"
+    maxValue={2}
+    minValue={0}
+    onInput={[Function]}
+    onMouseDown={[Function]}
+    stepResolution={0.1}
+    value={0.5}
+    valueUnit="seconds"
+  />
+</div>
+`;

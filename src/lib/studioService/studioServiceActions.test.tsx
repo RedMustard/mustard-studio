@@ -1,3 +1,4 @@
+import { mockStudioService } from '../../tests/__mocks__/studioServiceMock';
 import { OscillatorId } from '../../types/types';
 import { stopOscillatorById } from '../oscillators/oscillators';
 import {
@@ -20,6 +21,14 @@ import {
     resetMasterVolume,
     resetMasterPanPosition,
     setOscillatorAnalyserNode,
+    setEnvelopeAttack,
+    setEnvelopeSustain,
+    setEnvelopeDecay,
+    setEnvelopeRelease,
+    resetEnvelopeAttack,
+    resetEnvelopeSustain,
+    resetEnvelopeRelease,
+    resetEnvelopeDecay,
 } from './studioServiceActions';
 
 
@@ -58,7 +67,6 @@ describe('setMasterPanNode', () => {
     });
 });
 
-
 describe('setMasterPanPosition', () => {
     it('calls dispatch', () => {
         const dispatch = jest.fn();
@@ -85,6 +93,83 @@ describe('resetMasterPanPosition', () => {
         expect(dispatch).toBeCalled();
     });
 });
+
+
+describe('setEnvelopeAttack', () => {
+    it('calls dispatch', () => {
+        const dispatch = jest.fn();
+        const value: number = 0.5;
+        setEnvelopeAttack(value, dispatch);
+        expect(dispatch).toBeCalled();
+    });
+});
+
+
+describe('setEnvelopeSustain', () => {
+    it('calls dispatch', () => {
+        const dispatch = jest.fn();
+        const value: number = 0.5;
+        setEnvelopeSustain(value, dispatch);
+        expect(dispatch).toBeCalled();
+    });
+});
+
+
+describe('setEnvelopeDecay', () => {
+    it('calls dispatch', () => {
+        const dispatch = jest.fn();
+        const value: number = 0.5;
+        setEnvelopeDecay(value, dispatch);
+        expect(dispatch).toBeCalled();
+    });
+});
+
+
+describe('setEnvelopeRelease', () => {
+    it('calls dispatch', () => {
+        const dispatch = jest.fn();
+        const value: number = 0.5;
+        setEnvelopeRelease(value, dispatch);
+        expect(dispatch).toBeCalled();
+    });
+});
+
+
+describe('resetEnvelopeAttack', () => {
+    it('calls dispatch', () => {
+        const dispatch = jest.fn();
+        resetEnvelopeAttack(dispatch);
+        expect(dispatch).toBeCalled();
+    });
+});
+
+
+describe('resetEnvelopeSustain', () => {
+    it('calls dispatch', () => {
+        const dispatch = jest.fn();
+        resetEnvelopeSustain(dispatch);
+        expect(dispatch).toBeCalled();
+    });
+});
+
+
+describe('resetEnvelopeDecay', () => {
+    it('calls dispatch', () => {
+        const dispatch = jest.fn();
+        resetEnvelopeDecay(dispatch);
+        expect(dispatch).toBeCalled();
+    });
+});
+
+
+describe('resetEnvelopeRelease', () => {
+    it('calls dispatch', () => {
+        const dispatch = jest.fn();
+        resetEnvelopeRelease(dispatch);
+        expect(dispatch).toBeCalled();
+    });
+});
+
 
 describe('setOscillatorVolume', () => {
     it('calls dispatch for oscillator 1', () => {
@@ -195,7 +280,7 @@ describe('setOscillatorEnabled', () => {
         const dispatch = jest.fn();
         const oscillatorId: OscillatorId = 'osc1';
         const isEnabled = true;
-        setOscillatorEnabled(isEnabled, oscillatorId, dispatch);
+        setOscillatorEnabled(isEnabled, oscillatorId, dispatch, mockStudioService);
         expect(dispatch).toBeCalled();
         expect(stopOscillatorById).toBeCalled();
     });
@@ -204,7 +289,7 @@ describe('setOscillatorEnabled', () => {
         const dispatch = jest.fn();
         const oscillatorId: OscillatorId = 'osc2';
         const isEnabled = true;
-        setOscillatorEnabled(isEnabled, oscillatorId, dispatch);
+        setOscillatorEnabled(isEnabled, oscillatorId, dispatch, mockStudioService);
         expect(dispatch).toBeCalled();
         expect(stopOscillatorById).toBeCalled();
     });
@@ -213,7 +298,7 @@ describe('setOscillatorEnabled', () => {
         const dispatch = jest.fn();
         const oscillatorId: OscillatorId = 'oscSub';
         const isEnabled = true;
-        setOscillatorEnabled(isEnabled, oscillatorId, dispatch);
+        setOscillatorEnabled(isEnabled, oscillatorId, dispatch, mockStudioService);
         expect(dispatch).toBeCalled();
         expect(stopOscillatorById).toBeCalled();
     });
@@ -222,7 +307,7 @@ describe('setOscillatorEnabled', () => {
         const dispatch = jest.fn();
         const oscillatorId = 'foo' as OscillatorId;
         const isEnabled = true;
-        setOscillatorEnabled(isEnabled, oscillatorId, dispatch);
+        setOscillatorEnabled(isEnabled, oscillatorId, dispatch, mockStudioService);
         expect(dispatch).not.toBeCalled();
     });
 });

@@ -1,9 +1,6 @@
 import * as audioContext from '../audioContext/audioContext';
 import * as audio from '../utils/audio/audio';
-import {
-    OscillatorId,
-    StudioService,
-} from '../../types/types';
+import { OscillatorId } from '../../types/types';
 import {
     getOscillatorNodes,
     resetOscillatorNodes,
@@ -17,57 +14,12 @@ import {
     getOscillatorGainNodes,
     getOscillatorGainNodesByFrequency,
 } from './oscillators';
-import {
-    ENVELOPE_INITIAL_SETTINGS,
-    MASTER_INITIAL_SETTINGS,
-    OSC_1_INITIAL_SETTINGS,
-    OSC_2_INITIAL_SETTINGS,
-    OSC_SUB_INITIAL_SETTINGS,
-} from '../../constants';
+import { mockStudioService } from '../../tests/__mocks__/studioServiceMock';
 
 
 // eslint-disable-next-line import/newline-after-import
 const wamock = require('web-audio-mock-api');
 const mockAudioContext = new wamock.AudioContext();
-const mockStudioService: StudioService = {
-    master: {
-        settings: {
-            ...MASTER_INITIAL_SETTINGS,
-        },
-        gainNode: mockAudioContext.createGain(),
-        panNode: mockAudioContext.createStereoPanner(),
-    },
-    envelope: {
-        ...ENVELOPE_INITIAL_SETTINGS,
-    },
-    oscillators: {
-        osc1: {
-            analyserNode: mockAudioContext.createAnalyser(),
-            gainNode: mockAudioContext.createGain(),
-            panNode: mockAudioContext.createStereoPanner(),
-            settings: {
-                ...OSC_1_INITIAL_SETTINGS,
-            },
-        },
-        osc2: {
-            analyserNode: mockAudioContext.createAnalyser(),
-            gainNode: mockAudioContext.createGain(),
-            panNode: mockAudioContext.createStereoPanner(),
-            settings: {
-                ...OSC_2_INITIAL_SETTINGS,
-            },
-        },
-        oscSub: {
-            analyserNode: mockAudioContext.createAnalyser(),
-            gainNode: mockAudioContext.createGain(),
-            panNode: mockAudioContext.createStereoPanner(),
-            settings: {
-                ...OSC_SUB_INITIAL_SETTINGS,
-            },
-        },
-    },
-};
-
 
 describe('startOscillatorsByFrequency', () => {
     const oscillatorFrequency = 440;
