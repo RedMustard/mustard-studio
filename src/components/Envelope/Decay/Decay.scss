@@ -1,0 +1,12 @@
+.envelope-decay {
+    align-items: flex-start;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    text-align: right;
+
+    &__fader {
+        flex-direction: column-reverse;
+    }
+}

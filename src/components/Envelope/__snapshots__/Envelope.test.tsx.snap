@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Envelope /> renders with basic props 1`] = `
+<div
+  className="envelope"
+>
+  <div
+    className="envelope__header"
+  >
+    <div
+      className="envelope__label"
+    >
+      Envelope
+    </div>
+  </div>
+  <div
+    className="envelope__graph"
+  />
+  <div
+    className="envelope__modifiers"
+  >
+    <Attack />
+    <Decay />
+    <Sustain />
+    <Release />
+  </div>
+</div>
+`;

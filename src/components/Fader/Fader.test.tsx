@@ -69,6 +69,17 @@ describe('<FaderKey />', () => {
         expect(toJson(wrapper)).toMatchSnapshot();
     });
 
+    it('renders with SECONDS valueUnit onMouseDown', () => {
+        const wrapper = shallow(
+            <Fader
+                {...baseProps}
+                valueUnit={ValueUnitEnum.SECONDS}
+            />,
+        );
+        wrapper.find('input').simulate('mousedown');
+        expect(toJson(wrapper)).toMatchSnapshot();
+    });
+
     it('fires onInput', () => {
         const wrapper = mount(
             <Fader

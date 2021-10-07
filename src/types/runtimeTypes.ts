@@ -12,6 +12,7 @@ export enum ValueUnitEnum {
     PERCENT = 'percent',
     CENT = 'cent',
     PAN = 'pan',
+    SECONDS = 'seconds',
 }
 
 export enum OscillatorIdEnum {

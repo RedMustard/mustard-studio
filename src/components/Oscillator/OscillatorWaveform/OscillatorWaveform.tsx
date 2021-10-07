@@ -1,9 +1,9 @@
 import { h } from 'preact';
 import { useContext, useEffect } from 'preact/hooks';
-import { setOscillatorAnalyserNode } from '../../lib/studioService/studioServiceActions';
-import { StudioServiceContext } from '../../lib/studioService/StudioServiceStore';
-import { OscillatorId } from '../../types/types';
-import { Waveform } from '../Waveform/Waveform';
+import { setOscillatorAnalyserNode } from '../../../lib/studioService/studioServiceActions';
+import { StudioServiceContext } from '../../../lib/studioService/StudioServiceStore';
+import { OscillatorId } from '../../../types/types';
+import { Waveform } from '../../Waveform/Waveform';
 
 interface OscillatorWaveformProps {
     oscillatorId: OscillatorId;

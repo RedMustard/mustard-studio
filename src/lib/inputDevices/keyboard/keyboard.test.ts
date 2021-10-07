@@ -1,6 +1,6 @@
 import * as oscillators from '../../oscillators/oscillators';
 import * as audio from '../../utils/audio/audio';
-import { startOscillators, stopOscillatorByFrequency } from '../../oscillators/oscillators';
+import { startOscillatorsByFrequency, stopOscillatorByFrequency } from '../../oscillators/oscillators';
 import { getFrequencyByKeyNumber } from '../../utils/audio/audio';
 import { logger } from '../../utils/logger/logger';
 import { setKeyboardAccess } from './keyboard';
@@ -14,7 +14,7 @@ describe('setKeyboardAccess', () => {
 
     beforeEach(() => {
         jest.resetAllMocks();
-        jest.spyOn(oscillators, 'startOscillators').mockImplementation(() => jest.fn());
+        jest.spyOn(oscillators, 'startOscillatorsByFrequency').mockImplementation(() => jest.fn());
         jest.spyOn(oscillators, 'stopOscillatorByFrequency').mockImplementation(() => jest.fn());
         jest.spyOn(audio, 'getFrequencyByKeyNumber').mockImplementation((keyNumber: number) => keyNumber);
         events = {};
@@ -34,14 +34,14 @@ describe('setKeyboardAccess', () => {
         const keyboardKey = 'a';
         setKeyboardAccess();
         events.keydown({ key: keyboardKey });
-        expect(startOscillators).toBeCalledTimes(1);
+        expect(startOscillatorsByFrequency).toBeCalledTimes(1);
     });
 
     it('Stops oscillators on uppercase expected keyboard key down', () => {
         const keyboardKey = 'A';
         setKeyboardAccess();
         events.keydown({ key: keyboardKey });
-        expect(startOscillators).toBeCalledTimes(1);
+        expect(startOscillatorsByFrequency).toBeCalledTimes(1);
     });
 
     it('Stops oscillators on expected keyboard key up', () => {
@@ -90,13 +90,13 @@ describe('setKeyboardAccess', () => {
         const invalidKeyboardKey = 'v';
         setKeyboardAccess();
         events.keydown({ key: invalidKeyboardKey });
-        expect(startOscillators).toBeCalledTimes(0);
+        expect(startOscillatorsByFrequency).toBeCalledTimes(0);
     });
 
     it('Has no action on unmapped key up', () => {
         const invalidKeyboardKey = 'v';
         setKeyboardAccess();
         events.keyup({ key: invalidKeyboardKey });
-        expect(startOscillators).toBeCalledTimes(0);
+        expect(startOscillatorsByFrequency).toBeCalledTimes(0);
     });
 });

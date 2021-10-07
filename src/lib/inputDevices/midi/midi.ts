@@ -1,10 +1,13 @@
 
-import { startOscillators, stopOscillatorByFrequency } from '../../oscillators/oscillators';
+import { startOscillatorsByFrequency, stopOscillatorByFrequency } from '../../oscillators/oscillators';
 import { logger } from '../../utils/logger/logger';
 import { getFrequencyByKeyNumber } from '../../utils/audio/audio';
 import { MIDI_NOTE_OFFSET } from '../../../constants';
+import { StudioService } from '../../../types/types';
+
 
 let midi: WebMidi.MIDIAccess;
+let currentStudioService: StudioService;
 
 const handleOnMidiMessage = (e: WebMidi.MIDIMessageEvent) => {
     const midiMessageData = e.data;
@@ -14,11 +17,11 @@ const handleOnMidiMessage = (e: WebMidi.MIDIMessageEvent) => {
     if (midiVelocity > 0) {
         // Set MIDI on
         logger.info('MIDI on', midiVelocity);
-        startOscillators(midiNoteFrequency);
+        startOscillatorsByFrequency(midiNoteFrequency, currentStudioService);
     } else {
         // Set MIDI off
         logger.info('MIDI off', midiVelocity);
-        stopOscillatorByFrequency(midiNoteFrequency);
+        stopOscillatorByFrequency(midiNoteFrequency, currentStudioService);
     }
     logger.info('midiMessage', e);
 };
@@ -41,3 +44,8 @@ export const setMidiAccess = () => {
     }
 };
 
+export const getMidiAccess = () => midi;
+
+export const setMidiStudioService = (studioService: StudioService) => {
+    currentStudioService = studioService;
+};

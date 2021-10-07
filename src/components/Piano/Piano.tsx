@@ -1,21 +1,25 @@
 import { h } from 'preact';
+import { useContext } from 'preact/hooks';
 import { getFrequencyByKeyNumber } from '../../lib/utils/audio/audio';
 import { BlackKey } from './BlackKey/BlackKey';
 import { WhiteKey } from './WhiteKey/WhiteKey';
 import { PianoKeyColor } from '../../types/types';
 import { logger } from '../../lib/utils/logger/logger';
-import { startOscillators, stopOscillators } from '../../lib/oscillators/oscillators';
+import { stopOscillators, startOscillatorsByFrequency } from '../../lib/oscillators/oscillators';
 import { PIANO_OCTAVE_KEY_COUNT } from '../../constants';
+import { StudioServiceContext } from '../../lib/studioService/StudioServiceStore';
 
 
 export const Piano = () => {
+    const [studioService] = useContext(StudioServiceContext);
+
     const handleOnMouseDownAndOver = (keyNumber: number) => {
         const frequency = getFrequencyByKeyNumber(keyNumber);
-        startOscillators(frequency);
+        startOscillatorsByFrequency(frequency, studioService);
     };
 
     const handleOnMouseUpAndLeave = () => {
-        stopOscillators();
+        stopOscillators(studioService);
     };
 
     const whiteKey = (keyNumber: number) => (

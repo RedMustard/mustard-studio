@@ -33,6 +33,8 @@ export const Fader = ({
                 return `${Math.floor(value * 100)}%`;
             case ValueUnitEnum.PAN:
                 return Math.floor(value * 10);
+            case ValueUnitEnum.SECONDS:
+                return `${value}s`;
             case ValueUnitEnum.CENT:
             default:
                 return value;

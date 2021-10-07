@@ -600,6 +600,66 @@ describe('studioServiceReducer', () => {
         expect(studioServiceReducer(initialState, action)).toEqual(modifiedState);
     });
 
+    it('SET_ENVELOPE_ATTACK', () => {
+        modifiedState = {
+            ...initialState,
+            envelope: {
+                ...initialState.envelope,
+                attack: action.payload,
+            },
+        };
+        action = {
+            type: 'SET_ENVELOPE_ATTACK',
+            payload: 1.0,
+        };
+        expect(studioServiceReducer(initialState, action)).toEqual(modifiedState);
+    });
+
+    it('SET_ENVELOPE_DECAY', () => {
+        modifiedState = {
+            ...initialState,
+            envelope: {
+                ...initialState.envelope,
+                decay: action.payload,
+            },
+        };
+        action = {
+            type: 'SET_ENVELOPE_DECAY',
+            payload: 1.0,
+        };
+        expect(studioServiceReducer(initialState, action)).toEqual(modifiedState);
+    });
+
+    it('SET_ENVELOPE_SUSTAIN', () => {
+        modifiedState = {
+            ...initialState,
+            envelope: {
+                ...initialState.envelope,
+                sustain: action.payload,
+            },
+        };
+        action = {
+            type: 'SET_ENVELOPE_SUSTAIN',
+            payload: 1.0,
+        };
+        expect(studioServiceReducer(initialState, action)).toEqual(modifiedState);
+    });
+
+    it('SET_ENVELOPE_RELEASE', () => {
+        modifiedState = {
+            ...initialState,
+            envelope: {
+                ...initialState.envelope,
+                release: action.payload,
+            },
+        };
+        action = {
+            type: 'SET_ENVELOPE_RELEASE',
+            payload: 1.0,
+        };
+        expect(studioServiceReducer(initialState, action)).toEqual(modifiedState);
+    });
+
     it('returns same state with invalid action', () => {
         action = {
             // @ts-expect-error

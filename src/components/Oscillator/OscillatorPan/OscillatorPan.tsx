@@ -1,11 +1,11 @@
 import { h } from 'preact';
 import { useContext, useEffect } from 'preact/hooks';
-import { MAX_PAN, MIN_PAN, PAN_STEPS } from '../../constants';
-import { resetOscillatorPanPosition, setOscillatorPanNode, setOscillatorPanPosition } from '../../lib/studioService/studioServiceActions';
-import { StudioServiceContext } from '../../lib/studioService/StudioServiceStore';
-import { ValueUnitEnum } from '../../types/runtimeTypes';
-import { OscillatorId } from '../../types/types';
-import { Fader } from '../Fader/Fader';
+import { MAX_PAN, MIN_PAN, PAN_STEPS } from '../../../constants';
+import { resetOscillatorPanPosition, setOscillatorPanNode, setOscillatorPanPosition } from '../../../lib/studioService/studioServiceActions';
+import { StudioServiceContext } from '../../../lib/studioService/StudioServiceStore';
+import { ValueUnitEnum } from '../../../types/runtimeTypes';
+import { OscillatorId } from '../../../types/types';
+import { Fader } from '../../Fader/Fader';
 
 interface OscillatorPanProps {
     audioContext: AudioContext;
