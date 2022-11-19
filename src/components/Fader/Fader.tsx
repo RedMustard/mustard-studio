@@ -12,7 +12,8 @@ interface FaderProps {
     onMouseDown: (e: MouseEvent) => void;
     stepResolution: number;
     value: number;
-    valueUnit: ValueUnit;
+    disabled?: boolean;
+    valueUnit?: ValueUnit;
 }
 
 export const Fader = ({
@@ -23,11 +24,12 @@ export const Fader = ({
     onMouseDown,
     stepResolution,
     value,
-    valueUnit,
+    disabled = false,
+    valueUnit = undefined,
 }: FaderProps) => {
     const [showValue, setShowValue] = useState(false);
 
-    const getPrettifiedValue = () => {
+    const getFormattedValue = () => {
         switch (valueUnit) {
             case ValueUnitEnum.PERCENT:
                 return `${Math.floor(value * 100)}%`;
@@ -37,7 +39,7 @@ export const Fader = ({
                 return `${value}s`;
             case ValueUnitEnum.CENT:
             default:
-                return value;
+                return `${value}`;
         }
     };
 
@@ -45,11 +47,12 @@ export const Fader = ({
         <div className={`fader  ${classSuffix}__fader`}>
             {
                 showValue
-                    ? (<span className="fader__value">{getPrettifiedValue()}</span>)
+                    ? (<span className="fader__value">{getFormattedValue()}</span>)
                     : null
             }
             <input
-                title={getPrettifiedValue().toString()}
+                disabled={disabled}
+                title={getFormattedValue().toString()}
                 onInput={(event) => onInput(parseFloat(event.currentTarget.value))}
                 onMouseDown={(e: MouseEvent) => {
                     onMouseDown(e);

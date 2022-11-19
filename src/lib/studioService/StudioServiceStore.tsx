@@ -6,6 +6,7 @@ import {
     OSC_1_INITIAL_SETTINGS,
     OSC_2_INITIAL_SETTINGS,
     OSC_SUB_INITIAL_SETTINGS,
+    FILTER_INITIAL_SETTINGS,
 } from '../../constants';
 import { DispatchFunction, StudioService } from '../../types/types';
 import { deepClone } from '../utils/objects/objects';
@@ -22,6 +23,12 @@ const initialState: StudioService = Object.freeze({
     },
     envelope: {
         ...ENVELOPE_INITIAL_SETTINGS,
+    },
+    filter: {
+        filterNode: undefined,
+        settings: {
+            ...FILTER_INITIAL_SETTINGS,
+        },
     },
     oscillators: {
         osc1: {

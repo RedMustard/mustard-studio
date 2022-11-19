@@ -36,6 +36,12 @@ body {
 @import '../components/Envelope/Decay/Decay.scss';
 @import '../components/Envelope/Sustain/Sustain.scss';
 @import '../components/Envelope/Release/Release.scss';
+@import '../components/Filter/Filter.scss';
+@import '../components/Filter/FilterWaveform/FilterWaveform.scss';
+@import '../components/Filter/FilterFrequency/FilterFrequency.scss';
+@import '../components/Filter/FilterGain/FilterGain.scss';
+@import '../components/Filter/FilterQ/FilterQ.scss';
+@import '../components/Filter/FilterDetune/FilterDetune.scss';
 @import '../components/Oscillator/Oscillator.scss';
 @import '../components/Oscillator/OscillatorVolume/OscillatorVolume.scss';
 @import '../components/Oscillator/OscillatorDetune/OscillatorDetune.scss';

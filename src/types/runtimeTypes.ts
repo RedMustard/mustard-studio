@@ -7,6 +7,18 @@ export enum OscillatorTypeEnum {
 }
 export const OscillatorTypes = Object.values(OscillatorTypeEnum) as OscillatorType[];
 
+export enum FilterTypeEnum {
+    LOWPASS = 'lowpass',
+    HIGHPASS = 'highpass',
+    BANDPASS = 'bandpass',
+    LOWSHELF = 'lowshelf',
+    HIGHSHELF = 'highshelf',
+    PEAKING = 'peaking',
+    NOTCH = 'notch',
+    ALLPASS = 'allpass',
+}
+export const FilterTypes = Object.values(FilterTypeEnum) as BiquadFilterType[];
+
 
 export enum ValueUnitEnum {
     PERCENT = 'percent',

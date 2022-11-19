@@ -10,6 +10,7 @@ import { setMidiStudioService } from '../../lib/inputDevices/midi/midi';
 import { Envelope } from '../../components/Envelope/Envelope';
 import { StudioServiceContext } from '../../lib/studioService/StudioServiceStore';
 import { setKeyboardStudioService } from '../../lib/inputDevices/keyboard/keyboard';
+import { Filter } from '../../components/Filter/Filter';
 
 const Studio: FunctionalComponent = () => {
     let audioContext = getAudioContext();
@@ -32,6 +33,7 @@ const Studio: FunctionalComponent = () => {
                     <Oscillator oscillatorId="osc1" audioContext={audioContext} />
                     <Oscillator oscillatorId="osc2" audioContext={audioContext} />
                     <Oscillator oscillatorId="oscSub" audioContext={audioContext} />
+                    <Filter audioContext={audioContext} />
                 </div>
                 <Envelope />
                 <MasterVolume audioContext={audioContext} />

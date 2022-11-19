@@ -1,6 +1,7 @@
 import { StudioService } from '../../types/types';
 import {
     ENVELOPE_INITIAL_SETTINGS,
+    FILTER_INITIAL_SETTINGS,
     MASTER_INITIAL_SETTINGS,
     OSC_1_INITIAL_SETTINGS,
     OSC_2_INITIAL_SETTINGS,
@@ -18,6 +19,12 @@ export const mockStudioService: StudioService = {
         },
         gainNode: mockAudioContext.createGain(),
         panNode: mockAudioContext.createStereoPanner(),
+    },
+    filter: {
+        filterNode: mockAudioContext.createBiquadFilter(),
+        settings: {
+            ...FILTER_INITIAL_SETTINGS,
+        },
     },
     envelope: {
         ...ENVELOPE_INITIAL_SETTINGS,

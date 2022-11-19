@@ -9,9 +9,9 @@ import { stopOscillatorById } from '../oscillators/oscillators';
 import { logger } from '../utils/logger/logger';
 import { getInitialState } from './StudioServiceStore';
 
-export const setMasterVolume = (value: number, dispatch: DispatchFunction) => {
-    dispatch({ type: 'SET_MASTER_VOLUME', payload: value });
-    logger.info(`Master volume set with value ${value * 100}%`);
+export const setMasterVolume = (volume: number, dispatch: DispatchFunction) => {
+    dispatch({ type: 'SET_MASTER_VOLUME', payload: volume });
+    logger.info(`Master volume set with value ${volume * 100}%`);
 };
 
 export const setMasterGainNode = (gainNode: GainNode, dispatch: DispatchFunction) => {
@@ -43,24 +43,24 @@ export const resetMasterPanPosition = (dispatch: DispatchFunction) => {
     logger.info('Master pan position reset to value', initialPanPosition);
 };
 
-export const setEnvelopeAttack = (value: number, dispatch: DispatchFunction) => {
-    dispatch({ type: 'SET_ENVELOPE_ATTACK', payload: value });
-    logger.info('Envelope attack value set with value ', value);
+export const setEnvelopeAttack = (attack: number, dispatch: DispatchFunction) => {
+    dispatch({ type: 'SET_ENVELOPE_ATTACK', payload: attack });
+    logger.info('Envelope attack value set with value ', attack);
 };
 
-export const setEnvelopeSustain = (value: number, dispatch: DispatchFunction) => {
-    dispatch({ type: 'SET_ENVELOPE_SUSTAIN', payload: value });
-    logger.info('Envelope attack value set with value ', value);
+export const setEnvelopeSustain = (sustain: number, dispatch: DispatchFunction) => {
+    dispatch({ type: 'SET_ENVELOPE_SUSTAIN', payload: sustain });
+    logger.info('Envelope sustain value set with value ', sustain);
 };
 
-export const setEnvelopeDecay = (value: number, dispatch: DispatchFunction) => {
-    dispatch({ type: 'SET_ENVELOPE_DECAY', payload: value });
-    logger.info('Envelope attack value set with value ', value);
+export const setEnvelopeDecay = (decay: number, dispatch: DispatchFunction) => {
+    dispatch({ type: 'SET_ENVELOPE_DECAY', payload: decay });
+    logger.info('Envelope decay value set with value ', decay);
 };
 
-export const setEnvelopeRelease = (value: number, dispatch: DispatchFunction) => {
-    dispatch({ type: 'SET_ENVELOPE_RELEASE', payload: value });
-    logger.info('Envelope attack value set with value ', value);
+export const setEnvelopeRelease = (release: number, dispatch: DispatchFunction) => {
+    dispatch({ type: 'SET_ENVELOPE_RELEASE', payload: release });
+    logger.info('Envelope release value set with value ', release);
 };
 
 export const resetEnvelopeAttack = (dispatch: DispatchFunction) => {
@@ -91,19 +91,86 @@ export const resetEnvelopeRelease = (dispatch: DispatchFunction) => {
     logger.info('Envelope release reset to value ', initialEnvelopeRelease);
 };
 
-export const setOscillatorVolume = (value: number, oscillatorId: OscillatorId, dispatch: DispatchFunction) => {
+export const setFilterNode = (filterNode: BiquadFilterNode, dispatch: DispatchFunction) => {
+    dispatch({ type: 'SET_FILTER_NODE', payload: filterNode });
+    logger.info('Filter node added', filterNode);
+};
+
+export const setFilterEnabled = (isEnabled: boolean, dispatch: DispatchFunction) => {
+    dispatch({ type: 'SET_FILTER_ENABLED', payload: isEnabled });
+    logger.info('Filter isEnabled: ', isEnabled);
+};
+
+export const setFilterFrequency = (frequency: number, dispatch: DispatchFunction) => {
+    dispatch({ type: 'SET_FILTER_FREQUENCY', payload: frequency });
+    logger.info('Filter frequency set with value ', frequency);
+};
+
+export const setFilterType = (type: BiquadFilterType, dispatch: DispatchFunction) => {
+    dispatch({ type: 'SET_FILTER_TYPE', payload: type });
+    logger.info('Filter type set with value ', type);
+};
+
+export const setFilterQ = (q: number, dispatch: DispatchFunction) => {
+    dispatch({ type: 'SET_FILTER_Q', payload: q });
+    logger.info('Filter q set with value ', q);
+};
+
+export const setFilterGain = (gain: number, dispatch: DispatchFunction) => {
+    dispatch({ type: 'SET_FILTER_GAIN', payload: gain });
+    logger.info('Filter gain set with value ', gain);
+};
+
+export const setFilterDetune = (detune: number, dispatch: DispatchFunction) => {
+    dispatch({ type: 'SET_FILTER_DETUNE', payload: detune });
+    logger.info('Filter detune set with value ', detune);
+};
+
+export const resetFilterFrequency = (dispatch: DispatchFunction) => {
+    const initialState: StudioService = getInitialState();
+    const initialFilterFrequency = initialState.filter.settings.frequency;
+    dispatch({ type: 'SET_FILTER_FREQUENCY', payload: initialFilterFrequency });
+    logger.info('Filter frequency reset to value ', initialFilterFrequency);
+};
+
+export const resetFilterQ = (dispatch: DispatchFunction) => {
+    const initialState: StudioService = getInitialState();
+    const initialFilterQ = initialState.filter.settings.q;
+    dispatch({ type: 'SET_FILTER_Q', payload: initialFilterQ });
+    logger.info('Filter Q reset to value ', initialFilterQ);
+};
+
+export const resetFilterGain = (dispatch: DispatchFunction) => {
+    const initialState: StudioService = getInitialState();
+    const initialFilterGain = initialState.filter.settings.gain;
+    dispatch({ type: 'SET_FILTER_GAIN', payload: initialFilterGain });
+    logger.info('Filter gain reset to value ', initialFilterGain);
+};
+
+export const resetFilterDetune = (dispatch: DispatchFunction) => {
+    const initialState: StudioService = getInitialState();
+    const initialFilterDetune = initialState.filter.settings.detune;
+    dispatch({ type: 'SET_FILTER_DETUNE', payload: initialFilterDetune });
+    logger.info('Filter detune reset to value ', initialFilterDetune);
+};
+
+export const setOscillatorVolume = (
+    volume: number,
+    oscillatorId: OscillatorId,
+    dispatch: DispatchFunction,
+) => {
     switch (oscillatorId) {
         case 'osc1':
-            dispatch({ type: 'SET_OSC_1_VOLUME', payload: value });
-            logger.info(`Oscillator 1 volume set with value ${value * 100}%`);
+            dispatch({ type: 'SET_OSC_1_VOLUME', payload: volume });
+            logger.info(`Oscillator 1 volume set with value ${volume * 100}%`);
             break;
         case 'osc2':
-            dispatch({ type: 'SET_OSC_2_VOLUME', payload: value });
-            logger.info(`Oscillator 2 volume set with value ${value * 100}%`);
+            dispatch({ type: 'SET_OSC_2_VOLUME', payload: volume });
+            logger.info(`Oscillator 2 volume set with value ${volume * 100}%`);
             break;
         case 'oscSub':
-            dispatch({ type: 'SET_OSC_SUB_VOLUME', payload: value });
-            logger.info(`Oscillator 2 volume set with value ${value * 100}%`);
+            dispatch({ type: 'SET_OSC_SUB_VOLUME', payload: volume });
+            logger.info(`Oscillator 2 volume set with value ${volume * 100}%`);
             break;
         default:
             logger.info('setOscillatorVolume unknown oscillatorId provided, no oscillator volume set. Received: ', oscillatorId);
@@ -111,7 +178,11 @@ export const setOscillatorVolume = (value: number, oscillatorId: OscillatorId, d
     }
 };
 
-export const setOscillatorAnalyserNode = (analyserNode: AnalyserNode, oscillatorId: OscillatorId, dispatch: DispatchFunction) => {
+export const setOscillatorAnalyserNode = (
+    analyserNode: AnalyserNode,
+    oscillatorId: OscillatorId,
+    dispatch: DispatchFunction,
+) => {
     switch (oscillatorId) {
         case 'osc1':
             dispatch({ type: 'SET_OSC_1_ANALYSER', payload: analyserNode });
@@ -131,7 +202,11 @@ export const setOscillatorAnalyserNode = (analyserNode: AnalyserNode, oscillator
     }
 };
 
-export const setOscillatorGainNode = (gainNode: GainNode, oscillatorId: OscillatorId, dispatch: DispatchFunction) => {
+export const setOscillatorGainNode = (
+    gainNode: GainNode,
+    oscillatorId: OscillatorId,
+    dispatch: DispatchFunction,
+) => {
     switch (oscillatorId) {
         case 'osc1':
             dispatch({ type: 'SET_OSC_1_GAIN', payload: gainNode });
@@ -179,7 +254,11 @@ export const setOscillatorEnabled = (
     }
 };
 
-export const setOscillatorType = (oscillatorType: OscillatorType, oscillatorId: OscillatorId, dispatch: DispatchFunction) => {
+export const setOscillatorType = (
+    oscillatorType: OscillatorType,
+    oscillatorId: OscillatorId,
+    dispatch: DispatchFunction,
+) => {
     switch (oscillatorId) {
         case 'osc1':
             dispatch({ type: 'SET_OSC_1_TYPE', payload: oscillatorType });
@@ -199,15 +278,19 @@ export const setOscillatorType = (oscillatorType: OscillatorType, oscillatorId: 
     }
 };
 
-export const setOscillatorDetune = (value: number, oscillatorId: OscillatorId, dispatch: DispatchFunction) => {
+export const setOscillatorDetune = (
+    detune: number,
+    oscillatorId: OscillatorId,
+    dispatch: DispatchFunction,
+) => {
     switch (oscillatorId) {
         case 'osc1':
-            dispatch({ type: 'SET_OSC_1_DETUNE', payload: value });
-            logger.info(`Oscillator 1 detune set to ${value}`);
+            dispatch({ type: 'SET_OSC_1_DETUNE', payload: detune });
+            logger.info(`Oscillator 1 detune set to ${detune}`);
             break;
         case 'osc2':
-            dispatch({ type: 'SET_OSC_2_DETUNE', payload: value });
-            logger.info(`Oscillator 2 detune set to ${value}`);
+            dispatch({ type: 'SET_OSC_2_DETUNE', payload: detune });
+            logger.info(`Oscillator 2 detune set to ${detune}`);
             break;
         default:
             logger.info('setOscillatorDetune unknown oscillatorId provided, no oscillator detune set. Received: ', oscillatorId);
@@ -215,7 +298,11 @@ export const setOscillatorDetune = (value: number, oscillatorId: OscillatorId, d
     }
 };
 
-export const setOscillatorPanNode = (panNode: StereoPannerNode, oscillatorId: OscillatorId, dispatch: DispatchFunction) => {
+export const setOscillatorPanNode = (
+    panNode: StereoPannerNode,
+    oscillatorId: OscillatorId,
+    dispatch: DispatchFunction,
+) => {
     switch (oscillatorId) {
         case 'osc1':
             dispatch({ type: 'SET_OSC_1_PAN_NODE', payload: panNode });
@@ -235,7 +322,11 @@ export const setOscillatorPanNode = (panNode: StereoPannerNode, oscillatorId: Os
     }
 };
 
-export const setOscillatorPanPosition = (position: number, oscillatorId: OscillatorId, dispatch: DispatchFunction) => {
+export const setOscillatorPanPosition = (
+    position: number,
+    oscillatorId: OscillatorId,
+    dispatch: DispatchFunction,
+) => {
     switch (oscillatorId) {
         case 'osc1':
             dispatch({ type: 'SET_OSC_1_PAN_POSITION', payload: position });
@@ -255,7 +346,11 @@ export const setOscillatorPanPosition = (position: number, oscillatorId: Oscilla
     }
 };
 
-export const setOscillatorOctave = (octave: number, oscillatorId: OscillatorId, dispatch: DispatchFunction) => {
+export const setOscillatorOctave = (
+    octave: number,
+    oscillatorId: OscillatorId,
+    dispatch: DispatchFunction,
+) => {
     switch (oscillatorId) {
         case 'osc1':
             dispatch({ type: 'SET_OSC_1_OCTAVE', payload: octave });

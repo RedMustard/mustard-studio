@@ -1,10 +1,10 @@
 @import '../../style/variables.scss';
 
-.oscillator {
+.filter {
     border: 1px solid #fff;
     color: #fff;
     max-width: 300px;
-    min-width: 150px;
+    min-width: 300px;
     padding: 10px;
 
     &__header {

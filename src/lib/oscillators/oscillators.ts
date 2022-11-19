@@ -86,6 +86,8 @@ export const resetOscillatorGainNodes = () => {
 
 export const startOscillatorsByFrequency = (oscillatorFrequency: number, studioService: StudioService) => {
     const audioContext = getAudioContext();
+    const filterEnabled = studioService.filter.settings.enabled;
+    // const { filterNode } = studioService.filter;
     const envelopeAttack = studioService.envelope.attack;
     const envelopeDecay = studioService.envelope.decay;
     const envelopeSustain = studioService.envelope.sustain;
@@ -114,9 +116,29 @@ export const startOscillatorsByFrequency = (oscillatorFrequency: number, studioS
             // TODO: Check if osc linked to envelope, if not don't call enableEnv and connect osc to analyser
             enableEnvelopeADS(audioContext, frequencyGainNode, envelopeAttack, envelopeDecay, envelopeSustain);
 
-            oscMasterGainNode.connect(oscAnalyserNode);
+            oscillator.connect(oscAnalyserNode);
+            // frequencyGainNode.connect(oscAnalyserNode);
+            if (filterEnabled) {
+                const fn = audioContext.createBiquadFilter();
+                fn.type = studioService.filter.settings.type;
+                fn.frequency.value = studioService.filter.settings.frequency;
+                fn.Q.value = studioService.filter.settings.q;
+                fn.detune.value = studioService.filter.settings.detune;
+                fn.gain.value = studioService.filter.settings.gain;
+                // fn.Q.value = 500;
+                // oscMasterGainNode.connect(filterNode);
+                oscAnalyserNode.connect(fn);
+                fn.connect(frequencyGainNode);
+                // oscAnalyserNode.connect(frequencyGainNode);
+                // filterNode.connect(frequencyGainNode);
+            } else {
+                oscAnalyserNode.connect(frequencyGainNode);
+            }
+            // oscAnalyserNode.connect(frequencyGainNode);
             frequencyGainNode.connect(oscMasterGainNode);
-            oscillator.connect(frequencyGainNode);
+            // filterNode.connect(oscMasterGainNode);
+            // oscMasterGainNode.connect(oscAnalyserNode);
+
             oscillator.start();
             logger.info(`Starting oscillator ${oscillatorId} with frequency`, calculatedFrequency);
         }
@@ -174,5 +196,5 @@ export const stopOscillators = (studioService: StudioService) => {
             });
         });
     });
-    oscillatorNodes = {};
+    resetOscillatorNodes();
 };

@@ -91,6 +91,94 @@ export const studioServiceReducer = (state: StudioService, action: StudioService
             };
             break;
 
+        case 'SET_FILTER_NODE':
+            newState = {
+                ...state,
+                filter: {
+                    ...state.filter,
+                    filterNode: action.payload,
+                },
+            };
+            break;
+
+        case 'SET_FILTER_ENABLED':
+            newState = {
+                ...state,
+                filter: {
+                    ...state.filter,
+                    settings: {
+                        ...state.filter.settings,
+                        enabled: action.payload,
+                    },
+                },
+            };
+            break;
+
+        case 'SET_FILTER_FREQUENCY':
+            newState = {
+                ...state,
+                filter: {
+                    ...state.filter,
+                    settings: {
+                        ...state.filter.settings,
+                        frequency: action.payload,
+                    },
+                },
+            };
+            break;
+
+        case 'SET_FILTER_TYPE':
+            newState = {
+                ...state,
+                filter: {
+                    ...state.filter,
+                    settings: {
+                        ...state.filter.settings,
+                        type: action.payload,
+                    },
+                },
+            };
+            break;
+
+        case 'SET_FILTER_Q':
+            newState = {
+                ...state,
+                filter: {
+                    ...state.filter,
+                    settings: {
+                        ...state.filter.settings,
+                        q: action.payload,
+                    },
+                },
+            };
+            break;
+
+        case 'SET_FILTER_GAIN':
+            newState = {
+                ...state,
+                filter: {
+                    ...state.filter,
+                    settings: {
+                        ...state.filter.settings,
+                        gain: action.payload,
+                    },
+                },
+            };
+            break;
+
+        case 'SET_FILTER_DETUNE':
+            newState = {
+                ...state,
+                filter: {
+                    ...state.filter,
+                    settings: {
+                        ...state.filter.settings,
+                        detune: action.payload,
+                    },
+                },
+            };
+            break;
+
         case 'SET_OSC_1_VOLUME':
             newState = {
                 ...state,

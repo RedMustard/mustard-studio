@@ -1,4 +1,11 @@
-import { Envelope, OscillatorDetuneSetting, OscillatorSettings } from './types/types';
+import { FilterTypeEnum, OscillatorTypeEnum } from './types/runtimeTypes';
+import {
+    Envelope,
+    FilterSettings,
+    OscillatorDetuneSetting,
+    OscillatorSettings,
+} from './types/types';
+
 
 // Volume Faders
 export const MAX_VOLUME = 1.0;
@@ -25,6 +32,21 @@ export const MAX_OSC_OCTAVE = 8;
 export const MIN_OSC_OCTAVE = -8;
 export const OCTAVE_STEPS = 1;
 
+// Filter Frequency Fader
+export const MAX_FREQUENCY = 2000;
+export const MIN_FREQUENCY = 0;
+export const FREQUENCY_STEPS = 10;
+
+// Filter Q Fader
+export const MAX_Q = 1000;
+export const MIN_Q = 0;
+export const Q_STEPS = 1;
+
+// Filter Gain Fader
+export const MAX_FILTER_GAIN = 40;
+export const MIN_FILTER_GAIN = -40;
+export const FILTER_GAIN_STEPS = 1;
+
 // Waveform
 export const WAVEFORM_BACKGROUND_COLOR = '#202024';
 export const WAVEFORM_LINE_COLOR = '#75cf00';
@@ -50,7 +72,7 @@ export const OSC_1_INITIAL_SETTINGS: OscillatorSettings & OscillatorDetuneSettin
     enabled: true,
     octave: 0,
     pan: 0,
-    type: 'sine',
+    type: OscillatorTypeEnum.SINE,
     volume: 0.5,
 };
 
@@ -59,7 +81,7 @@ export const OSC_2_INITIAL_SETTINGS: OscillatorSettings & OscillatorDetuneSettin
     enabled: true,
     octave: 0,
     pan: 0,
-    type: 'sine',
+    type: OscillatorTypeEnum.SINE,
     volume: 0.5,
 };
 
@@ -67,7 +89,7 @@ export const OSC_SUB_INITIAL_SETTINGS: OscillatorSettings = {
     enabled: true,
     octave: -1,
     pan: 0,
-    type: 'sine',
+    type: OscillatorTypeEnum.SINE,
     volume: 0.5,
 };
 
@@ -77,4 +99,14 @@ export const ENVELOPE_INITIAL_SETTINGS: Envelope = {
     decay: 0.5,
     sustain: 1.0,
     release: 0.1,
+};
+
+// Filter
+export const FILTER_INITIAL_SETTINGS: FilterSettings = {
+    enabled: true,
+    type: FilterTypeEnum.HIGHSHELF,
+    q: 10,
+    detune: 0,
+    frequency: 170,
+    gain: 0.5,
 };

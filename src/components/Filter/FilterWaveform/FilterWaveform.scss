@@ -1,0 +1,12 @@
+.filter-waveform {
+    height: 100%;
+    margin-bottom: 35px;
+    max-height: 100px;
+    width: 100%;
+
+    &__canvas {
+        height: 100%;
+        max-height: 100px;
+        width: 100%;
+    }
+}

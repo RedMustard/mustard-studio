@@ -7,48 +7,63 @@ export type OscillatorId = 'osc1' | 'osc2' | 'oscSub';
 export type ValueUnit = 'percent' | 'cent' | 'pan' | 'seconds';
 
 export type Oscillator = {
-    analyserNode: AnalyserNode,
-    gainNode: GainNode,
-    panNode: StereoPannerNode,
-    settings: OscillatorSettings | OscillatorSettings & OscillatorDetuneSetting,
+    analyserNode: AnalyserNode;
+    gainNode: GainNode;
+    panNode: StereoPannerNode;
+    settings: OscillatorSettings | OscillatorSettings & OscillatorDetuneSetting;
 };
 
 export type Envelope = {
-    attack: number,
-    decay: number,
-    sustain: number,
-    release: number,
+    attack: number;
+    decay: number;
+    sustain: number;
+    release: number;
+};
+
+export type Filter = {
+    filterNode: BiquadFilterNode;
+    settings: FilterSettings;
 };
 
 export type StudioService = {
     master: {
-        gainNode: GainNode,
-        panNode: StereoPannerNode,
-        settings: MasterSettings,
-    },
+        gainNode: GainNode;
+        panNode: StereoPannerNode;
+        settings: MasterSettings;
+    };
     oscillators: {
-        osc1: Oscillator,
-        osc2: Oscillator,
-        oscSub: Oscillator,
+        osc1: Oscillator;
+        osc2: Oscillator;
+        oscSub: Oscillator;
     }
-    envelope: Envelope,
+    envelope: Envelope;
+    filter: Filter;
 };
 
 export type MasterSettings = {
-    volume: number,
-    pan: number,
+    volume: number;
+    pan: number;
 };
 
 export type OscillatorSettings = {
-    enabled: boolean,
-    octave: number,
-    pan: number,
-    type: OscillatorType,
-    volume: number,
+    enabled: boolean;
+    octave: number;
+    pan: number;
+    type: OscillatorType;
+    volume: number;
 };
 
 export type OscillatorDetuneSetting = {
-    detune: number,
+    detune: number;
+};
+
+export type FilterSettings = {
+    enabled: boolean;
+    type: BiquadFilterType;
+    q?: number;
+    detune?: number;
+    frequency?: number;
+    gain?: number;
 };
 
 export type StudioServiceActionType =
@@ -60,6 +75,13 @@ export type StudioServiceActionType =
     'SET_ENVELOPE_SUSTAIN' |
     'SET_ENVELOPE_DECAY' |
     'SET_ENVELOPE_RELEASE' |
+    'SET_FILTER_NODE' |
+    'SET_FILTER_ENABLED' |
+    'SET_FILTER_FREQUENCY' |
+    'SET_FILTER_TYPE' |
+    'SET_FILTER_Q' |
+    'SET_FILTER_DETUNE' |
+    'SET_FILTER_GAIN' |
     'SET_OSC_1_VOLUME' |
     'SET_OSC_2_VOLUME' |
     'SET_OSC_SUB_VOLUME' |
